@@ -31,14 +31,15 @@ pip install -r requirements.txt
 5. make .env file:
 
 ```commandline
-vim .env
+vim A/.env
 ```
 
 6. Put your own SECRET_KEY in .env:
 
 ```text
-SECRET_KEY = "Your SECRET_KEY here" 
+SECRET_KEY=Your SECRET_KEY here 
 ```
+**For More Information about using django-environ read this [page](https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f)**
 
 7. Runserver:
 
