@@ -1,0 +1,1152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}کراسفیت مایوستاتین{% endblock %}
+{% block content %}
+    <!--Banner Start-->
+    <section class="main-banner">
+        <div class="banner-overlay-bg animate-this">
+            <img src="{% static 'images/banner-overlay.png' %}" alt="Overlay">
+        </div>
+        <div class="banner-blur-bg">
+            <img src="{% static 'images/blur-1.png' %}" alt="Blur">
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="banner-title-one">
+                        <div class="main-banner-subtitle-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="banner-subtitle-box">
+                                <div class="banner-subtitle-first">باکس کراسفیت</div>
+                                <div class="banner-subtitle-second">مایوستاتین</div>
+                            </div>
+                        </div>
+                        <h1 class="h1-title wow fadeInUp" data-wow-delay=".7s">برای داشتن زندگی بهتر سخت کار کنید</h1>
+                        <p class="wow fadeInUp" data-wow-delay=".9s">
+                            باکس کراسفیت مایوستاتین با به روز ترین امکانات روز کراسفیت و مربیان با تجربه، بهترین ها را
+                            برایتان به ارمغان می آورد.
+                        </p>
+                        <a href="about-us.html" class="sec-btn wow fadeInUp" data-wow-delay="1s">شروع کنید</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="main-banner-img-one">
+                        <img src="{% static 'images/banner-img-1.png' %}" alt="Banner">
+                        <div class="banner-circle-first">
+                            <img src="{% static 'images/banner-circle-one.png' %}" alt="Circle">
+                        </div>
+                        <div class="banner-circle-second">
+                            <img src="{% static 'images/banner-circle-two.png' %}" alt="Circle">
+                        </div>
+                        <div class="heart-rate">
+                            <img src="{% static 'images/heart-rate.png' %}" alt="Heart Rate">
+                            <span>ضربان قلب</span>
+                            <h3 dir="ltr">140 BPM</h3>
+                        </div>
+                        <div class="calories-box">
+                            <div class="calories">
+                                <img src="{% static 'images/calories.png' %}" alt="Heart Rate">
+                                <div class="calories-text">
+                                    <span>کالری سوزانده شده</span>
+                                    <h3 dir="ltr">800 Cal</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Banner End-->
+
+    <!--About Us Start-->
+    <section class="main-about-us">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="about-img-box wow fadeInLeft" data-wow-delay=".5s">
+                        <div class="about-img-one">
+                            <img src="{% static 'images/main1.png' %}" alt="About Us">
+                        </div>
+                        <div class="about-img-bg"></div>
+                        <div class="fitness">
+                            <img src="{% static 'images/fitness.png' %}" alt="Fitness">
+                        </div>
+                        <div class="about-circle-one">
+                            <img src="{% static 'images/about-circle-one.png' %}" alt="Circle">
+                        </div>
+                        <div class="about-circle-two">
+                            <img src="{% static 'images/about-circle-two.png' %}" alt="Circle">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-content-box wow fadeInRight" data-wow-delay=".5s">
+                        <div class="about-us-title">
+                            <div class="subtitle">
+                                <h2 class="h2-subtitle">درباره ما</h2>
+                            </div>
+                            <h2 class="h2-title">باکس کراسفیت مایوستاتین</h2>
+                        </div>
+                        <p class="text-justify">
+                            باکس کراسفیت مایوستاتین با به روز ترین امکانات و تجهیزات در فردیس.
+                            باکس کراسفیت مایوستاتین با به روز ترین امکانات و تجهیزات در فردیس.
+                        </p>
+                        <p class="text-justify">
+                            باکس کراسفیت مایوستاتین با به روز ترین امکانات و تجهیزات در فردیس.
+                        </p>
+                        <div class="about-text-box">
+                            <div class="about-trainer-box">
+                                <div class="about-trainer-img" style="max-width: 70px">
+                                    <img src="{% static 'images/mohammadreza-zakeri1.jpg' %}" class="rounded-circle"
+                                         alt="Myostatin-HC">
+                                </div>
+                                <div class="about-trainer-name">
+                                    <h3 class="h3-title">محمدرضا ذاکری</h3>
+                                    <span>HC</span>
+                                </div>
+                            </div>
+                            <a href="about-us.html" class="sec-btn">جستجوی بیشتر</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--About Us End-->
+
+    <!--Video Start-->
+    <section class="main-video">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="video-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="video-img" style="background-image: url({% static 'images/video-img.jpg' %});">
+                            <div class="video-content">
+                                <h2 class="h2-title">یک روز با یک بازیکن تناسب اندام</h2>
+                                <div class="play-btn">
+                                    <a href="https://www.youtube.com/watch?v=yUwpx81trCo"
+                                       class="video-play-icon popup-youtube" title="Play Video"><span><i
+                                            class="fa fa-play"
+                                            aria-hidden="true"></i></span></a>
+                                </div>
+                                <a href="about-us.html" class="sec-btn-link">تماشای بیشتر</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Video End-->
+
+    <!--Classes Start-->
+    <section class="main-classes">
+        <div class="classes-overlay-bg animate-this">
+            <img src="{% static 'images/classes-overlay-bg.png' %}" alt="Overlay">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="classes-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">کلاس های ما</h2>
+                        </div>
+                        <h2 class="h2-title">کلاس های تناسب اندام برای هر هدف</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row class-slider" id="counter">
+                <div class="col-lg-4">
+                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="class-img">
+                            <img src="{% static 'images/class-img1.jpg' %}" alt="Class">
+                        </div>
+                        <div class="class-box-contant">
+                            <div class="class-box-title">
+                                <div class="class-box-icon">
+                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
+                                </div>
+                                <a href="class-detail.html">
+                                    <h3 class="h3-title">
+                                        کراسفیت
+                                        <br>
+                                        15:30 - 14:30
+                                    </h3>
+                                </a>
+                            </div>
+                            <p>
+                                کلاس کراسفیت ساعت 14:30 تا 15:30
+                            </p>
+                            <div class="class-full" id="progress_bar">
+                                <div class="class-full-bar-box">
+                                    <h3 class="h3-title">تکمیل</h3>
+                                    <div class="class-full-bar-percent">
+                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar class-bar" data-width="85%">
+                                        <div class="skill-bar-inner class-bar-in"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="class-img">
+                            <img src="{% static 'images/class-img1.jpg' %}" alt="Class">
+                        </div>
+                        <div class="class-box-contant">
+                            <div class="class-box-title">
+                                <div class="class-box-icon">
+                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
+                                </div>
+                                <a href="class-detail.html">
+                                    <h3 class="h3-title">
+                                        کراسفیت
+                                        <br>
+                                        15:30 - 14:30
+                                    </h3>
+                                </a>
+                            </div>
+                            <p>
+                                کلاس کراسفیت ساعت 14:30 تا 15:30
+                            </p>
+                            <div class="class-full" id="progress_bar">
+                                <div class="class-full-bar-box">
+                                    <h3 class="h3-title">تکمیل</h3>
+                                    <div class="class-full-bar-percent">
+                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar class-bar" data-width="85%">
+                                        <div class="skill-bar-inner class-bar-in"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="class-img">
+                            <img src="{% static 'images/class-img1.jpg' %}" alt="Class">
+                        </div>
+                        <div class="class-box-contant">
+                            <div class="class-box-title">
+                                <div class="class-box-icon">
+                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
+                                </div>
+                                <a href="class-detail.html">
+                                    <h3 class="h3-title">
+                                        کراسفیت
+                                        <br>
+                                        15:30 - 14:30
+                                    </h3>
+                                </a>
+                            </div>
+                            <p>
+                                کلاس کراسفیت ساعت 14:30 تا 15:30
+                            </p>
+                            <div class="class-full" id="progress_bar">
+                                <div class="class-full-bar-box">
+                                    <h3 class="h3-title">تکمیل</h3>
+                                    <div class="class-full-bar-percent">
+                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar class-bar" data-width="85%">
+                                        <div class="skill-bar-inner class-bar-in"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="class-img">
+                            <img src="{% static 'images/class-img1.jpg' %}" alt="Class">
+                        </div>
+                        <div class="class-box-contant">
+                            <div class="class-box-title">
+                                <div class="class-box-icon">
+                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
+                                </div>
+                                <a href="class-detail.html">
+                                    <h3 class="h3-title">
+                                        کراسفیت
+                                        <br>
+                                        15:30 - 14:30
+                                    </h3>
+                                </a>
+                            </div>
+                            <p>
+                                کلاس کراسفیت ساعت 14:30 تا 15:30
+                            </p>
+                            <div class="class-full" id="progress_bar">
+                                <div class="class-full-bar-box">
+                                    <h3 class="h3-title">تکمیل</h3>
+                                    <div class="class-full-bar-percent">
+                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar class-bar" data-width="85%">
+                                        <div class="skill-bar-inner class-bar-in"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Classes End-->
+
+    <!--Schedule Start-->
+    <section class="main-schedule">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="schedule-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">برنامه ما</h2>
+                        </div>
+                        <h2 class="h2-title">برنامه کلاس های ما را بررسی کنید</h2>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="main-schedule-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="schedule-box">
+                            <div class="schedule-time-box">
+                                <ul>
+                                    <li><img src="{% static 'images/clock-1.png' %}" alt="Clock"></li>
+                                    <li>
+                                        <h3 class="h3-title">8:00ق.ظ</h3>
+                                    </li>
+                                    <li>
+                                        <h3 class="h3-title">10:00ق.ظ</h3>
+                                    </li>
+                                    <li>
+                                        <h3 class="h3-title">12:00ب.ظ</h3>
+                                    </li>
+                                    <li>
+                                        <h3 class="h3-title">5:00ب.ظ</h3>
+                                    </li>
+                                    <li>
+                                        <h3 class="h3-title">8:00ب.ظ</h3>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title">شنبه</h3>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">وزنه برداری</h3>
+                                            <span>علی محمدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">کاردیو</h3>
+                                            <span>رضا اسدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">بوکس</h3>
+                                            <span>سید حسین حسینی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">یوگای قدرتی</h3>
+                                            <span>زهرا شریفی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">تکواندو</h3>
+                                            <span>روزبه حصاری</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title">یک شنبه</h3>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">ایروبیک</h3>
+                                            <span>سید حسین مهاجری</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">یوگای قدرتی</h3>
+                                            <span>زهرا شریفی</span>
+                                        </div>
+                                    </li>
+                                    <li></li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">وزنه برداری</h3>
+                                            <span>علی محمدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">بوکس</h3>
+                                            <span>سید حسین حسینی</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title">دو شنبه</h3>
+                                    </li>
+                                    <li></li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">وزنه برداری</h3>
+                                            <span>علی محمدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">کاردیو</h3>
+                                            <span>رضا اسدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">تکواندو</h3>
+                                            <span>زهرا شریفی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">یوگای قدرتی</h3>
+                                            <span>زهرا شریفی</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title">سه شنبه</h3>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">یوگای قدرتی</h3>
+                                            <span>زهرا شریفی</span>
+                                        </div>
+                                    </li>
+                                    <li></li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">ایروبیک</h3>
+                                            <span>سید حسین مهاجری</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">بوکس</h3>
+                                            <span>سید حسین حسینی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">وزنه برداری</h3>
+                                            <span>علی محمدی</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title">چهارشنبه</h3>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">کاردیو</h3>
+                                            <span>رضا اسدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">ایروبیک</h3>
+                                            <span>سید حسین مهاجری</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">وزنه برداری</h3>
+                                            <span>علی محمدی</span>
+                                        </div>
+                                    </li>
+                                    <li></li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">بوکس</h3>
+                                            <span>سید حسین حسینی</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title">پنجشنبه</h3>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">بوکس</h3>
+                                            <span>سید حسین حسینی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">یوگای قدرتی</h3>
+                                            <span>زهرا شریفی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">کاردیو</h3>
+                                            <span>رضا اسدی</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="schedule-class-text">
+                                            <h3 class="h3-title">ایروبیک</h3>
+                                            <span>سید حسین مهاجری</span>
+                                        </div>
+                                    </li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Schedule End-->
+
+    <!--Counter Start-->
+    <section class="main-counter">
+        <div class="container">
+            <div class="row counter-bg wow fadeInUp" data-wow-delay=".5s">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="counter-box">
+                        <div class="counter-content">
+                            <h2 class="h2-title counting-data" data-count="874">0</h2>
+                            <div class="counter-text">
+                                <img src="{% static 'images/happy-client.png' %}" alt="Happy Client">
+                                <span>مشتریان خوشحال</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="counter-box">
+                        <div class="counter-content">
+                            <h2 class="h2-title counting-data" data-count="987">0</h2>
+                            <div class="counter-text">
+                                <img src="{% static 'images/total-clients.png' %}" alt="Total Clients">
+                                <span>کل مشتریان</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="counter-box">
+                        <div class="counter-content">
+                            <h2 class="h2-title counting-data" data-count="587">0</h2>
+                            <div class="counter-text">
+                                <img src="{% static 'images/gym-equipment.png' %}" alt="Gym Equipment">
+                                <span>تجهیزات بدنسازی</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="counter-box">
+                        <div class="counter-content">
+                            <h2 class="h2-title counting-data" data-count="748">0</h2>
+                            <div class="counter-text">
+                                <img src="{% static 'images/cup-of-coffee.png' %}" alt="Cup Of Coffee">
+                                <span>فنجان قهوه</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Counter End-->
+
+    <!--Team Start-->
+    <section class="main-team">
+        <div class="team-overlay-bg animate-this">
+            <img src="{% static 'images/team-overlay-bg.png' %}" alt="Overlay">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="team-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">مربیان برتر</h2>
+                        </div>
+                        <h2 class="h2-title">برترین مربیان باشگاه</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row team-slider">
+                <div class="col-lg-3">
+                    <div class="team-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="team-img-box team-border-one">
+                            <div class="team-img">
+                                <img src="{% static 'images/mohammadreza-zakeri1.jpg' %}" alt="Trainer">
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <a href="team-detail.html">
+                                <h3 class="h3-title team-text-color">محمدرضا ذاکری</h3>
+                            </a>
+                            <span>موسس مایوستاتین و مربی کراسفیت</span>
+                            <div class="team-social">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"
+                                                                         aria-hidden="true"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="team-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="team-img-box team-border-one">
+                            <div class="team-img">
+                                <img src="{% static 'images/mohammadreza-zakeri2.jpg' %}" alt="Trainer">
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <a href="team-detail.html">
+                                <h3 class="h3-title team-text-color">سهیل منصوری</h3>
+                            </a>
+                            <span>مربی کراسفیت</span>
+                            <div class="team-social">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><i class="fa fa-twitter"
+                                                                         aria-hidden="true"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Team End-->
+
+    <!--Pricing Start-->
+    <section class="main-pricing">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="pricing-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">جدول قیمت گذاری</h2>
+                        </div>
+                        <h2 class="h2-title">برنامه قیمت گذاری خود را انتخاب کنید</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row pricing-slider">
+                <div class="col-lg-4">
+                    <div class="pricing-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="pricing-title-box pricing-one">
+                            <h3 class="h3-title">12 جلسه ماهانه</h3>
+                            <h2 class="h2-title">
+                                800 هزار تومان
+                                <span>/ماه</span>
+                            </h2>
+                        </div>
+                        <div class="pricing-content-box">
+                            <div class="pricing-content">
+                                <div class="pricing-point">
+                                    <ul>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>دسترسی نامحدود به باشگاه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>حضور گروهی</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>بازدید از ورزشگاه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>بازدید از مجموعه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p> باشگاه بدنسازی، باشگاه مبارزه</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="contact-us.html" class="sec-btn">اکنون بپیوندید</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="pricing-box wow fadeInDown" data-wow-delay=".5s">
+                        <div class="pricing-title-box pricing-two">
+                            <h3 class="h3-title">18 جلسه ماهانه</h3>
+                            <h2 class="h2-title">
+                                950 هزار تومان
+                                <span>/ماه</span></h2>
+                        </div>
+                        <div class="pricing-content-box">
+                            <div class="pricing-content">
+                                <div class="pricing-point">
+                                    <ul>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>دسترسی نامحدود به باشگاه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>حضور گروهی</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>بازدید از ورزشگاه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>بازدید از مجموعه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p> باشگاه بدنسازی، باشگاه مبارزه</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="contact-us.html" class="sec-btn">اکنون بپیوندید</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="pricing-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="pricing-title-box pricing-three">
+                            <h3 class="h3-title">24 جلسه ماهانه</h3>
+                            <h2 class="h2-title">
+                                1,100 هزار تومان
+                                <span>/ماه</span></h2>
+                        </div>
+                        <div class="pricing-content-box">
+                            <div class="pricing-content">
+                                <div class="pricing-point">
+                                    <ul>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>دسترسی نامحدود به باشگاه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>حضور گروهی</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>بازدید از ورزشگاه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p>بازدید از مجموعه</p>
+                                        </li>
+                                        <li>
+                                            <img src="{% static 'images/check.png' %}" alt="Check">
+                                            <p> باشگاه بدنسازی، باشگاه مبارزه</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="contact-us.html" class="sec-btn">اکنون بپیوندید</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Pricing End-->
+
+    <!--Portfolio Start-->
+    <div class="main-portfolio">
+        <div class="container-fluid">
+            <div class="row portfolio-slider">
+                <div class="col-lg-4">
+                    <div class="portfolio-box wow fadeInUp" data-wow-delay=".5s">
+                        <img src="{% static 'images/portfolio-img1.jpg' %}" alt="Portfolio">
+                        <div class="portfolio-content">
+                            <span>برنامه کاهش وزن</span>
+                            <a href="portfolio-detail.html">
+                                <h3 class="h3-title">تمرین تناسب اندام زوجین</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-box wow fadeInDown" data-wow-delay=".5s">
+                        <img src="{% static 'images/portfolio-img2.jpg' %}" alt="Portfolio">
+                        <div class="portfolio-content">
+                            <span>برنامه کاهش وزن</span>
+                            <a href="portfolio-detail.html">
+                                <h3 class="h3-title">تمرین تناسب اندام زوجین</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-box wow fadeInUp" data-wow-delay=".5s">
+                        <img src="{% static 'images/portfolio-img1.jpg' %}" alt="Portfolio">
+                        <div class="portfolio-content">
+                            <span>برنامه کاهش وزن</span>
+                            <a href="portfolio-detail.html">
+                                <h3 class="h3-title">تمرین تناسب اندام زوجین</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="portfolio-box wow fadeInDown" data-wow-delay=".5s">
+                        <img src="{% static 'images/portfolio-img2.jpg' %}" alt="Portfolio">
+                        <div class="portfolio-content">
+                            <span>برنامه کاهش وزن</span>
+                            <a href="portfolio-detail.html">
+                                <h3 class="h3-title">تمرین تناسب اندام زوجین</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Portfolio End-->
+
+    <!--Appointment Start-->
+    <section class="main-appointment">
+        <div class="appointment-overlay-bg animate-this">
+            <img src="{% static 'images/appointment-overlay-bg.png' %}" alt="Overlay">
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="statics-contant wow fadeInRight" data-wow-delay=".5s">
+                        <div class="statics-title">
+                            <div class="subtitle">
+                                <h2 class="h2-subtitle">سیاست ما</h2>
+                            </div>
+                            <h2 class="h2-title">ما در کلاس شما بهترین هستیم</h2>
+                        </div>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
+                            تکنولوژی
+                            مورد نیاز، و کاربردهای متنوع با هدف بهبود .</p>
+                        <div class="skill-content">
+                            <div class="skill-progress">
+                                <div class="skill-bar-box">
+                                    <h3 class="h3-title">رضایت مشتری</h3>
+                                    <div class="skill-bar-percent">
+                                        <h3 class="h3-title counting-data" data-count="90">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar" data-width="90%">
+                                        <div class="skill-bar-inner"></div>
+                                    </div>
+                                </div>
+                                <div class="skill-bar-box mb-0">
+                                    <h3 class="h3-title">حمایت از مشتری</h3>
+                                    <div class="skill-bar-percent">
+                                        <h3 class="h3-title counting-data" data-count="80">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar" data-width="80%">
+                                        <div class="skill-bar-inner"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="appointment-bg wow fadeInLeft" data-wow-delay=".5s">
+                        <div class="appointment-title">
+                            <h2 class="h2-title">دریافت قرار ملاقات</h2>
+                            <div class="line"></div>
+                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-box">
+                                        <input type="text" name="Full Name" class="form-input"
+                                               placeholder="نام و نام خانوادگی" required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-box">
+                                        <input type="email" name="EmailAddress" class="form-input"
+                                               placeholder="آدرس ایمیل"
+                                               required="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-box">
+                                        <input type="text" name="Phone No" class="form-input" placeholder="شماره موبایل"
+                                               required="">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-box">
+                                        <textarea class="form-input" placeholder="متن پیام ..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-box mb-0">
+                                        <button type="submit" class="sec-btn"><span>اکنون ارسال کنید</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Appointment End-->
+
+    <!--Testimonial Start-->
+    <section class="main-testimonial">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="testimonial-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">نظرات ورزشکاران</h2>
+                        </div>
+                        <h2 class="h2-title">آنچه ورزشکاران ما می گویند</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row testimonial-slider">
+                <div class="col-lg-4">
+                    <div class="testimonial-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="client-box">
+                            <div class="client-img">
+                                <img src="{% static 'images/client1.jpg' %}" class="rounded-circle" alt="Client">
+                            </div>
+                            <div class="client-name">
+                                <h3 class="h3-title">محمد بهرامی</h3>
+                                <span>کراسفیتر مجموعه</span>
+                            </div>
+                        </div>
+                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
+                            مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                        <div class="review-star">
+                            <ul>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="client-box">
+                            <div class="client-img">
+                                <img src="{% static 'images/client1.jpg' %}" class="rounded-circle" alt="Client">
+                            </div>
+                            <div class="client-name">
+                                <h3 class="h3-title">محمد بهرامی</h3>
+                                <span>کراسفیتر مجموعه</span>
+                            </div>
+                        </div>
+                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
+                            مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                        <div class="review-star">
+                            <ul>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="client-box">
+                            <div class="client-img">
+                                <img src="{% static 'images/client1.jpg' %}" class="rounded-circle" alt="Client">
+                            </div>
+                            <div class="client-name">
+                                <h3 class="h3-title">محمد بهرامی</h3>
+                                <span>کراسفیتر مجموعه</span>
+                            </div>
+                        </div>
+                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
+                            مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                        <div class="review-star">
+                            <ul>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="testimonial-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="client-box">
+                            <div class="client-img">
+                                <img src="{% static 'images/client1.jpg' %}" class="rounded-circle" alt="Client">
+                            </div>
+                            <div class="client-name">
+                                <h3 class="h3-title">محمد بهرامی</h3>
+                                <span>کراسفیتر مجموعه</span>
+                            </div>
+                        </div>
+                        <p>چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی
+                            مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                        <div class="review-star">
+                            <ul>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Testimonial End-->
+
+    <!--Blog Start-->
+    <section class="main-blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">اخبار ما</h2>
+                        </div>
+                        <h2 class="h2-title">جدیدترین مطالب وبلاگ</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row blog-slider">
+                <div class="col-lg-4">
+                    <div class="blog-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="blog-img">
+                            <img src="{% static 'images/blog1.jpg' %}" alt="Blog">
+                            <div class="blog-date">
+                                <span>11 تیر 1401</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <a href="blog-detail.html">
+                                <h3 class="h3-title">کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
+                                    جامعه و
+                                    متخصصان را می طلبد</h3>
+                            </a>
+                            <p>در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ
+                                به
+                                پایان رسد</p>
+                            <a href="blog-detail.html" class="sec-btn-link">بیشتر بخوانید</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="blog-img">
+                            <img src="{% static 'images/blog1.jpg' %}" alt="Blog">
+                            <div class="blog-date">
+                                <span>11 تیر 1401</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <a href="blog-detail.html">
+                                <h3 class="h3-title">کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
+                                    جامعه و
+                                    متخصصان را می طلبد</h3>
+                            </a>
+                            <p>در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ
+                                به
+                                پایان رسد</p>
+                            <a href="blog-detail.html" class="sec-btn-link">بیشتر بخوانید</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog-box wow fadeInUp" data-wow-delay=".5s">
+                        <div class="blog-img">
+                            <img src="{% static 'images/blog1.jpg' %}" alt="Blog">
+                            <div class="blog-date">
+                                <span>11 تیر 1401</span>
+                            </div>
+                        </div>
+                        <div class="blog-content">
+                            <a href="blog-detail.html">
+                                <h3 class="h3-title">کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
+                                    جامعه و
+                                    متخصصان را می طلبد</h3>
+                            </a>
+                            <p>در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ
+                                به
+                                پایان رسد</p>
+                            <a href="blog-detail.html" class="sec-btn-link">بیشتر بخوانید</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Blog End-->
+{% endblock %}

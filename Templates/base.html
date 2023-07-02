@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <title>{% block title %}Fithub - Gym & Fitness HTML Template{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="Fithub"/>
+    <meta name="description" content="Fithub"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    <!-- FavIcon CSS -->
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/gif" sizes="16x16">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!--Font Awesome Icon CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
+
+    <!-- Wow Animation CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}">
+
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.min.css' %}">
+
+    <!-- Main Style CSS  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block css %}{% endblock %}
+</head>
+
+<body>
+
+<!-- Loader Start -->
+{% include 'components/loading.html' %}
+<!-- Loader End -->
+
+<!-- Header Start -->
+{% include 'components/header.html' %}
+<!-- Header End -->
+
+{% block content %}{% endblock %}
+
+<!--Footer Start-->
+{% include 'components/footer.html' %}
+<!--Footer End-->
+
+<!--Back To Top Start-->
+{% include 'components/back_to_top.html' %}
+<!--BAck To Top End-->
+
+<!-- Jquery JS Link -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<!-- Bootstrap JS Link -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+
+<!-- Custom JS Link -->
+<script src="{% static 'js/custom.js' %}"></script>
+
+<!-- Slick Slider JS Link -->
+<script src="{% static 'js/slick.min.js' %}"></script>
+
+<!-- Wow Animation JS -->
+<script src="{% static 'js/wow.min.js' %}"></script>
+
+<!--Bg Moving Js-->
+<script src="{% static 'js/bg-moving.js' %}"></script>
+
+<!--Magnific Popup JS-->
+<script src="{% static 'js/magnific-popup.js' %}"></script>
+<script src="{% static 'js/custom-magnific-popup.js' %}"></script>
+
+<!--Progress Bar JS-->
+<script src="{% static 'js/custom-progress-bar.js' %}"></script>
+
+<!--Scroll Count JS-->
+<script src="{% static 'js/custom-scroll-count.js' %}"></script>
+
+<!--BAck To Top JS-->
+<script src="{% static 'js/back-to-top.js' %}"></script>
+
+</body>
+
+</html>

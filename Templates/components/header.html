@@ -1,0 +1,102 @@
+{% load static %}
+{% url "Home:home_view" as HomeURL %}
+<header class="site-header">
+    <!--Navbar Start  -->
+    <div class="header-bottom">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-2">
+                    <!-- Sit Logo Start -->
+                    <div class="site-branding">
+                        <a href="{% url 'Home:home_view' %}" title="Fithub">
+                            <img src="{% static 'images/logo.png' %}" alt="Logo">
+                            <img src="{% static 'images/logo_stickey.png' %}" class="sticky-logo" alt="Logo">
+                        </a>
+                    </div>
+                    <!-- Sit Logo End -->
+                </div>
+                <div class="col-lg-10">
+                    <div class="header-menu">
+                        <nav class="main-navigation one">
+                            <button class="toggle-button">
+                                <span></span>
+                                <span class="toggle-width"></span>
+                                <span></span>
+                            </button>
+                            <div class="mobile-menu-box">
+                                <i class="menu-background top"></i>
+                                <i class="menu-background middle"></i>
+                                <i class="menu-background bottom"></i>
+                                <ul class="menu">
+                                    <li {% if request.path == HomeURL %}class="active"{% endif %}>
+                                        <a href="{{ HomeURL }}">صفحه اصلی</a>
+                                    </li>
+                                    <li><a href="about-us.html">درباره ما</a></li>
+                                    <li class="sub-items">
+                                        <a href="javascript:void(0);" title="Classes">کلاس ها</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="classes.html" title="Classes">کلاس های ما</a></li>
+                                            <li><a href="class-detail.html" title="Class Detail">جزئیات کلاس</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-items">
+                                        <a href="javascript:void(0);" title="Pages">صفحات</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="portfolio.html" title="Portfolio">نمونه کار</a></li>
+                                            <li><a href="portfolio-detail.html" title="Portfolio Detail">جزئیات نمونه
+                                                کار</a>
+                                            </li>
+                                            <li><a href="team.html" title="Team">تیم</a></li>
+                                            <li><a href="team-detail.html" title="Team Detail">جزئیات تیم</a></li>
+                                            <li><a href="faq.html" title="FAQ">سوالات متداول</a></li>
+                                            <li><a href="schedule.html" title="Schedule">برنامه زمان بندی</a></li>
+                                            <li><a href="pricing.html" title="Pricing Table">جدول قیمت گذاری</a></li>
+                                            <li><a href="error-404.html" title="404 Error">خطای 404</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="sub-items">
+                                        <a href="javascript:void(0);" title="Blog">وبلاگ</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="blog-grid.html" title="Blog Grid">شبکه بندی وبلاگ</a></li>
+                                            <li><a href="blog-list.html" title="Blog List">لیست وبلاگ</a></li>
+                                            <li><a href="blog-detail.html" title="Blog Detail">جزئیات وبلاگ</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact-us.html">ارتباط با ما</a></li>
+                                </ul>
+                            </div>
+                        </nav>
+                        <div class="header-search-box">
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#search-modal"
+                               class="header-search">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="black-shadow"></div>
+                        <div class="header-btn">
+                            <a href="{% url 'Accounts:sign-up' %}" class="sec-btn">اکنون بپیوندید</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Navbar End  -->
+</header>
+<!-- modal-search-start -->
+<div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
+    </button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form>
+                <input type="text" placeholder="جستجو کنید ...">
+                <button>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal-search-end -->
