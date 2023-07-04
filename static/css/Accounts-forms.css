@@ -1,0 +1,56 @@
+body {
+    background-image: url("../images/myostatin-logo1.png");
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    font-family: Tahoma, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0);
+    max-width: 400px;
+}
+
+.card {
+    border: None;
+    border-radius: 10px;
+    box-shadow: 1px 4px 10px rgba(255, 0, 0, 0.3);
+    position: relative;
+    background-color: rgba(255, 255, 255, .7);
+}
+
+.card-title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.btn-primary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+}
