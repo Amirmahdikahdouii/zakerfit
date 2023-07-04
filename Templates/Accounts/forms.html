@@ -1,11 +1,20 @@
 {% load static %}
+{% url "Accounts:login" as LoginURL %}
+{% url "Accounts:sign-up" as SingUpURL %}
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحه عضویت</title>
+    <title>
+        {% if request.path == LoginURL %}
+            ورود
+        {% else %}
+            صفحه عضویت
+        {% endif %}
+    </title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/Accounts-forms.css' %}">
 </head>
@@ -25,12 +34,28 @@
                     </div>
                 {% endfor %}
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-danger">ثبت نام</button>
+                    <button type="submit" class="btn btn-primary btn-danger">
+                        {% if request.path == LoginURL %}
+                            ورود
+                        {% else %}
+                            ثبت نام
+                        {% endif %}
+                    </button>
                 </div>
             </form>
+            {% if request.path == LoginURL %}
+                <a href="{{ SingUpURL }}" class="text-dark">کاربر جدید هستید؟ - ثبت نام کنید</a>
+            {% else %}
+                <a href="{{ LoginURL }}" class="text-dark">قبلا ثبت نام کرده اید؟ - وارد شوید</a>
+            {% endif %}
         </div>
     </div>
 </div>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% include "components/messages.html" %}
+
 </body>
 
 </html>

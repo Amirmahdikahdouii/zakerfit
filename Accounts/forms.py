@@ -2,6 +2,12 @@ from django import forms
 from .models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core.validators import RegexValidator
+
+password_regex_validation = RegexValidator(
+    regex=r'^(?=.*[a-zA-Z]).{8,}$',
+    message="پسورد باید حداقل 8 کاراکتر باشد و حروف را در بر بگیرد"
+)
 
 
 class UserCreationForm(forms.ModelForm):
@@ -43,11 +49,34 @@ class UserChangeForm(forms.ModelForm):
 
 
 class SignUpForm(forms.Form):
-    name = forms.CharField(label='نام و نام خانوادگی', max_length=100, widget=forms.TextInput(
-        attrs={'class': 'form-control', 'placeholder': 'نام و نام خانوادگی خود را وارد کنید'}))
-    email = forms.EmailField(label='ایمیل', widget=forms.EmailInput(
-        attrs={'class': 'form-control', 'placeholder': 'ایمیل خود را وارد کنید'}))
-    password = forms.CharField(label='رمز عبور', widget=forms.PasswordInput(
-        attrs={'class': 'form-control', 'placeholder': 'رمز عبور خود را وارد کنید'}))
+    first_name = forms.CharField(label='نام', max_length=200, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'نام خود را وارد کنید'}))
+    last_name = forms.CharField(label='نام خانوادگی', max_length=200, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'نام خانوادگی خود را وارد کنید'}))
+    phone_number = forms.CharField(
+        label="تلفن همراه", max_length=13, widget=forms.TextInput(
+            attrs={"class": "form-control", 'placeholder': "تلفن همراه خود را وارد کنید"}
+        )
+    )
+    password = forms.CharField(label='رمز عبور', validators=[password_regex_validation],
+                               widget=forms.PasswordInput(
+                                   attrs={'class': 'form-control', 'placeholder': 'رمز عبور خود را وارد کنید'}))
     confirm_password = forms.CharField(label='تایید رمز عبور', widget=forms.PasswordInput(
+        attrs={'class': 'form-control', 'placeholder': 'رمز عبور خود را وارد کنید'}))
+
+    def clean_confirm_password(self):
+        password1 = self.cleaned_data.get("password")
+        password2 = self.cleaned_data.get("confirm_password")
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("رمز عبور خود را با دقت وارد کنید")
+        return password2
+
+
+class LoginForm(forms.Form):
+    phone_number = forms.CharField(
+        label="تلفن همراه", max_length=13, widget=forms.TextInput(
+            attrs={"class": "form-control", 'placeholder': "تلفن همراه خود را وارد کنید"}
+        )
+    )
+    password = forms.CharField(label='رمز عبور', widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'placeholder': 'رمز عبور خود را وارد کنید'}))
