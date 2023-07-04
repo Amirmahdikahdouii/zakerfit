@@ -1,0 +1,15 @@
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                title: '{{ message.tags|capfirst }}',
+                text: '{{ message }}',
+                icon: '{{ message.tags }}',
+                timer: 3000,  // Optional: Auto close the alert after 3 seconds
+                toast: true,
+                position: 'center',
+                showConfirmButton: false,
+            });
+        </script>
+    {% endfor %}
+{% endif %}

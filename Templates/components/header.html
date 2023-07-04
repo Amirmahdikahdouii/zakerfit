@@ -9,8 +9,8 @@
                     <!-- Sit Logo Start -->
                     <div class="site-branding">
                         <a href="{% url 'Home:home_view' %}" title="Fithub">
-                            <img src="{% static 'images/logo.png' %}" alt="Logo">
-                            <img src="{% static 'images/logo_stickey.png' %}" class="sticky-logo" alt="Logo">
+                            <img src="{% static 'images/myostatin-logo1.png' %}" style="max-width: 95px" alt="Logo">
+                            <img src="{% static 'images/myostatin-logo1.png' %}" style="max-width: 95px" class="sticky-logo" alt="Logo">
                         </a>
                     </div>
                     <!-- Sit Logo End -->
@@ -73,9 +73,15 @@
                             </a>
                         </div>
                         <div class="black-shadow"></div>
-                        <div class="header-btn">
-                            <a href="{% url 'Accounts:sign-up' %}" class="sec-btn">اکنون بپیوندید</a>
-                        </div>
+                        {% if not request.user.is_authenticated %}
+                            <div class="header-btn">
+                                <a href="{% url 'Accounts:sign-up' %}" class="sec-btn">اکنون بپیوندید</a>
+                            </div>
+                            {% else %}
+                            <div class="header-btn">
+                                <a href="{% url 'Home:home_view' %}" class="sec-btn">پروفایل</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
