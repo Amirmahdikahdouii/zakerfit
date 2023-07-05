@@ -42,6 +42,17 @@ class UserGenderChoices(models.IntegerChoices):
     FEMAIL = 2, "FEMAIL"
 
 
+def change_profile_name(instance, filename):
+    """
+    This Function change the profile image name and save it into destination
+    """
+    import os
+    import random
+    ext = filename.split(".")[-1]
+    unique_file_name = f"{instance.last_name}-{random.randint(1000, 9999)}.{ext}"
+    return os.path.join("users/profile-images/", unique_file_name)
+
+
 class User(AbstractBaseUser):
     phone_number = models.CharField(max_length=13, unique=True, validators=[IranPhoneNumberValidator()])
     first_name = models.CharField(max_length=200)
@@ -52,7 +63,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     join_date = models.DateTimeField(auto_now_add=True)
-    profile_image = models.ImageField(upload_to="users/profile-images/", null=True, blank=True)
+    profile_image = models.ImageField(upload_to=change_profile_name, null=True, blank=True)
 
     objects = UserManager()
     USERNAME_FIELD = 'phone_number'

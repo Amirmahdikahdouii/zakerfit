@@ -96,6 +96,8 @@ class ProfileView(LoginRequiredMixin, View):
 
 @method_decorator(csrf_exempt, name="dispatch")
 class ChangeUserBirthdayView(LoginRequiredMixin, View):
+    login_url = "/Accounts/login"
+
     def post(self, request, *args, **kwargs):
         import json
         import jdatetime
@@ -108,7 +110,19 @@ class ChangeUserBirthdayView(LoginRequiredMixin, View):
 
 @method_decorator(csrf_exempt, "dispatch")
 class ChangeUserGenderView(LoginRequiredMixin, View):
+    login_url = "/Accounts/login"
+
     def post(self, request):
         request.user.gender = 1 if request.user.gender == 2 else 2
         request.user.save()
         return JsonResponse(data={"gender": request.user.gender}, status=200)
+
+
+class ChangeUserProfileView(LoginRequiredMixin, View):
+    login_url = "/Accounts/login"
+
+    def post(self, request):
+        request.user.profile_image = request.FILES["profile_image"]
+        request.user.save()
+        messages.success(request, "تصویر پروفایل با موفقیت تغییر کرد.")
+        return redirect("Accounts:profile")

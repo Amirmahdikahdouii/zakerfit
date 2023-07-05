@@ -56,6 +56,18 @@
                                      alt="{{ request.user.get_full_name }}">
                             {% endif %}
                         </div>
+                        <form action="{% url 'Accounts:change_user_profile' %}" method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="file" id="change-image-input" hidden name="profile_image">
+                            <button class="btn btn-outline-warning d-none" type="submit"
+                                    id="submit-change-image-button">
+                                ثبت تغییرات
+                            </button>
+                            <button class="btn btn-outline-warning" id="change-image-button" type="button">
+                                تغییر تصویر
+                            </button>
+                        </form>
                         <h3 class="card-title text-center mt-3 text-light">{{ request.user.get_full_name }}</h3>
                         <hr>
                         <div class="row">
@@ -101,4 +113,14 @@
 {% block script %}
     <script src="{% static 'js/jalalidatepicker.min.js' %}"></script>
     <script src="{% static 'js/Accounts/profile.js' %}"></script>
+    <script>
+        let changeImageButton = document.getElementById("change-image-button");
+        let submitChangeImageButton = document.getElementById("submit-change-image-button");
+        let changeImageInput = document.getElementById("change-image-input");
+        changeImageButton.addEventListener("click", () => {
+            changeImageInput.click();
+            changeImageButton.classList.add("d-none");
+            submitChangeImageButton.classList.remove("d-none")
+        });
+    </script>
 {% endblock %}
