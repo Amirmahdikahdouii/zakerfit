@@ -8,9 +8,10 @@
                 <div class="col-lg-2">
                     <!-- Sit Logo Start -->
                     <div class="site-branding">
-                        <a href="{% url 'Home:home_view' %}" title="Fithub">
+                        <a href="{% url 'Home:home_view' %}" title="Myostatin CrossFit">
                             <img src="{% static 'images/myostatin-logo1.png' %}" style="max-width: 95px" alt="Logo">
-                            <img src="{% static 'images/myostatin-logo1.png' %}" style="max-width: 95px" class="sticky-logo" alt="Logo">
+                            <img src="{% static 'images/myostatin-logo1.png' %}" style="max-width: 95px"
+                                 class="sticky-logo" alt="Logo">
                         </a>
                     </div>
                     <!-- Sit Logo End -->
@@ -77,9 +78,9 @@
                             <div class="header-btn">
                                 <a href="{% url 'Accounts:sign-up' %}" class="sec-btn">اکنون بپیوندید</a>
                             </div>
-                            {% else %}
+                        {% else %}
                             <div class="header-btn">
-                                <a href="{% url 'Home:home_view' %}" class="sec-btn">پروفایل</a>
+                                <a href="{% url 'Accounts:profile' %}" class="sec-btn">پروفایل</a>
                             </div>
                         {% endif %}
                     </div>

@@ -34,7 +34,7 @@ class ShamsiDateField(models.DateField):
         if value is None:
             return None
         import jdatetime
-        return jdatetime.date(value.year, value.day, value.month).togregorian()
+        return jdatetime.date(value.year, value.month, value.day).togregorian()
 
 
 class UserGenderChoices(models.IntegerChoices):
@@ -70,3 +70,12 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def has_profile_image(self):
+        return True if self.profile_image is not None else False
+
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def get_user_gender(self):
+        return "آقا" if self.gender == 1 else "خانم"

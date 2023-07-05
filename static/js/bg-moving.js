@@ -43,7 +43,6 @@ $(document).ready(function($) {
 	$(window).on('mousemove click', function(e) {
 		
 		var isHovered = $('.animate-this:hover').length > 0;
-		console.log(isHovered);
 		
 		//if(!$(e.target).hasClass('animate-this')) {
 		if(!isHovered) {

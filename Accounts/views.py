@@ -5,6 +5,10 @@ from .models import User
 from django.contrib.auth.views import LogoutView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.http import HttpResponse, JsonResponse
 
 
 class SignUpView(View):
@@ -65,7 +69,8 @@ class LoginView(View):
                 if user is None:
                     raise User.DoesNotExist
                 messages.success(request, "با موفقیت وارد شدید")
-                return redirect("Home:home_view")
+                login(request, user)
+                return redirect("Accounts:profile")
             except User.DoesNotExist:
                 messages.error(request, "شماره همراه یافت نشد")
                 return redirect("Accounts:login")
@@ -79,3 +84,31 @@ class LogOutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         messages.success(request, "با موفقیت خارج شدید")
         return super(LogOutView, self).dispatch(request, *args, **kwargs)
+
+
+class ProfileView(LoginRequiredMixin, View):
+    login_url = "/Accounts/login/"
+    template_name = "Accounts/profile.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class ChangeUserBirthdayView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        import json
+        import jdatetime
+        data = json.loads(request.body)
+        date = list(map(int, data.get("date").split("/")))
+        request.user.birthday = jdatetime.date(year=date[0], month=date[1], day=date[2])
+        request.user.save()
+        return HttpResponse(status=200)
+
+
+@method_decorator(csrf_exempt, "dispatch")
+class ChangeUserGenderView(LoginRequiredMixin, View):
+    def post(self, request):
+        request.user.gender = 1 if request.user.gender == 2 else 2
+        request.user.save()
+        return JsonResponse(data={"gender": request.user.gender}, status=200)
