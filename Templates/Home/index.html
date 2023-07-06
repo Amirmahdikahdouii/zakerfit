@@ -156,146 +156,46 @@
                 </div>
             </div>
             <div class="row class-slider" id="counter">
-                <div class="col-lg-4">
-                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="class-img">
-                            <img src="{% static 'images/blog1.jpg' %}" alt="Class">
-                        </div>
-                        <div class="class-box-contant">
-                            <div class="class-box-title">
-                                <div class="class-box-icon">
-                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
-                                </div>
-                                <a href="class-detail.html">
-                                    <h3 class="h3-title">
-                                        کراسفیت
-                                        <br>
-                                        15:30 - 14:30
-                                    </h3>
-                                </a>
+                {% for class in class_times %}
+                    <div class="col-lg-4">
+                        <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="class-img">
+                                <img src="{% static 'images/blog1.jpg' %}" alt="Class">
                             </div>
-                            <p>
-                                کلاس کراسفیت ساعت 14:30 تا 15:30
-                            </p>
-                            <div class="class-full" id="progress_bar">
-                                <div class="class-full-bar-box">
-                                    <h3 class="h3-title">تکمیل</h3>
-                                    <div class="class-full-bar-percent">
-                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
+                            <div class="class-box-contant">
+                                <div class="class-box-title">
+                                    <div class="class-box-icon">
+                                        <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
                                     </div>
-                                    <div class="skill-bar class-bar" data-width="85%">
-                                        <div class="skill-bar-inner class-bar-in"></div>
-                                    </div>
+                                    <a href="class-detail.html">
+                                        <h3 class="h3-title">
+                                            {{ class.class_name }}
+                                            <br>
+                                            {{ class.title }}
+                                        </h3>
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="class-img">
-                            <img src="{% static 'images/blog1.jpg' %}" alt="Class">
-                        </div>
-                        <div class="class-box-contant">
-                            <div class="class-box-title">
-                                <div class="class-box-icon">
-                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
-                                </div>
-                                <a href="class-detail.html">
-                                    <h3 class="h3-title">
-                                        کراسفیت
-                                        <br>
-                                        15:30 - 14:30
-                                    </h3>
-                                </a>
-                            </div>
-                            <p>
-                                کلاس کراسفیت ساعت 14:30 تا 15:30
-                            </p>
-                            <div class="class-full" id="progress_bar">
-                                <div class="class-full-bar-box">
-                                    <h3 class="h3-title">تکمیل</h3>
-                                    <div class="class-full-bar-percent">
-                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
-                                    </div>
-                                    <div class="skill-bar class-bar" data-width="85%">
-                                        <div class="skill-bar-inner class-bar-in"></div>
+                                <p>
+                                    مربی: {{ class.coach_name }}
+                                </p>
+                                <div class="class-full" id="progress_bar">
+                                    <div class="class-full-bar-box">
+                                        <h3 class="h3-title">تکمیل</h3>
+                                        <div class="class-full-bar-percent">
+                                            <h3 class="h3-title counting-data"
+                                                data-count="{{ class.get_place_remain_percentage }}">0</h3>
+                                            <span>%</span>
+                                        </div>
+                                        <div class="skill-bar class-bar"
+                                             data-width="{{ class.get_place_remain_percentage }}%">
+                                            <div class="skill-bar-inner class-bar-in"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="class-img">
-                            <img src="{% static 'images/blog1.jpg' %}" alt="Class">
-                        </div>
-                        <div class="class-box-contant">
-                            <div class="class-box-title">
-                                <div class="class-box-icon">
-                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
-                                </div>
-                                <a href="class-detail.html">
-                                    <h3 class="h3-title">
-                                        کراسفیت
-                                        <br>
-                                        15:30 - 14:30
-                                    </h3>
-                                </a>
-                            </div>
-                            <p>
-                                کلاس کراسفیت ساعت 14:30 تا 15:30
-                            </p>
-                            <div class="class-full" id="progress_bar">
-                                <div class="class-full-bar-box">
-                                    <h3 class="h3-title">تکمیل</h3>
-                                    <div class="class-full-bar-percent">
-                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
-                                    </div>
-                                    <div class="skill-bar class-bar" data-width="85%">
-                                        <div class="skill-bar-inner class-bar-in"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="class-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="class-img">
-                            <img src="{% static 'images/blog1.jpg' %}" alt="Class">
-                        </div>
-                        <div class="class-box-contant">
-                            <div class="class-box-title">
-                                <div class="class-box-icon">
-                                    <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
-                                </div>
-                                <a href="class-detail.html">
-                                    <h3 class="h3-title">
-                                        کراسفیت
-                                        <br>
-                                        15:30 - 14:30
-                                    </h3>
-                                </a>
-                            </div>
-                            <p>
-                                کلاس کراسفیت ساعت 14:30 تا 15:30
-                            </p>
-                            <div class="class-full" id="progress_bar">
-                                <div class="class-full-bar-box">
-                                    <h3 class="h3-title">تکمیل</h3>
-                                    <div class="class-full-bar-percent">
-                                        <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
-                                    </div>
-                                    <div class="skill-bar class-bar" data-width="85%">
-                                        <div class="skill-bar-inner class-bar-in"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -319,220 +219,31 @@
                             <div class="schedule-time-box">
                                 <ul>
                                     <li><img src="{% static 'images/clock-1.png' %}" alt="Clock"></li>
-                                    <li>
-                                        <h3 class="h3-title">8:00ق.ظ</h3>
-                                    </li>
-                                    <li>
-                                        <h3 class="h3-title">10:00ق.ظ</h3>
-                                    </li>
-                                    <li>
-                                        <h3 class="h3-title">12:00ب.ظ</h3>
-                                    </li>
-                                    <li>
-                                        <h3 class="h3-title">5:00ب.ظ</h3>
-                                    </li>
-                                    <li>
-                                        <h3 class="h3-title">8:00ب.ظ</h3>
-                                    </li>
+                                    {% for time in class_times %}
+                                        <li class="d-flex flex-column {% if time.has_place_remain %} bg-success{% else %} bg-danger{% endif %}">
+                                            <h3 class="h3-title">{{ time.title }}</h3>
+                                            <span>طرفیت باقی مانده: {{ time.place_remain }}</span>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
-                            <div class="schedule-class-box">
-                                <ul>
-                                    <li>
-                                        <h3 class="h3-title">شنبه</h3>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">وزنه برداری</h3>
-                                            <span>علی محمدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">کاردیو</h3>
-                                            <span>رضا اسدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">بوکس</h3>
-                                            <span>سید حسین حسینی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">یوگای قدرتی</h3>
-                                            <span>زهرا شریفی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">تکواندو</h3>
-                                            <span>روزبه حصاری</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="schedule-class-box">
-                                <ul>
-                                    <li>
-                                        <h3 class="h3-title">یک شنبه</h3>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">ایروبیک</h3>
-                                            <span>سید حسین مهاجری</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">یوگای قدرتی</h3>
-                                            <span>زهرا شریفی</span>
-                                        </div>
-                                    </li>
-                                    <li></li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">وزنه برداری</h3>
-                                            <span>علی محمدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">بوکس</h3>
-                                            <span>سید حسین حسینی</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="schedule-class-box">
-                                <ul>
-                                    <li>
-                                        <h3 class="h3-title">دو شنبه</h3>
-                                    </li>
-                                    <li></li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">وزنه برداری</h3>
-                                            <span>علی محمدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">کاردیو</h3>
-                                            <span>رضا اسدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">تکواندو</h3>
-                                            <span>زهرا شریفی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">یوگای قدرتی</h3>
-                                            <span>زهرا شریفی</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="schedule-class-box">
-                                <ul>
-                                    <li>
-                                        <h3 class="h3-title">سه شنبه</h3>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">یوگای قدرتی</h3>
-                                            <span>زهرا شریفی</span>
-                                        </div>
-                                    </li>
-                                    <li></li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">ایروبیک</h3>
-                                            <span>سید حسین مهاجری</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">بوکس</h3>
-                                            <span>سید حسین حسینی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">وزنه برداری</h3>
-                                            <span>علی محمدی</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="schedule-class-box">
-                                <ul>
-                                    <li>
-                                        <h3 class="h3-title">چهارشنبه</h3>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">کاردیو</h3>
-                                            <span>رضا اسدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">ایروبیک</h3>
-                                            <span>سید حسین مهاجری</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">وزنه برداری</h3>
-                                            <span>علی محمدی</span>
-                                        </div>
-                                    </li>
-                                    <li></li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">بوکس</h3>
-                                            <span>سید حسین حسینی</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="schedule-class-box">
-                                <ul>
-                                    <li>
-                                        <h3 class="h3-title">پنجشنبه</h3>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">بوکس</h3>
-                                            <span>سید حسین حسینی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">یوگای قدرتی</h3>
-                                            <span>زهرا شریفی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">کاردیو</h3>
-                                            <span>رضا اسدی</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="schedule-class-text">
-                                            <h3 class="h3-title">ایروبیک</h3>
-                                            <span>سید حسین مهاجری</span>
-                                        </div>
-                                    </li>
-                                    <li></li>
-                                </ul>
-                            </div>
+                            {% for day in week_days %}
+                                <div class="schedule-class-box">
+                                    <ul>
+                                        <li>
+                                            <h3 class="h3-title">{{ day }}</h3>
+                                        </li>
+                                        {% for time in class_times %}
+                                            <li>
+                                                <div class="schedule-class-text">
+                                                    <h3 class="h3-title">{{ time.class_name }}</h3>
+                                                    <span>{{ time.coach_name }}</span>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -545,46 +256,35 @@
     <section class="main-counter">
         <div class="container">
             <div class="row counter-bg wow fadeInUp" data-wow-delay=".5s">
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="counter-box">
                         <div class="counter-content">
-                            <h2 class="h2-title counting-data" data-count="874">0</h2>
+                            <h2 class="h2-title counting-data" data-count="65">0</h2>
                             <div class="counter-text">
                                 <img src="{% static 'images/happy-client.png' %}" alt="Happy Client">
-                                <span>مشتریان خوشحال</span>
+                                <span>عضو فعال</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="counter-box">
                         <div class="counter-content">
-                            <h2 class="h2-title counting-data" data-count="987">0</h2>
+                            <h2 class="h2-title counting-data" data-count="60">0</h2>
                             <div class="counter-text">
                                 <img src="{% static 'images/total-clients.png' %}" alt="Total Clients">
-                                <span>کل مشتریان</span>
+                                <span>ورزشکاران مجموعه</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="counter-box">
                         <div class="counter-content">
-                            <h2 class="h2-title counting-data" data-count="587">0</h2>
+                            <h2 class="h2-title counting-data" data-count="100">0</h2>
                             <div class="counter-text">
                                 <img src="{% static 'images/gym-equipment.png' %}" alt="Gym Equipment">
-                                <span>تجهیزات بدنسازی</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="counter-box">
-                        <div class="counter-content">
-                            <h2 class="h2-title counting-data" data-count="748">0</h2>
-                            <div class="counter-text">
-                                <img src="{% static 'images/cup-of-coffee.png' %}" alt="Cup Of Coffee">
-                                <span>فنجان قهوه</span>
+                                <span>تجهیزات تخصصی</span>
                             </div>
                         </div>
                     </div>
@@ -604,9 +304,9 @@
                 <div class="col-lg-12">
                     <div class="team-title">
                         <div class="subtitle">
-                            <h2 class="h2-subtitle">مربیان برتر</h2>
+                            <h2 class="h2-subtitle">تیم</h2>
                         </div>
-                        <h2 class="h2-title">برترین مربیان باشگاه</h2>
+                        <h2 class="h2-title">مربیان باشگاه</h2>
                     </div>
                 </div>
             </div>

@@ -6,4 +6,6 @@ class HomeView(View):
     template_name = "Home/index.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        from Classes.models import Time
+        week_days = ["شنبه", "یک شنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه"]
+        return render(request, self.template_name, {"class_times": Time.objects.all(), "week_days": week_days})

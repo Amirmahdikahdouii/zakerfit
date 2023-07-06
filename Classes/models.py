@@ -18,3 +18,6 @@ class Time(models.Model):
     @property
     def place_remain(self):
         return self.place_count - self.athlete_count
+
+    def get_place_remain_percentage(self):
+        return self.athlete_count * 100 // self.place_count
