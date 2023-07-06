@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     # Apps:
     "Home.apps.HomeConfig",
     "Accounts.apps.AccountsConfig",
+    "Classes.apps.ClassesConfig",
 ]
 
 MIDDLEWARE = [
