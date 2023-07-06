@@ -113,14 +113,4 @@
 {% block script %}
     <script src="{% static 'js/jalalidatepicker.min.js' %}"></script>
     <script src="{% static 'js/Accounts/profile.js' %}"></script>
-    <script>
-        let changeImageButton = document.getElementById("change-image-button");
-        let submitChangeImageButton = document.getElementById("submit-change-image-button");
-        let changeImageInput = document.getElementById("change-image-input");
-        changeImageButton.addEventListener("click", () => {
-            changeImageInput.click();
-            changeImageButton.classList.add("d-none");
-            submitChangeImageButton.classList.remove("d-none")
-        });
-    </script>
 {% endblock %}

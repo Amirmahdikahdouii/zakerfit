@@ -1,6 +1,10 @@
 jalaliDatepicker.startWatch();
 let changeBirthdayButton = document.getElementById("change-birthday-button");
 let changeGenderTypeButton = document.getElementById("change-gender-type-button");
+let changeImageButton = document.getElementById("change-image-button");
+let submitChangeImageButton = document.getElementById("submit-change-image-button");
+let changeImageInput = document.getElementById("change-image-input");
+
 changeBirthdayButton.addEventListener("change", () => {
     let url = `/Accounts/change-user-birthday/`;
     let data = {
@@ -44,4 +48,40 @@ changeGenderTypeButton.addEventListener("click", () => {
                 userGenderType.innerText = `خانم`;
             }
         })
+})
+
+changeImageButton.addEventListener("click", () => {
+    changeImageInput.click();
+    changeImageButton.classList.add("d-none");
+    submitChangeImageButton.classList.remove("d-none")
+});
+submitChangeImageButton.addEventListener("click", (e) => {
+    const uploadAgainWorks = (alertText) => {
+        e.preventDefault();
+        changeImageButton.classList.remove("d-none");
+        submitChangeImageButton.classList.add("d-none");
+        changeImageInput.value = '';
+        changeImageInput.type = '';
+        changeImageInput.type = 'file';
+        Swal.fire({
+            icon: "warning",
+            title: "هشدار!",
+            text: alertText,
+            timer: 3000,
+            showConfirmButton: false,
+            position: "center",
+        })
+    }
+    if (changeImageInput.files.length !== 1) {
+        uploadAgainWorks("عکسی انتخاب نشده است");
+        return null;
+    } else if (changeImageInput.files.length > 1) {
+        uploadAgainWorks("لطفا فقط یک فایل انتخاب کنید");
+        return null;
+    }
+    file = changeImageInput.files[0];
+    if (!file.type.startsWith("image/")) {
+        uploadAgainWorks("لطفا فقط عکس انتخاب کنید.");
+        return null;
+    }
 })

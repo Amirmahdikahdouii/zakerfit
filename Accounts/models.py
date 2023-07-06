@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.core.validators import RegexValidator
 from .managers import UserManager
+from Classes.models import Time
 
 
 class IranPhoneNumberValidator(RegexValidator):
@@ -27,7 +28,7 @@ class ShamsiDateField(models.DateField):
         if isinstance(value, dict):
             return jdatetime.date(value['year'], value['month'], value['day']).togregorian()
         elif isinstance(value, datetime.date):
-            return jdatetime.date.fromgregorian(year=value.year, month=value.month, day=value.day)
+            return jdatetime.date(year=value.year, month=value.month, day=value.day)
         return None
 
     def get_prep_value(self, value):
@@ -64,6 +65,7 @@ class User(AbstractBaseUser):
     is_superuser = models.BooleanField(default=False)
     join_date = models.DateTimeField(auto_now_add=True)
     profile_image = models.ImageField(upload_to=change_profile_name, null=True, blank=True)
+    class_time = models.OneToOneField(Time, on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = UserManager()
     USERNAME_FIELD = 'phone_number'
