@@ -8,6 +8,7 @@ class TimeAdmin(admin.ModelAdmin):
 
     list_display = ("__str__", "athlete_count", 'has_place_remain')
     list_filter = ("has_place_remain",)
+    prepopulated_fields = {"slug": ("en_title",)}
 
 
 class PrivateOnlineClassAdmin(admin.ModelAdmin):

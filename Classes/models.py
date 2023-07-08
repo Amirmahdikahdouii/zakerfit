@@ -5,12 +5,14 @@ from Accounts.utils import ShamsiDateField
 
 class Time(models.Model):
     title = models.CharField(max_length=500)
+    en_title = models.CharField(max_length=300, null=True, blank=True)
     place_count = models.PositiveSmallIntegerField()
     athlete_count = models.PositiveSmallIntegerField(default=0, blank=True)
     has_place_remain = models.BooleanField(default=True)
     class_name = models.CharField(max_length=150, null=True, blank=True, default="کراسفیت")
     coach = models.OneToOneField("Coach.Coach", on_delete=models.SET_NULL, null=True, blank=True,
                                  related_name="crossfit_times")
+    slug = models.SlugField(null=True, blank=True)
 
     objects = TimeManager()
 

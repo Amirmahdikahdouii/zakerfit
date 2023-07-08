@@ -16,6 +16,7 @@ class Coach(models.Model):
     picture = models.ImageField(upload_to=change_coach_image_name, null=True, blank=True)
     about = models.TextField()
     is_active = models.BooleanField(default=True)
+    slug = models.SlugField(null=True, blank=True)
 
     def __str__(self):
         return self.en_name
