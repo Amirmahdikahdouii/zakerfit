@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Time
+from .models import Time, PrivateOnlineClass, GroupOnlineClass
 
 
 class TimeAdmin(admin.ModelAdmin):
@@ -10,4 +10,20 @@ class TimeAdmin(admin.ModelAdmin):
     list_filter = ("has_place_remain",)
 
 
+class PrivateOnlineClassAdmin(admin.ModelAdmin):
+    class Meta:
+        model = PrivateOnlineClass
+
+    list_display = ("__str__",)
+
+
+class GroupOnlineClassAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "athlete_count")
+
+    class Meta:
+        model = GroupOnlineClass
+
+
 admin.site.register(Time, TimeAdmin)
+admin.site.register(PrivateOnlineClass, PrivateOnlineClassAdmin)
+admin.site.register(GroupOnlineClass, GroupOnlineClassAdmin)

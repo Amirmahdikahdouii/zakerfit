@@ -1,5 +1,5 @@
 from django.db import models
-from Accounts.models import User
+from django.contrib.auth import get_user_model
 
 
 def change_coach_image_name(instance, filename):
@@ -31,7 +31,7 @@ class RateChoices(models.IntegerChoices):
 
 class CoachRate(models.Model):
     coach = models.OneToOneField(Coach, on_delete=models.CASCADE, related_name="rates")
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="coach_rates",
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name="coach_rates",
                                 related_query_name="coach_rated_by")
     rate = models.PositiveSmallIntegerField(choices=RateChoices.choices)
 

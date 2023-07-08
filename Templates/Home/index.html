@@ -149,49 +149,59 @@
                 <div class="col-lg-12">
                     <div class="classes-title">
                         <div class="subtitle">
-                            <h2 class="h2-subtitle">کلاس های ما</h2>
+                            <h2 class="h2-subtitle">آنلاین</h2>
                         </div>
-                        <h2 class="h2-title">کلاس های تناسب اندام برای هر هدف</h2>
+                        <h2 class="h2-title">کلاس های آنلاین</h2>
                     </div>
                 </div>
             </div>
             <div class="row class-slider" id="counter">
-                {% for class in class_times %}
+                {% for class in online_classes %}
                     <div class="col-lg-4">
                         <div class="class-box wow fadeInUp" data-wow-delay=".5s">
-                            <div class="class-img">
-                                <img src="{% static 'images/blog1.jpg' %}" alt="Class">
+                            <div class="class-img"
+                                 style="max-height: 200px; min-height: 200px">
+                                <img src="{{ class.image.url }}" alt="{{ class.slug }}">
                             </div>
-                            <div class="class-box-contant">
+                            <div class="class-box-contant" style="min-height: 240px; max-height: 240px">
                                 <div class="class-box-title">
                                     <div class="class-box-icon">
                                         <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
                                     </div>
                                     <a href="class-detail.html">
                                         <h3 class="h3-title">
-                                            {{ class.class_name }}
+                                            {% if class.is_online_class %}
+                                                کلاس آنلاین خصوصی
+                                            {% else %}
+                                                کلاس آنلاین گروهی
+                                            {% endif %}
                                             <br>
                                             {{ class.title }}
                                         </h3>
                                     </a>
                                 </div>
                                 <p>
-                                    مربی: {{ class.coach_name }}
+                                    مربی: {{ class.get_coach_name }}
                                 </p>
-                                <div class="class-full" id="progress_bar">
-                                    <div class="class-full-bar-box">
-                                        <h3 class="h3-title">تکمیل</h3>
-                                        <div class="class-full-bar-percent">
-                                            <h3 class="h3-title counting-data"
-                                                data-count="{{ class.get_place_remain_percentage }}">0</h3>
-                                            <span>%</span>
-                                        </div>
-                                        <div class="skill-bar class-bar"
-                                             data-width="{{ class.get_place_remain_percentage }}%">
-                                            <div class="skill-bar-inner class-bar-in"></div>
+                                {% if class.is_online_class %}
+                                    <a href="" class="btn btn-outline-danger">اطلاعات بیشتر و ثبت نام</a>
+                                {% else %}
+                                    <div class="class-full" id="progress_bar">
+                                        <div class="class-full-bar-box">
+                                            <h3 class="h3-title">تکمیل</h3>
+                                            <div class="class-full-bar-percent">
+                                                <h3 class="h3-title counting-data"
+                                                    data-count="{{ class.get_place_remain_percentage }}">0</h3>
+                                                <span>%</span>
+                                            </div>
+                                            <div class="skill-bar class-bar"
+                                                 data-width="{{ class.get_place_remain_percentage }}%">
+                                                <div class="skill-bar-inner class-bar-in"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <span>ظرفیت باقی مانده: {{ class.place_remain }}/{{ class.place_count }}</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
