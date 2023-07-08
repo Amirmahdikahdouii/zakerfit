@@ -1,5 +1,6 @@
 {% load static %}
 {% url "Home:home_view" as HomeURL %}
+{% url 'Classes:classes_index' as ClassIndex %}
 <header class="site-header">
     <!--Navbar Start  -->
     <div class="header-bottom">
@@ -33,12 +34,10 @@
                                         <a href="{{ HomeURL }}">صفحه اصلی</a>
                                     </li>
                                     <li><a href="about-us.html">درباره ما</a></li>
-                                    <li class="sub-items">
-                                        <a href="javascript:void(0);" title="Classes">کلاس ها</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="classes.html" title="Classes">کلاس های ما</a></li>
-                                            <li><a href="class-detail.html" title="Class Detail">جزئیات کلاس</a></li>
-                                        </ul>
+                                    <li class="{% if request.path == ClassIndex %}active{% endif %}">
+                                        <a href="{{ ClassIndex }}" title="Classes">
+                                            کلاس ها
+                                        </a>
                                     </li>
                                     <li class="sub-items">
                                         <a href="javascript:void(0);" title="Pages">صفحات</a>

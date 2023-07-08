@@ -34,6 +34,7 @@ class PrivateOnlineClass(models.Model):
     coach = models.OneToOneField("Coach.Coach", null=True, blank=True, on_delete=models.SET_NULL,
                                  related_name="online_class")
     slug = models.SlugField()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -44,6 +45,19 @@ class PrivateOnlineClass(models.Model):
 
     def get_coach_name(self):
         return self.coach.name
+
+    def get_class_url(self):
+        from django.shortcuts import reverse
+        return reverse("Classes:private_class_view", kwargs={"slug": self.slug})
+
+    @staticmethod
+    def get_class_type():
+        return "کلاس آنلاین خصوصی"
+
+    @staticmethod
+    def get_class_type_url():
+        from django.shortcuts import reverse
+        return reverse("Classes:private_classes")
 
 
 class GroupOnlineClass(models.Model):
@@ -56,6 +70,7 @@ class GroupOnlineClass(models.Model):
     start_time = ShamsiDateField(null=True, blank=True)
     place_count = models.PositiveSmallIntegerField()
     athlete_count = models.PositiveSmallIntegerField(default=0, blank=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -66,3 +81,16 @@ class GroupOnlineClass(models.Model):
 
     def get_place_remain_percentage(self):
         return self.athlete_count * 100 // self.place_count
+
+    def get_class_url(self):
+        from django.shortcuts import reverse
+        return reverse("Classes:group_class_view", kwargs={"slug": self.slug})
+
+    @staticmethod
+    def get_class_type():
+        return "کلاس آنلاین گروهی"
+
+    @staticmethod
+    def get_class_type_url():
+        from django.shortcuts import reverse
+        return reverse("Classes:group_classes")

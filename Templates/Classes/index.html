@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}کلاس ها{% endblock %}
+{% block content %}
+    {% url 'Classes:group_classes' as GroupClassesURL %}
+    {% url 'Classes:private_classes' as PrivateClassesURL %}
+    <!--Banner Start-->
+    <section class="main-inner-banner jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
+             style="background-image: url('{% static 'images/classes-in-banner.jpg' %}');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-in-title">
+                        <h1 class="h1-title">کلاس های ما</h1>
+                    </div>
+                    <div class="banner-breadcum">
+                        <ul>
+                            <li><a href="{% url 'Home:home_view' %}">صفحه اصلی</a></li>
+                            <li><i class="fa fa-chevron-left"></i></li>
+                            <li><a href="{% url 'Classes:classes_index' %}">کلاس ها</a></li>
+                            {% if request.path == GroupClassesURL %}
+                                <li><i class="fa fa-chevron-left"></i></li>
+                                <li><a href="{{ GroupClassesURL }}">کلاس های گروهی</a></li>
+                            {% endif %}
+                            {% if request.path == PrivateClassesURL %}
+                                <li><i class="fa fa-chevron-left"></i></li>
+                                <li><a href="{{ PrivateClassesURL }}">کلاس های خصوصی</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Banner End-->
+
+    <!--Classes Start-->
+    <section class="main-classes-in">
+        <div class="container">
+            <div class="row" id="counter">
+                {% for class in classes %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="class-img">
+                                <img src="{{ class.image.url }}" alt="Class">
+                            </div>
+                            <div class="class-box-contant">
+                                <div class="class-box-title">
+                                    <div class="class-box-icon">
+                                        <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
+                                    </div>
+                                    <a href="{{ class.get_class_url }}">
+                                        <h3 class="h3-title">
+                                            {{ class.get_class_type }}
+                                            <br>
+                                            {{ class.title }}
+                                        </h3>
+                                    </a>
+                                </div>
+                                <p class="text-justify">{{ class.description|truncatewords:20 }}</p>
+                                <div class="class-full" id="progress_bar">
+                                    <div class="class-full-bar-box">
+                                        <h3 class="h3-title">تکمیل</h3>
+                                        <div class="class-full-bar-percent">
+                                            <h3 class="h3-title counting-data"
+                                                data-count="{{ class.get_place_remain_percentage }}">0</h3>
+                                            <span>%</span>
+                                        </div>
+                                        <div class="skill-bar class-bar"
+                                             data-width="{{ class.get_place_remain_percentage }}%">
+                                            <div class="skill-bar-inner class-bar-in"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!--Classes End-->
+{% endblock %}
