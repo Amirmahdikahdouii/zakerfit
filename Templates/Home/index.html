@@ -311,64 +311,39 @@
                 </div>
             </div>
             <div class="row team-slider">
-                <div class="col-lg-3">
-                    <div class="team-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="team-img-box team-border-one">
-                            <div class="team-img">
-                                <img src="{% static 'images/mohammadreza-zakeri1.jpg' %}" alt="Trainer">
+                {% for coach in coaches %}
+                    <div class="col-lg-3">
+                        <div class="team-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="team-img-box team-border-one">
+                                <div class="team-img">
+                                    <img src="{{ coach.picture.url }}" alt="{{ coach.en_name|capfirst }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="team-content">
-                            <a href="team-detail.html">
-                                <h3 class="h3-title team-text-color">محمدرضا ذاکری</h3>
-                            </a>
-                            <span>موسس مایوستاتین و مربی کراسفیت</span>
-                            <div class="team-social">
-                                <ul>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-twitter"
-                                                                         aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="team-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="team-img-box team-border-one">
-                            <div class="team-img">
-                                <img src="{% static 'images/mohammadreza-zakeri2.jpg' %}" alt="Trainer">
-                            </div>
-                        </div>
-                        <div class="team-content">
-                            <a href="team-detail.html">
-                                <h3 class="h3-title team-text-color">سهیل منصوری</h3>
-                            </a>
-                            <span>مربی کراسفیت</span>
-                            <div class="team-social">
-                                <ul>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);"><i class="fa fa-twitter"
-                                                                         aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
+                            <div class="team-content">
+                                <a href="team-detail.html">
+                                    <h3 class="h3-title team-text-color">{{ coach.name }}</h3>
+                                </a>
+                                <span>{{ coach.about }}</span>
+                                <div class="team-social">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0);"><i class="fa fa-facebook"
+                                                                             aria-hidden="true"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);"><i class="fa fa-instagram"
+                                                                             aria-hidden="true"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);"><i class="fa fa-twitter"
+                                                                             aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

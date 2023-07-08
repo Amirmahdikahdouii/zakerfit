@@ -8,7 +8,6 @@ class Time(models.Model):
     athlete_count = models.PositiveSmallIntegerField(default=0, blank=True)
     has_place_remain = models.BooleanField(default=True)
     class_name = models.CharField(max_length=150, null=True, blank=True, default="کراسفیت")
-    coach_name = models.CharField(max_length=200, null=True, blank=True, default="محمدرضا ذاکری")
 
     objects = TimeManager()
 

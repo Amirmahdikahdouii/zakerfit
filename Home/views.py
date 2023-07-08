@@ -7,5 +7,11 @@ class HomeView(View):
 
     def get(self, request):
         from Classes.models import Time
+        from Coach.models import Coach
         week_days = ["شنبه", "یک شنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه"]
-        return render(request, self.template_name, {"class_times": Time.objects.all(), "week_days": week_days})
+        coaches = Coach.objects.all()
+        return render(request, self.template_name, {
+            "class_times": Time.objects.all(),
+            "week_days": week_days,
+            "coaches": coaches
+        })
