@@ -94,3 +94,19 @@ class GroupOnlineClass(models.Model):
     def get_class_type_url():
         from django.shortcuts import reverse
         return reverse("Classes:group_classes")
+
+
+class GroupClassBenefits(models.Model):
+    _class = models.ForeignKey(GroupOnlineClass, on_delete=models.CASCADE, related_name="benefits")
+    title = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.title
+
+
+class PrivateClassBenefits(models.Model):
+    _class = models.ForeignKey(PrivateOnlineClass, on_delete=models.CASCADE, related_name="benefits")
+    title = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.title
