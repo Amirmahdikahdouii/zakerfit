@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}کلاس ها{% endblock %}
 {% block content %}
+    {% url 'Classes:classes_index' as ClassesURL %}
     {% url 'Classes:group_classes' as GroupClassesURL %}
     {% url 'Classes:private_classes' as PrivateClassesURL %}
     <!--Banner Start-->
@@ -30,6 +31,19 @@
                     </div>
                 </div>
             </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h5 class="text-light">فیلتر نتایج: </h5>
+                    <a href="{{ ClassesURL }}"
+                       class="btn {% if request.path == ClassesURL %} btn-warning{% else %} btn-outline-warning{% endif %} text-light">همه</a>
+                    <a href="{{ GroupClassesURL }}"
+                       class="btn {% if request.path == GroupClassesURL %} btn-warning{% else %} btn-outline-warning{% endif %} text-light">کلاس
+                        های گروهی</a>
+                    <a href="{{ PrivateClassesURL }}"
+                       class="btn {% if request.path == PrivateClassesURL %} btn-warning{% else %} btn-outline-warning{% endif %} text-light">کلاس
+                        های خصوصی</a>
+                </div>
+            </div>
         </div>
     </section>
     <!--Banner End-->
@@ -41,10 +55,10 @@
                 {% for class in classes %}
                     <div class="col-lg-4 col-md-6">
                         <div class="class-box wow fadeInUp" data-wow-delay=".5s">
-                            <div class="class-img">
+                            <div class="class-img" style="min-height: 220px; max-height: 220px">
                                 <img src="{{ class.image.url }}" alt="Class">
                             </div>
-                            <div class="class-box-contant">
+                            <div class="class-box-contant" style="min-height: 250px; max-height: 250px">
                                 <div class="class-box-title">
                                     <div class="class-box-icon">
                                         <img src="{% static 'images/class-icon1.png' %}" alt="Icon">

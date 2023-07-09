@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}صفحه مورد نظر یافت نشد!{% endblock %}
+{% block content %}
+    <!--Error Start-->
+    <div class="main-error-404-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="error-404-img">
+                        <img src="{% static 'images/error-404.png' %}" alt="Error 404">
+                    </div>
+                    <div class="error-404-content">
+                        <h2 class="h2-title"> متاسفم که نمی توانیم آن صفحه را پیدا کنیم!</h2>
+                        <p>صفحه ای که به دنبال آن هستید منتقل شده، حذف شده، تغییر نام داده شده یا هرگز وجود نداشته
+                            است.</p>
+                        <a href="{% url 'Home:home_view' %}" class="sec-btn">بازگشت به صفحه اصلی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Error End-->
+{% endblock %}

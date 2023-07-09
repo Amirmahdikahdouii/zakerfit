@@ -44,73 +44,95 @@
                                     class="fa fa-chevron-left"></i></a></li>
                             <li><a href="privateclass-detail.html"><span>کلاس های کاردیو و قدرتی</span><i
                                     class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="privateclass-detail.html"><span>کلاس یوگای قدرتی</span><i
-                                    class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="privateclass-detail.html"><span>کلاس های تغذیه سلامت</span><i
-                                    class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="privateclass-detail.html"><span>کلاس های بوکس و هنرهای رزمی</span><i
-                                    class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="privateclass-detail.html"><span>کلاس کاراته</span><i
-                                    class="fa fa-chevron-left"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="download-brochure wow fadeInRight" data-wow-delay=".6s">
-                        <h3 class="h3-title">دانلود بروشور</h3>
-                        <div class="line"></div>
-                        <p>دانلود جزئیات برای مراجعه به تمرینات و روند سلامت تناسب اندام</p>
-                        <ul>
-                            <li>
-                                <a href="assets/images/placeholder-pdf.pdf" download="placeholder-pdf.html">
-                                    <img src="assets/images/pdf.png" alt="Icon">
-                                    <div class="brochure-text">
-                                        <span>Brochure.Pdf</span>
-                                        <span>1.25Mb</span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="assets/images/placeholder-pdf.pdf" download="placeholder-pdf.html">
-                                    <img src="assets/images/pdf.png" alt="Icon">
-                                    <div class="brochure-text">
-                                        <span>Brochure.Pdf</span>
-                                        <span>1.25Mb</span>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                     <div class="join-class wow fadeInRight" data-wow-delay=".7s" id="counter">
-                        <h3 class="h3-title">به کلاس ها بپیوندید</h3>
+                        <h3 class="h3-title">اطلاعات دوره:</h3>
                         <div class="line"></div>
                         <ul>
+                            {% if class.place_count %}
+                                <li>
+                                    <div class="join-class-icon"><img src="{% static 'images/total-clients.png' %}"
+                                                                      alt="Icon"></div>
+                                    <div class="join-class-text">
+                                        <span>ظرفیت کلاس:</span><span>{{ class.place_count }}</span></div>
+                                </li>
+                            {% endif %}
+                            {% if class.athlete_count %}
+                                <li>
+                                    <div class="join-class-icon"><img src="{% static 'images/join-class2.png' %}"
+                                                                      alt="Icon"></div>
+                                    <div class="join-class-text">
+                                        <span>تعداد ثبت نام:</span><span>{{ class.athlete_count }}</span></div>
+                                </li>
+                            {% endif %}
                             <li>
-                                <div class="join-class-icon"><img src="assets/images/join-class1.png" alt="Icon"></div>
-                                <div class="join-class-text"><span>خدمات:</span><span>وزنه برداری</span></div>
-                            </li>
-                            <li>
-                                <div class="join-class-icon"><img src="assets/images/join-class2.png" alt="Icon"></div>
+                                <div class="join-class-icon"><img src="{% static 'images/join-class1.png' %}"
+                                                                  alt="Icon"></div>
                                 <div class="join-class-text"><span>آموزش:</span><span>مربی شخصی</span></div>
                             </li>
                             <li>
-                                <div class="join-class-icon"><img src="assets/images/join-class3.png" alt="Icon"></div>
+                                <div class="join-class-icon"><img src="{% static 'images/join-class3.png' %}"
+                                                                  alt="Icon"></div>
                                 <div class="join-class-text"><span>مدت:</span><span>6-8 هفته</span></div>
                             </li>
+                            {% if class.start_time %}
+                                <li>
+                                    <div class="join-class-icon"><img src="{% static 'images/clock-1.png' %}"
+                                                                      alt="Icon"></div>
+                                    <div class="join-class-text">
+                                        <span>تاریخ شروع:</span><span dir="ltr">{{ class.get_start_time }}</span>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if class.sessions_count %}
+                                <li>
+                                    <div class="join-class-icon">
+                                        <i class="text-light fs-5 fa fa-sort-amount-asc"></i>
+                                    </div>
+                                    <div class="join-class-text">
+                                        <span>تعداد کل جلسات:</span><span dir="ltr">{{ class.sessions_count }}</span>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if class.sessions_count_in_week %}
+                                <li>
+                                    <div class="join-class-icon">
+                                        <i class="text-light fs-5 fa fa-sort-numeric-asc"></i>
+                                    </div>
+                                    <div class="join-class-text">
+                                        <span>تعداد جلسات در هفته:</span><span
+                                            dir="ltr">{{ class.sessions_count_in_week }}</span>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if class.sessions_duration %}
+                                <li>
+                                    <div class="join-class-icon"><i class="text-light fs-5 fa fa-info"></i></div>
+                                    <div class="join-class-text">
+                                        <span>طول هر جلسه:</span><span>{{ class.sessions_duration }} دقیقه</span>
+                                    </div>
+                                </li>
+                            {% endif %}
                         </ul>
                         <div class="class-full" id="progress_bar">
                             <div class="class-full-bar-box">
                                 <h3 class="h3-title">تکمیل</h3>
                                 <div class="class-full-bar-percent">
-                                    <h3 class="h3-title counting-data" data-count="85">0</h3><span>%</span>
+                                    <h3 class="h3-title counting-data"
+                                        data-count="{{ class.get_place_remain_percentage }}">0</h3><span>%</span>
                                 </div>
-                                <div class="skill-bar class-bar" data-width="85%">
+                                <div class="skill-bar class-bar" data-width="{{ class.get_place_remain_percentage }}%">
                                     <div class="skill-bar-inner class-bar-in"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="join-class-price">
-                            <h4>50 تومان<span>/ماه</span></h4>
-                            <div class="price-discount">50% تخفیف</div>
-                        </div>
+                        {% if class.price %}
+                            <div class="join-class-price">
+                                <h4>{{ class.get_price }} تومان<span>/ماه</span></h4>
+                                <div class="price-discount">50% تخفیف</div>
+                            </div>
+                        {% endif %}
                         <a href="javascript:void(0);" class="sec-btn">اکنون به کلاس بپیوندید</a>
                     </div>
                 </div>
@@ -161,44 +183,29 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="points">
                                         <ul>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>به تعادل بدن شما کمک می کند</p>
-                                            </li>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>بدن خود را با فرم خوب بسازید</p>
-                                            </li>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>گردش کار خود را بهبود بخشید</p>
-                                            </li>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>کاهش استرس روانی</p>
-                                            </li>
+                                            {% for benefit in class.benefits.all %}
+                                                {% if forloop.counter0|divisibleby:2 %}
+                                                    <li>
+                                                        <div class="point-object"></div>
+                                                        <p>{{ benefit.title }}</p>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="points">
                                         <ul>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>طرح عضویت عالی</p>
-                                            </li>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>تمرین روزانه تناسب اندام</p>
-                                            </li>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>حداکثر نتایج در زمان کمتر</p>
-                                            </li>
-                                            <li>
-                                                <div class="point-object"></div>
-                                                <p>داشتن ران های باریک تر</p>
-                                            </li>
+                                            {% for benefit in class.benefits.all %}
+                                                {% if forloop.counter0|divisibleby:2 %}
+                                                {% else %}
+                                                    <li>
+                                                        <div class="point-object"></div>
+                                                        <p>{{ benefit.title }}</p>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>
@@ -224,48 +231,15 @@
                                 <div class="line"></div>
                                 <div class="class-detail-time-main-box">
                                     <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="class-detail-time-box">
-                                                <span>دو شنبه</span>
-                                                <span>8:00 - 9:00 ق.ظ</span>
-                                                <span>علی محمدی</span>
+                                        {% for time in class.times.all %}
+                                            <div class="col-lg-4 col-md-4 col-sm-6">
+                                                <div class="class-detail-time-box">
+                                                    <span>{{ time.day }}</span>
+                                                    <span dir="ltr">{{ time.time }}</span>
+                                                    <span>{{ class.coach.name }}</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="class-detail-time-box">
-                                                <span>سه شنبه</span>
-                                                <span>8:00 - 9:00 ق.ظ</span>
-                                                <span>علی محمدی</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="class-detail-time-box">
-                                                <span>چهارشنبه</span>
-                                                <span>8:00 - 9:00 ق.ظ</span>
-                                                <span>علی محمدی</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="class-detail-time-box">
-                                                <span>پنجشنبه</span>
-                                                <span>8:00 - 9:00 ق.ظ</span>
-                                                <span>علی محمدی</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="class-detail-time-box">
-                                                <span>جمعه</span>
-                                                <span>8:00 - 9:00 ق.ظ</span>
-                                                <span>علی محمدی</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-6">
-                                            <div class="class-detail-time-box">
-                                                <span>یکشنبه</span>
-                                                <span>8:00 - 9:00 ق.ظ</span>
-                                                <span>علی محمدی</span>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
