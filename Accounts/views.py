@@ -103,7 +103,7 @@ class ChangeUserBirthdayView(LoginRequiredMixin, View):
         import jdatetime
         data = json.loads(request.body)
         date = list(map(int, data.get("date").split("/")))
-        request.user.birthday = jdatetime.date(year=date[0], month=date[1], day=date[2])
+        request.user.birthday = jdatetime.date(year=date[0], month=date[1], day=date[2]).togregorian()
         request.user.save()
         return HttpResponse(status=200)
 

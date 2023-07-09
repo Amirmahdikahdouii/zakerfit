@@ -19,12 +19,10 @@ class ShamsiDateField(models.DateField):
         import jdatetime
         return jdatetime.date.fromgregorian(year=value.year, month=value.month, day=value.day)
 
-    def to_python(self, value: dict):
+    def to_python(self, value):
         import jdatetime
         import datetime
-        if isinstance(value, dict):
-            return jdatetime.date(value['year'], value['month'], value['day']).togregorian()
-        elif isinstance(value, datetime.date):
+        if isinstance(value, datetime.date):
             return jdatetime.date(year=value.year, month=value.month, day=value.day)
         return None
 
@@ -32,4 +30,4 @@ class ShamsiDateField(models.DateField):
         if value is None:
             return None
         import jdatetime
-        return jdatetime.date(value.year, value.month, value.day).togregorian()
+        return jdatetime.date(value.year, value.month, value.day)
