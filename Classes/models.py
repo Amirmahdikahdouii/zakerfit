@@ -71,6 +71,11 @@ class GroupOnlineClass(models.Model):
     place_count = models.PositiveSmallIntegerField()
     athlete_count = models.PositiveSmallIntegerField(default=0, blank=True)
     is_active = models.BooleanField(default=True)
+    sessions_count = models.PositiveSmallIntegerField(default=12)
+    sessions_count_in_week = models.PositiveSmallIntegerField(default=3)
+    # Sessions Duration in minutes:
+    sessions_duration = models.PositiveSmallIntegerField(default=60)
+    price = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -97,6 +102,9 @@ class GroupOnlineClass(models.Model):
 
     def get_start_time(self):
         return str(self.start_time).replace("-", "/")
+
+    def get_price(self):
+        return "{:,}".format(self.price)
 
 
 class GroupClassBenefits(models.Model):
