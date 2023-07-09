@@ -95,6 +95,9 @@ class GroupOnlineClass(models.Model):
         from django.shortcuts import reverse
         return reverse("Classes:group_classes")
 
+    def get_start_time(self):
+        return str(self.start_time).replace("-", "/")
+
 
 class GroupClassBenefits(models.Model):
     _class = models.ForeignKey(GroupOnlineClass, on_delete=models.CASCADE, related_name="benefits")
@@ -110,3 +113,12 @@ class PrivateClassBenefits(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class GroupOnlineClassTime(models.Model):
+    _class = models.ForeignKey(GroupOnlineClass, on_delete=models.CASCADE, related_name="times")
+    day = models.CharField(max_length=40)
+    time = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self._class.title}-{self.day}-{self.time}"

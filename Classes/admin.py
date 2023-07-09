@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Time, PrivateOnlineClass, GroupOnlineClass, GroupClassBenefits, PrivateClassBenefits
+from .models import Time, PrivateOnlineClass, GroupOnlineClass, GroupClassBenefits, PrivateClassBenefits, \
+    GroupOnlineClassTime
 
 
 class TimeAdmin(admin.ModelAdmin):
@@ -30,3 +31,4 @@ admin.site.register(PrivateOnlineClass, PrivateOnlineClassAdmin)
 admin.site.register(GroupOnlineClass, GroupOnlineClassAdmin)
 admin.site.register(GroupClassBenefits)
 admin.site.register(PrivateClassBenefits)
+admin.site.register(GroupOnlineClassTime)
