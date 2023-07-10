@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    {{ class.title }}
+    {{ class.get_class_type_name }} {{ class.title }}
 {% endblock %}
 {% block content %}
     {% url "Classes:group_class_view" class.slug as GroupClassDetailView %}
@@ -20,7 +20,7 @@
                             <li><i class="fa fa-chevron-left"></i></li>
                             <li><a href="{% url 'Classes:classes_index' %}">کلاس ها</a></li>
                             <li><i class="fa fa-chevron-left"></i></li>
-                            <li><a href="{{ class.get_class_type_url }}">{{ class.get_class_type }}</a></li>
+                            <li><a href="{{ class.get_class_type_url }}">{{ class.get_class_type_name }}</a></li>
                             <li><i class="fa fa-chevron-left"></i></li>
                             <li><a href="{{ class.get_class_url }}">{{ class.title }}</a></li>
                         </ul>
@@ -115,25 +115,28 @@
                                 </li>
                             {% endif %}
                         </ul>
-                        <div class="class-full" id="progress_bar">
-                            <div class="class-full-bar-box">
-                                <h3 class="h3-title">تکمیل</h3>
-                                <div class="class-full-bar-percent">
-                                    <h3 class="h3-title counting-data"
-                                        data-count="{{ class.get_place_remain_percentage }}">0</h3><span>%</span>
-                                </div>
-                                <div class="skill-bar class-bar" data-width="{{ class.get_place_remain_percentage }}%">
-                                    <div class="skill-bar-inner class-bar-in"></div>
+                        {% if class.has_place %}
+                            <div class="class-full" id="progress_bar">
+                                <div class="class-full-bar-box">
+                                    <h3 class="h3-title">تکمیل</h3>
+                                    <div class="class-full-bar-percent">
+                                        <h3 class="h3-title counting-data"
+                                            data-count="{{ class.get_place_remain_percentage }}">0</h3><span>%</span>
+                                    </div>
+                                    <div class="skill-bar class-bar"
+                                         data-width="{{ class.get_place_remain_percentage }}%">
+                                        <div class="skill-bar-inner class-bar-in"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                         {% if class.price %}
                             <div class="join-class-price">
                                 <h4>{{ class.get_price }} تومان<span>/ماه</span></h4>
                                 <div class="price-discount">50% تخفیف</div>
                             </div>
                         {% endif %}
-                        <a href="javascript:void(0);" class="sec-btn">اکنون به کلاس بپیوندید</a>
+                        <a href="javascript:void(0);" class="my-3 sec-btn">اکنون به کلاس بپیوندید</a>
                     </div>
                 </div>
                 <!--Sidebar End-->
@@ -211,21 +214,21 @@
                                 </div>
                             </div>
                         </div>
-                        {% if request.path == GroupClassDetailView %}
-                            <div class="class-detail-trainer-box wow fadeInUp" data-wow-delay=".5s">
-                                <div class="class-trainer-box-img">
-                                    <img src="{{ class.coach.picture.url }}" style="max-width: 150px"
-                                         class="rounded-circle"
-                                         alt="Trainer">
-                                </div>
-                                <div class="class-trainer-box-text">
-                                    <span>مربی دوره: </span>
-                                    <a href="team-detail.html">
-                                        <h3 class="h3-title">{{ class.coach.name }}</h3>
-                                    </a>
-                                    <p>{{ coach.about|truncatewords:30 }}</p>
-                                </div>
+                        <div class="class-detail-trainer-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="class-trainer-box-img">
+                                <img src="{{ class.coach.picture.url }}" style="max-width: 150px"
+                                     class="rounded-circle"
+                                     alt="Trainer">
                             </div>
+                            <div class="class-trainer-box-text">
+                                <span>مربی دوره: </span>
+                                <a href="team-detail.html">
+                                    <h3 class="h3-title">{{ class.coach.name }}</h3>
+                                </a>
+                                <p>{{ coach.about|truncatewords:30 }}</p>
+                            </div>
+                        </div>
+                        {% if class.class_has_time %}
                             <div class="class-detail-time wow fadeInUp" data-wow-delay=".5s">
                                 <h3 class="h3-title">زمان کلاس ها</h3>
                                 <div class="line"></div>

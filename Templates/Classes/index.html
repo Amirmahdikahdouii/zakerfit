@@ -65,27 +65,34 @@
                                     </div>
                                     <a href="{{ class.get_class_url }}">
                                         <h3 class="h3-title">
-                                            {{ class.get_class_type }}
+                                            {{ class.get_class_type_name }}
                                             <br>
                                             {{ class.title }}
                                         </h3>
                                     </a>
                                 </div>
                                 <p class="text-justify">{{ class.description|truncatewords:20 }}</p>
-                                <div class="class-full" id="progress_bar">
-                                    <div class="class-full-bar-box">
-                                        <h3 class="h3-title">تکمیل</h3>
-                                        <div class="class-full-bar-percent">
-                                            <h3 class="h3-title counting-data"
-                                                data-count="{{ class.get_place_remain_percentage }}">0</h3>
-                                            <span>%</span>
-                                        </div>
-                                        <div class="skill-bar class-bar"
-                                             data-width="{{ class.get_place_remain_percentage }}%">
-                                            <div class="skill-bar-inner class-bar-in"></div>
+                                {% if class.has_place %}
+                                    <div class="class-full" id="progress_bar">
+                                        <div class="class-full-bar-box">
+                                            <h3 class="h3-title">تکمیل</h3>
+                                            <div class="class-full-bar-percent">
+                                                <h3 class="h3-title counting-data"
+                                                    data-count="{{ class.get_place_remain_percentage }}">0</h3>
+                                                <span>%</span>
+                                            </div>
+                                            <div class="skill-bar class-bar"
+                                                 data-width="{{ class.get_place_remain_percentage }}%">
+                                                <div class="skill-bar-inner class-bar-in"></div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <span>ظرفیت باقی مانده: {{ class.place_remain }}/{{ class.place_count }}</span>
+
+                                {% else %}
+                                    <a href="{{ class.get_class_url }}" class="btn btn-outline-danger">اطلاعات بیشتر و
+                                        ثبت نام</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

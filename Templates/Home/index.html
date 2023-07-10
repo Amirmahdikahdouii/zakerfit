@@ -168,13 +168,9 @@
                                     <div class="class-box-icon">
                                         <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
                                     </div>
-                                    <a href="class-detail.html">
+                                    <a href="{{ class.get_class_url }}">
                                         <h3 class="h3-title">
-                                            {% if class.is_online_class %}
-                                                کلاس آنلاین خصوصی
-                                            {% else %}
-                                                کلاس آنلاین گروهی
-                                            {% endif %}
+                                            {{ class.get_class_type_name }}
                                             <br>
                                             {{ class.title }}
                                         </h3>
@@ -183,9 +179,7 @@
                                 <p>
                                     مربی: {{ class.get_coach_name }}
                                 </p>
-                                {% if class.is_online_class %}
-                                    <a href="" class="btn btn-outline-danger">اطلاعات بیشتر و ثبت نام</a>
-                                {% else %}
+                                {% if class.has_place %}
                                     <div class="class-full" id="progress_bar">
                                         <div class="class-full-bar-box">
                                             <h3 class="h3-title">تکمیل</h3>
@@ -201,6 +195,9 @@
                                         </div>
                                     </div>
                                     <span>ظرفیت باقی مانده: {{ class.place_remain }}/{{ class.place_count }}</span>
+                                {% else %}
+                                    <a href="{{ class.get_class_url }}" class="btn btn-outline-danger">اطلاعات بیشتر و
+                                        ثبت نام</a>
                                 {% endif %}
                             </div>
                         </div>

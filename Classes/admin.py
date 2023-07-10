@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Time, PrivateOnlineClass, GroupOnlineClass, GroupClassBenefits, PrivateClassBenefits, \
-    GroupOnlineClassTime
+from .models import Time, ClassType, ClassCategory, OnlineClass, OnlineClassTime, OnlineClassBenefit
 
 
 class TimeAdmin(admin.ModelAdmin):
@@ -12,23 +11,17 @@ class TimeAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("en_title",)}
 
 
-class PrivateOnlineClassAdmin(admin.ModelAdmin):
-    class Meta:
-        model = PrivateOnlineClass
-
-    list_display = ("__str__",)
-
-
-class GroupOnlineClassAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "athlete_count")
+class OnlineClassAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "class_type", "is_active")
+    list_filter = ("is_active", "class_type")
 
     class Meta:
-        model = GroupOnlineClass
+        model = OnlineClass
 
 
 admin.site.register(Time, TimeAdmin)
-admin.site.register(PrivateOnlineClass, PrivateOnlineClassAdmin)
-admin.site.register(GroupOnlineClass, GroupOnlineClassAdmin)
-admin.site.register(GroupClassBenefits)
-admin.site.register(PrivateClassBenefits)
-admin.site.register(GroupOnlineClassTime)
+admin.site.register(ClassType)
+admin.site.register(ClassCategory)
+admin.site.register(OnlineClass, OnlineClassAdmin)
+admin.site.register(OnlineClassTime)
+admin.site.register(OnlineClassBenefit)
