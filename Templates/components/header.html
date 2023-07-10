@@ -1,6 +1,11 @@
 {% load static %}
 {% url "Home:home_view" as HomeURL %}
 {% url 'Classes:classes_index' as ClassIndex %}
+{% url 'Accounts:sign-up' as RegisterURL %}
+{% url 'Accounts:login' as LoginURL %}
+{% url 'Accounts:profile' as ProfileURL %}
+{% url 'Accounts:logout' as LogoutURL %}
+
 <header class="site-header">
     <!--Navbar Start  -->
     <div class="header-bottom">
@@ -33,7 +38,18 @@
                                     <li {% if request.path == HomeURL %}class="active"{% endif %}>
                                         <a href="{{ HomeURL }}">صفحه اصلی</a>
                                     </li>
-                                    <li><a href="about-us.html">درباره ما</a></li>
+                                    {% if request.user.is_authenticated %}
+                                        <li {% if request.path == ProfileURL %}class="active"{% endif %}>
+                                            <a href="{{ ProfileURL }}">پروفایل</a>
+                                        </li>
+                                    {% else %}
+                                        <li {% if request.path == RegisterURL %}class="active"{% endif %}>
+                                            <a href="{{ RegisterURL }}">ثبت نام</a>
+                                        </li>
+                                        <li {% if request.path == LoginURL %}class="active"{% endif %}>
+                                            <a href="{{ LoginURL }}">ورود</a>
+                                        </li>
+                                    {% endif %}
                                     <li class="{% if request.path == ClassIndex %}active{% endif %}">
                                         <a href="{{ ClassIndex }}" title="Classes">
                                             کلاس ها
@@ -54,15 +70,9 @@
                                             <li><a href="error-404.html" title="404 Error">خطای 404</a></li>
                                         </ul>
                                     </li>
-                                    <li class="sub-items">
-                                        <a href="javascript:void(0);" title="Blog">وبلاگ</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-grid.html" title="Blog Grid">شبکه بندی وبلاگ</a></li>
-                                            <li><a href="blog-list.html" title="Blog List">لیست وبلاگ</a></li>
-                                            <li><a href="blog-detail.html" title="Blog Detail">جزئیات وبلاگ</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact-us.html">ارتباط با ما</a></li>
+                                    {% if request.user.is_authenticated %}
+                                        <li><a href="{{ LogoutURL }}" class="active">خروج</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </nav>

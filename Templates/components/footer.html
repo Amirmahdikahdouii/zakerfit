@@ -5,13 +5,22 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-box-one">
                     <a href="{% url 'Home:home_view' %}">
                         <img src="{% static 'images/myostatin-logo1.png' %}" style="max-width: 100px"
                              alt="Myostatin-logo">
                     </a>
-                    <p>باکس کراسفیت مایوستاتین با به روز ترین امکانات و بهترین مربیان برای شماست</p>
+                    <p>
+                        باکس کراس فیت مایوستاتین با امکانات دوستانه و محیط VIP و کادری باتجربه و پر افتخار آماده خدمت
+                        رسانی به علاقمندان به حرفه کراس فیت می‌باشد.
+                        <br>
+                        تمام کلاس ها بصورت تخصصی
+                        <br>
+                        خصوصی و نیمه خصوصی
+                        <br>
+                        همراه با تست آنالیز و برنامه تغذیه
+                    </p>
                     <div class="footer-time">
                         <img src="{% static 'images/clock-1.png' %}" alt="Clock">
                         <div class="footer-time-text-box">
@@ -27,20 +36,19 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-box-two">
                     <h3 class="h3-title">پیوندهای ما</h3>
                     <div class="line"></div>
                     <ul>
-                        <li><a href="index.html">صفحه اصلی</a></li>
-                        <li><a href="about-us.html">درباره ما</a></li>
-                        <li><a href="class-detail.html">کلاس ها</a></li>
+                        <li><a href="{% url 'Home:home_view' %}">صفحه اصلی</a></li>
+                        <li><a href="{% url 'Classes:classes_index' %}">کلاس ها</a></li>
                         <li><a href="blog-list.html">وبلاگ</a></li>
                         <li><a href="contact-us.html">ارتباط با ما</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="footer-box-three">
                     <h3 class="h3-title">ارتباط با ما</h3>
                     <div class="line"></div>
@@ -50,7 +58,9 @@
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </div>
                             <div class="footer-contact-text">
-                                <span>ایران ، تهران ، خیابان اول ، کوچه دوم ، پلاک سوم</span>
+                                <span>
+                                     کرج - فردیس - سه راه حافظیه - بلوار ثابتی - خیابان طالقانی - مجموعه ورزشی امام علی - باشگاه کراسفیت مایوستاتین
+                                </span>
                             </div>
                         </li>
                         <li>
@@ -58,37 +68,16 @@
                                 <i class="fa fa-phone" aria-hidden="true"></i>
                             </div>
                             <div class="footer-contact-text">
-                                <span>123-456-7890</span>
-                                <span dir="ltr">+91 555 234-8765</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="footer-contact-icon">
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                            </div>
-                            <div class="footer-contact-text">
-                                <span>info@gmail.com</span>
-                                <span>services@gmail.com</span>
+                                <a href="tel:+989355358910" class="text-light">09355358910</a>
                             </div>
                         </li>
                     </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer-box-four">
-                    <h3 class="h3-title">خبرنامه</h3>
-                    <div class="line"></div>
-                    <div class="footer-subscribe-form">
-                        <input type="email" name="email" class="form-input subscribe-input" placeholder="آدرس ایمیل"
-                               required="">
-                        <button type="submit" class="sec-btn"><i class="fa fa-chevron-left"></i></button>
-                    </div>
                     <div class="footer-social">
                         <ul>
-                            <li><a href="javascript:void(0);"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="javascript:void(0);"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <li>
+                                <a href="https://www.instagram.com/crossfitmyostatin/">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i></a>
                             </li>
-                            <li><a href="javascript:void(0);"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -98,17 +87,9 @@
     <div class="footer-copyright">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 col-md-7">
+                <div class="col-lg-12 col-md-12">
                     <div class="copyright-text">
                         <span>طراحی و اجرا: <a href="https://amirmahdikahdouii.github.io/Portfolio" class="text-light">امیر مهدی کهدویی</a> </span>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-5">
-                    <div class="copyright-links">
-                        <ul>
-                            <li><a href="about-us.html">سیاست حفظ حریم خصوصی</a></li>
-                            <li><a href="about-us.html">تیم و شرایط</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

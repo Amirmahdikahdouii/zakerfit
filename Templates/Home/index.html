@@ -322,29 +322,25 @@
                     <div class="col-lg-3">
                         <div class="team-box wow fadeInUp" data-wow-delay=".5s">
                             <div class="team-img-box team-border-one">
-                                <div class="team-img">
-                                    <img src="{{ coach.picture.url }}" alt="{{ coach.en_name|capfirst }}">
+                                <div class="team-img" style="min-height: 200px; max-height: 200px">
+                                    <img src="{{ coach.picture.url }}" alt="{{ coach.en_name|capfirst }}"
+                                         style="min-height: 200px; max-height: 200px">
                                 </div>
                             </div>
-                            <div class="team-content">
+                            <div class="team-content" style="min-height: 300px; max-height: 300px">
                                 <a href="team-detail.html">
                                     <h3 class="h3-title team-text-color">{{ coach.name }}</h3>
                                 </a>
-                                <span>{{ coach.about }}</span>
+                                <span>{{ coach.coach_info }}</span>
                                 <div class="team-social">
                                     <ul>
-                                        <li>
-                                            <a href="javascript:void(0);"><i class="fa fa-facebook"
-                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><i class="fa fa-instagram"
-                                                                             aria-hidden="true"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);"><i class="fa fa-twitter"
-                                                                             aria-hidden="true"></i></a>
-                                        </li>
+                                        {% for social_media in coach.social_medias.all %}
+                                            <li>
+                                                <a href="{{ social_media.url }}"><i
+                                                        class="fa fa-{{ social_media.get_social_media_display }}"
+                                                        aria-hidden="true"></i></a>
+                                            </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
