@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{ coach.en_name }}
+{% endblock %}
+{% block content %}
+    <!--Banner Start-->
+    <section class="main-inner-banner jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
+             style="background-image: url('{% static 'images/classes-in-banner.jpg' %}');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="banner-in-title">
+                        <h1 class="h1-title">{{ coach.name }}</h1>
+                    </div>
+                    <div class="banner-breadcum">
+                        <ul>
+                            <li><a href="{% url 'Home:home_view' %}">صفحه اصلی</a></li>
+                            <li><i class="fa fa-chevron-left"></i></li>
+                            <li><a href="{% url 'Coaches:coach_index' %}">مربیان</a></li>
+                            <li><i class="fa fa-chevron-left"></i></li>
+                            <li><a href="{{ coach.coach_detail_view_url }}">{{ coach.name }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Banner End-->
+
+    <!--Team Detail Start-->
+    <section class="main-team-detail-in">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="team-img-box team-border-two wow fadeInUp" data-wow-delay=".5s">
+                        <div class="team-img">
+                            <img src="{{ coach.picture.url }}" alt="{{ coach.en_name }}"
+                                 style="min-height: 300px; max-height: 300px; width: 100%;">
+                        </div>
+                    </div>
+                    <div class="trainer-detail-info-box wow fadeInUp" data-wow-delay=".7s">
+                        <div class="trainer-detail-info-text-box">
+                            {% if coach.get_join_date %}
+                                <div class="trainer-detail-info-text">
+                                    <span>تاریخ عضویت:</span>
+                                    <span>{{ coach.get_join_date }}</span>
+                                </div>
+                            {% endif %}
+                            {% if coach.work_experience %}
+                                <div class="trainer-detail-info-text">
+                                    <span>سابقه کاری:</span>
+                                    <span>{{ coach.work_experience }} سال</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="trainer-detail-info-text-box two">
+                            <div class="trainer-detail-info-text">
+                                <span>شبکه های اجتماعی:</span>
+                                <ul>
+                                    {% for social_media in coach.social_medias.all %}
+                                        <li><a href="{{ social_media.url }}">
+                                            <i class="fa fa-{{ social_media.get_social_media_display }}"
+                                               aria-hidden="true"></i></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="team-detail-content">
+                        <h2 class="h2-title">{{ coach.name }}</h2>
+                        <span>{{ coach.coach_info }}</span>
+                        <p>{{ coach.about|safe }}</p>
+                        {% if coach.abilities.count > 0 %}
+                            <div class="line"></div>
+                            <div class="row my-4">
+                                <div class="col-md-12">
+                                    <h3 class="h3-title">توانایی ها:</h3>
+                                </div>
+                                <div class="col-md-8">
+                                    {% for ability in coach.abilities.all %}
+                                        <button class="m-1 btn btn-{% cycle 'dark' 'danger' %}">{{ ability.title }}</button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="line"></div>
+                        <div class="my-class">
+                            <h3 class="h3-title">کلاس های مربی: </h3>
+                            <div class="line"></div>
+                            <div class="my-class-box">
+                                <div class="row">
+                                    {% if coach.online_classes.count > 0 %}
+                                        {% for class in coach.online_classes.get_last_two_class %}
+                                            <div class="col-lg-6 col-md-6">
+                                                <div class="class-box wow fadeInDown" data-wow-delay=".5s">
+                                                    <div class="class-img" style="min-height: 200px; max-height: 200px">
+                                                        <img src="{{ class.image.url }}" alt="Class">
+                                                    </div>
+                                                    <div class="class-box-contant"
+                                                         style="min-height: 250px; max-height: 250px">
+                                                        <div class="class-box-title">
+                                                            <div class="class-box-icon">
+                                                                <img src="{% static 'images/class-icon2.png' %}"
+                                                                     alt="Icon">
+                                                            </div>
+                                                            <a href="{{ class.get_class_url }}">
+                                                                <h3 class="h3-title">
+                                                                    {{ class.get_class_type_name }}
+                                                                    <br>
+                                                                    {{ class.title }}
+                                                                </h3>
+                                                            </a>
+                                                        </div>
+                                                        <p>
+                                                            {{ class.description }}
+                                                        </p>
+                                                        <a href="{{ class.get_class_url }}"
+                                                           class="btn btn-outline-danger">اطلاعات بیشتر و
+                                                            ثبت نام</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <button class="btn btn-danger">در حال حاضر مربی کلاس آنلاین ندارد</button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Team Detail End-->
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from Accounts.utils import ShamsiDateField
 
 
 def change_coach_image_name(instance, filename):
@@ -18,9 +19,22 @@ class Coach(models.Model):
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(null=True, blank=True)
     coach_info = models.CharField(max_length=400, null=True, blank=True)
+    join_date = ShamsiDateField(null=True, blank=True)
+    work_experience = models.PositiveSmallIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.en_name
+
+    def coach_detail_view_path(self):
+        from django.shortcuts import reverse
+        if self.slug is None:
+            return reverse("Coaches:coach_index")
+        return reverse("Coaches:coach_detail", kwargs={"slug": self.slug})
+
+    def get_join_date(self):
+        if self.join_date is None:
+            return None
+        return str(self.join_date).replace("-", "/")
 
 
 class RateChoices(models.IntegerChoices):
@@ -55,3 +69,11 @@ class CoachSocialMedia(models.Model):
 
     def __str__(self):
         return f"{self.get_social_media_display()} - {self.coach.en_name}"
+
+
+class CoachAbility(models.Model):
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE, related_name="abilities")
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f"{self.title}-{self.coach.name}"

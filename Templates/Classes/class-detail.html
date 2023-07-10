@@ -131,9 +131,9 @@
                             </div>
                         {% endif %}
                         {% if class.price %}
-                            <div class="join-class-price">
-                                <h4>{{ class.get_price }} تومان<span>/ماه</span></h4>
-                                <div class="price-discount">50% تخفیف</div>
+                            <div class="join-class-price row">
+                            <h6 class="col-md-4">هزینه دوره: </h6>
+                                <h5 class="col-md-8">{{ class.get_price }} تومان</h5>
                             </div>
                         {% endif %}
                         <a href="javascript:void(0);" class="my-3 sec-btn">اکنون به کلاس بپیوندید</a>
@@ -157,7 +157,7 @@
                                          class="rounded-circle" alt="trainer-picture">
                                 </div>
                                 <div class="class-trainer-text">
-                                    <a href="team-detail.html">{{ class.coach.name }}</a>
+                                    <a href="{{ class.coach.coach_detail_view_path }}">{{ class.coach.name }}</a>
                                     <span>مربی</span>
                                 </div>
                             </div>
@@ -222,7 +222,7 @@
                             </div>
                             <div class="class-trainer-box-text">
                                 <span>مربی دوره: </span>
-                                <a href="team-detail.html">
+                                <a href="{{ class.coach.coach_detail_view_path }}">
                                     <h3 class="h3-title">{{ class.coach.name }}</h3>
                                 </a>
                                 <p>{{ coach.about|truncatewords:30 }}</p>

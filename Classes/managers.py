@@ -10,3 +10,8 @@ class TimeManager(models.Manager):
             return time
         except self.DoesNotExists:
             raise ValueError("Time ID is does not exists")
+
+
+class OnlineClassManager(models.Manager):
+    def get_last_two_class(self):
+        return self.filter(is_active=True).order_by("-id")[:2]

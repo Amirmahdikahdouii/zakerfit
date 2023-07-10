@@ -1,5 +1,5 @@
 from django.db import models
-from .managers import TimeManager
+from .managers import TimeManager, OnlineClassManager
 from Accounts.utils import ShamsiDateField
 
 
@@ -65,6 +65,8 @@ class Time(models.Model):
 
 
 class OnlineClass(models.Model):
+    objects = OnlineClassManager()
+
     title = models.CharField(max_length=400)
     description = models.TextField()
     image = models.ImageField(upload_to="Classes/Online-Class/")
