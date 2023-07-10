@@ -17,6 +17,7 @@ class Coach(models.Model):
     about = models.TextField()
     is_active = models.BooleanField(default=True)
     slug = models.SlugField(null=True, blank=True)
+    coach_info = models.CharField(max_length=400, null=True, blank=True)
 
     def __str__(self):
         return self.en_name
@@ -38,3 +39,19 @@ class CoachRate(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name}-{self.coach.name}"
+
+
+class CoachSocialMediaTypes(models.IntegerChoices):
+    INSTAGRAM = 1, "instagram"
+    TWITTER = 2, "twitter"
+    TELEGRAM = 3, "telegram"
+    FACEBOOK = 4, "facebook"
+
+
+class CoachSocialMedia(models.Model):
+    social_media = models.PositiveSmallIntegerField(choices=CoachSocialMediaTypes.choices)
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE, related_name="social_medias")
+    url = models.URLField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.get_social_media_display()} - {self.coach.en_name}"

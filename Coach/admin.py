@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Coach
+from .models import Coach, CoachSocialMedia
 
 
 class CoachAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class CoachAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Coach, CoachAdmin)
+admin.site.register(CoachSocialMedia)
