@@ -17,6 +17,8 @@ class ShamsiDateField(models.DateField):
         if value is None:
             return value
         import jdatetime
+        if value.year < 1400:
+            return jdatetime.date(year=value.year, month=value.month, day=value.day)
         return jdatetime.date.fromgregorian(year=value.year, month=value.month, day=value.day)
 
     def to_python(self, value):

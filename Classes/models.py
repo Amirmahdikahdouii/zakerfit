@@ -41,8 +41,8 @@ class Time(models.Model):
     place_count = models.PositiveSmallIntegerField()
     athlete_count = models.PositiveSmallIntegerField(default=0, blank=True)
     has_place_remain = models.BooleanField(default=True)
-    coach = models.OneToOneField("Coach.Coach", on_delete=models.SET_NULL, null=True, blank=True,
-                                 related_name="crossfit_times")
+    coach = models.ForeignKey("Coach.Coach", on_delete=models.SET_NULL, null=True, blank=True,
+                              related_name="crossfit_times")
     slug = models.SlugField(null=True, blank=True)
     category = models.ForeignKey(ClassCategory, on_delete=models.SET_NULL, null=True, blank=True)
     class_type = models.ForeignKey(ClassType, on_delete=models.SET_NULL, null=True, blank=True)
@@ -62,6 +62,10 @@ class Time(models.Model):
     @property
     def class_name(self):
         return self.category.name
+
+    @property
+    def coach_name(self):
+        return self.coach.name if self.coach is not None else ""
 
 
 class OnlineClass(models.Model):

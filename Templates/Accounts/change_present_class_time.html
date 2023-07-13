@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+    تغییر کلاس
+{% endblock %}
+{% block content %}
+    <div class="container my-5" style="padding-top: 120px">
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <h2 class="text-dark text-center">تغییر زمان بندی</h2>
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-danger">
+                    تایم فعلی شما: {{ request.user.class_time }}
+                </button>
+            </div>
+            <div class="col-md-12 my-3">
+                {% for time in class_times %}
+                    <div class="row my-2 pb-1 align-items-center">
+                        <div class="col-md-1">
+                            {{ forloop.counter }}.
+                        </div>
+                        <div class="col-md-3">
+                            {{ time.title }}
+                        </div>
+                        <div class="col-md-4">
+                            ظرفیت باقی مانده:
+                            {{ time.place_remain }}
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{% url 'Accounts:submit_change_present_class' time.id %}"
+                               class="btn btn-outline-primary">
+                                انتخاب
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

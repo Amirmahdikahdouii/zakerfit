@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
 
 
 class SignUpView(View):
@@ -126,3 +127,66 @@ class ChangeUserProfileView(LoginRequiredMixin, View):
         request.user.save()
         messages.success(request, "تصویر پروفایل با موفقیت تغییر کرد.")
         return redirect("Accounts:profile")
+
+
+class RegisterPresentClassView(LoginRequiredMixin, View):
+    template_name = "Accounts/register_present_class.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.class_time is not None:
+            messages.warning(request, "شما از قبل در کلاسی حضور دارید، برای تغییر زمان بندی از پروفایل خود اقدام کنید.")
+            return redirect("Accounts:profile")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        from Classes.models import Time
+        time_id = kwargs.get("id")
+        if time_id is not None:
+            time = get_object_or_404(Time.objects.all(), id=time_id)
+            request.user.class_time = time
+            request.user.save()
+            time.athlete_count += 1
+            if time.athlete_count == time.place_count:
+                time.has_place_remain = False
+            time.save()
+            messages.success(request, f"تایم {time.title} برای شما انتخاب شد. ")
+            return redirect("Accounts:profile")
+        class_times = Time.objects.all()
+        week_days = ["شنبه", "یک شنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "انتخاب کلاس"]
+        return render(request, self.template_name, {
+            "class_times": class_times,
+            "week_days": week_days
+        })
+
+
+class ChangePresentClassView(LoginRequiredMixin, View):
+    template_name = "Accounts/change_present_class_time.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.class_time is None:
+            messages.warning(request,
+                             "شما در کلاسی ثبت نام نکرده اید، برای ثبت نام در کلاس از پروفایل خودتون اقدام کنین!")
+            return redirect("Accounts:profile")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        from Classes.models import Time
+        new_time_id = kwargs.get("id")
+        if new_time_id is not None:
+            new_time = get_object_or_404(Time.objects.filter(has_place_remain=True), id=new_time_id)
+            old_time = request.user.class_time
+            old_time.athlete_count -= 1
+            if old_time.athlete_count < old_time.place_count and old_time.has_place_remain:
+                old_time.has_place_remain = True
+            old_time.save()
+            new_time.athlete_count += 1
+            if new_time.athlete_count == new_time.place_count:
+                new_time.has_place_remain = False
+            new_time.save()
+            request.user.class_time = new_time
+            request.user.save()
+            messages.success(request, f"تایم شما به {new_time.title} تغییر کرد")
+            return redirect("Accounts:profile")
+        class_times = Time.objects.filter(has_place_remain=True)
+        class_times = [time for time in class_times if time.id != request.user.class_time_id]
+        return render(request, self.template_name, {"class_times": class_times})

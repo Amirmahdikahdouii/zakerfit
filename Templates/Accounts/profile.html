@@ -100,6 +100,29 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="row my-2 border-top border-danger pt-3 align-items-center">
+                            <div class="col-md-4">
+                                تایم کلاس حضوری شما:
+                            </div>
+                            <div class="col-md-4">
+                                {% if request.user.class_time is None %}
+                                    <span class="text-danger">هنوز انتخاب نشده</span>
+                                {% else %}
+                                    {{ request.user.class_time }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4">
+                                {% if request.user.class_time is None %}
+                                    <a class="btn btn-primary" href="{% url 'Accounts:register_present_class' %}">
+                                        شرکت در کلاس
+                                    </a>
+                                {% else %}
+                                    <a class="btn btn-outline-primary" href="{% url 'Accounts:change_present_class' %}">
+                                        درخواست تغییر تایم
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
                         <div class="mt-3">
                             <p class="card-text">از اینکه در راستای سلامتی همراه ما هستید بسیار قدردانیم♥</p>
                         </div>

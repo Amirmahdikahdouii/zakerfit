@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} انتخاب تایم حضوری{% endblock %}
+{% block content %}
+    <section class="main-schedule">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="schedule-title">
+                        <div class="subtitle">
+                            <h2 class="h2-subtitle">کلاس های حضوری</h2>
+                        </div>
+                        <h2 class="h2-title">برنامه کلاس های ما</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="main-schedule-box wow fadeInUp" data-wow-delay=".5s">
+                    <div class="schedule-box">
+                        <div class="schedule-time-box">
+                            <ul>
+                                <li><img src="{% static 'images/clock-1.png' %}" alt="Clock"></li>
+                                {% for time in class_times %}
+                                    <li class="d-flex flex-column {% if time.has_place_remain %} bg-success{% else %} bg-danger{% endif %}">
+                                        <h3 class="h3-title fs-6">{{ time.title }}</h3>
+                                        <span class="fs-6">طرفیت باقی مانده: {{ time.place_remain }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% for day in week_days %}
+                            <div class="schedule-class-box">
+                                <ul>
+                                    <li>
+                                        <h3 class="h3-title fs-6">{{ day }}</h3>
+                                    </li>
+                                    {% if forloop.last %}
+                                        {% for time in class_times %}
+                                            {% if time.has_place_remain %}
+                                                <li class="bg-success border border-0">
+                                                <span class="schedule-class-text">
+                                                    <a href="{% url 'Accounts:submit_register_present_class' time.id %}"
+                                                       class="text-light">انتخاب</a>
+                                                </span>
+                                                </li>
+                                            {% else %}
+                                                <li class="bg-secondary border border-0">
+                                                <span class="schedule-class-text">
+                                                    <span class="text-light">ظرفیت تکمیل</span>
+                                                </span>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for time in class_times %}
+                                            <li>
+                                                <div class="schedule-class-text">
+                                                    <h3 class="h3-title">{{ time.class_name }}</h3>
+                                                    <span>{{ time.coach_name }}</span>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
