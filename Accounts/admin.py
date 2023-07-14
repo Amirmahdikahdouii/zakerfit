@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import Group
 from .forms import UserCreationForm, UserChangeForm
-from .models import User
+from .models import User, UserPhoneNumberValidation
 
 
 class UserAdmin(BaseUserAdmin):
@@ -14,10 +14,9 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = [
         (None, {"fields": ["phone_number", 'email', 'password']}),
         ("Personal Info", {"fields": ["first_name", "last_name", "birthday", "gender", 'profile_image']}),
-        ("Permissions", {"fields": ['is_superuser']}),
+        ("Permissions", {"fields": ['is_superuser', "last_login", "groups", "user_permissions"]}),
         ("Classes", {"fields": ['class_time']})
     ]
-
     add_fieldsets = [
         (None, {
             "classes": ["wide"],
@@ -27,8 +26,14 @@ class UserAdmin(BaseUserAdmin):
 
     search_fields = ['first_name', 'last_name']
     ordering = ['-id']
-    filter_horizontal = []
+    filter_horizontal = ["groups", "user_permissions"]
+
+
+class UserPhoneNumberValidationAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "is_verify")
+    list_filter = ("is_verify",)
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(UserPhoneNumberValidation, UserPhoneNumberValidationAdmin)
 admin.site.unregister(Group)

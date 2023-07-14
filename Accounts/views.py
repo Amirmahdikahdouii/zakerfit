@@ -35,7 +35,8 @@ class SignUpView(View):
             last_name = form.cleaned_data.get("last_name")
             User.objects.create_user(phone_number=phone_number, password=password,
                                      **{"first_name": first_name, "last_name": last_name})
-            return redirect("Home:home_view")
+            messages.success(request, "حساب کاربری شما با موفقیت ساخته شد، اکنون وارد شوید")
+            return redirect("Accounts:profile")
         for error in form.errors:
             if error == "password":
                 messages.error(request,
@@ -71,6 +72,8 @@ class LoginView(View):
                     raise User.DoesNotExist
                 messages.success(request, "با موفقیت وارد شدید")
                 login(request, user)
+                if request.user.phone_validation.is_verify is False:
+                    return redirect("Accounts:verify_phone_number_view")
                 return redirect("Accounts:profile")
             except User.DoesNotExist:
                 messages.error(request, "شماره همراه یافت نشد")
@@ -90,6 +93,12 @@ class LogOutView(LogoutView):
 class ProfileView(LoginRequiredMixin, View):
     login_url = "/Accounts/login/"
     template_name = "Accounts/profile.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.phone_validation.is_verify is False:
+            messages.warning(request, "لطفا ابتدا شماره همراه خودتون رو تایید کنید.")
+            return redirect("Accounts:verify_phone_number_view")
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
         return render(request, self.template_name)
@@ -190,3 +199,27 @@ class ChangePresentClassView(LoginRequiredMixin, View):
         class_times = Time.objects.filter(has_place_remain=True)
         class_times = [time for time in class_times if time.id != request.user.class_time_id]
         return render(request, self.template_name, {"class_times": class_times})
+
+
+@method_decorator(csrf_exempt, "dispatch")
+class VerifyPhoneNumberView(LoginRequiredMixin, View):
+    template_name = "Accounts/verify_phone_number.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.phone_validation.is_verify:
+            messages.success(request, "شماره همراه شما قبلا تایید شده است.")
+            return redirect("Accounts:profile")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        import json
+        data = json.loads(request.body)
+        code = data.get("code")
+        if code == request.user.phone_validation.code:
+            request.user.phone_validation.is_verify = True
+            request.user.phone_validation.save()
+            return HttpResponse(status=200)
+        return HttpResponse(status=403)

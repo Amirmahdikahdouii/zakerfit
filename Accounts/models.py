@@ -1,8 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from .managers import UserManager
 from Classes.models import Time
 from .utils import ShamsiDateField, IranPhoneNumberValidator
+from django.contrib.auth import get_user_model
 
 
 class UserGenderChoices(models.IntegerChoices):
@@ -21,7 +22,7 @@ def change_profile_name(instance, filename):
     return os.path.join("users/profile-images/", unique_file_name)
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=13, unique=True, validators=[IranPhoneNumberValidator()])
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -45,12 +46,6 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_superuser
 
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
-
     def has_profile_image(self):
         return True if self.profile_image is not None else False
 
@@ -59,3 +54,13 @@ class User(AbstractBaseUser):
 
     def get_user_gender(self):
         return "آقا" if self.gender == 1 else "خانم"
+
+
+class UserPhoneNumberValidation(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name="phone_validation")
+    date = models.DateTimeField(auto_now=True)
+    code = models.CharField(max_length=6, null=True, blank=True)
+    is_verify = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.phone_number}-{self.is_verify}"
