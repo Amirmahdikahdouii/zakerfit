@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_superuser
 
     def has_profile_image(self):
-        return True if self.profile_image is not None else False
+        return self.profile_image.name
 
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -64,3 +64,12 @@ class UserPhoneNumberValidation(models.Model):
 
     def __str__(self):
         return f"{self.user.phone_number}-{self.is_verify}"
+
+
+class PresentClass(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="class_present")
+    time = models.ForeignKey("Classes.Time", on_delete=models.CASCADE, related_name="class_present")
+    date = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return self.user.get_full_name()
