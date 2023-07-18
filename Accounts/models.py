@@ -31,6 +31,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     gender = models.PositiveSmallIntegerField(choices=UserGenderChoices.choices, default=UserGenderChoices.MALE)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    # We is_admin field also for filtering coaches
+    is_admin = models.BooleanField(default=False)
     join_date = models.DateTimeField(auto_now_add=True)
     profile_image = models.ImageField(upload_to=change_profile_name, null=True, blank=True)
     class_time = models.OneToOneField(Time, on_delete=models.SET_NULL, null=True, blank=True)
@@ -44,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_staff(self):
-        return self.is_superuser
+        return self.is_admin
 
     def has_profile_image(self):
         return self.profile_image.name

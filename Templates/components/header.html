@@ -5,6 +5,7 @@
 {% url 'Accounts:login' as LoginURL %}
 {% url 'Accounts:profile' as ProfileURL %}
 {% url 'Accounts:logout' as LogoutURL %}
+{% url "Accounts:coach-profile" as CoachProfileURL %}
 
 <header class="site-header">
     <!--Navbar Start  -->
@@ -42,6 +43,11 @@
                                         <li {% if request.path == ProfileURL %}class="active"{% endif %}>
                                             <a href="{{ ProfileURL }}">پروفایل</a>
                                         </li>
+                                        {% if request.user.is_admin %}
+                                            <li {% if request.path == CoachProfileURL %}class="active"{% endif %}>
+                                                <a href="{{ CoachProfileURL }}">بخش مربیان</a>
+                                            </li>
+                                        {% endif %}
                                     {% else %}
                                         <li {% if request.path == RegisterURL %}class="active"{% endif %}>
                                             <a href="{{ RegisterURL }}">ثبت نام</a>

@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 class IranPhoneNumberValidator(RegexValidator):
@@ -33,3 +35,11 @@ class ShamsiDateField(models.DateField):
             return None
         import jdatetime
         return jdatetime.date(value.year, value.month, value.day)
+
+
+class IsAdminRequiredMixin():
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_admin:
+            messages.error(request, "فقط مربیان اجازه دسترسی به این صفحه را دارند!")
+            return redirect("Accounts:profile")
+        return super().dispatch(request, *args, **kwargs)

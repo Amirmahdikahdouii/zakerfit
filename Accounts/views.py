@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
+from .utils import IsAdminRequiredMixin
 
 
 class SignUpView(View):
@@ -102,6 +103,76 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class CoachProfileView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+
+class CoachProfileTimesView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get(self, request, *args, **kwargs):
+        from Classes.models import Time
+        times = Time.objects.all()
+        options = ["مربی", "ظرفیت", "شاگردان", "حضور و غیاب"]
+        return render(request, self.template_name, {"times": times, "options": options})
+
+
+class CoachProfileTimesChangeCoachView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get(self, request, *args, **kwargs):
+        from Coach.models import Coach
+        from Classes.models import Time
+        time = get_object_or_404(Time.objects.all(), id=kwargs.get('id'))
+        coaches = Coach.objects.all()
+        return render(request, self.template_name, {"coaches": coaches, "time": time})
+
+    def post(self, request, *args, **kwargs):
+        from Coach.models import Coach
+        from Classes.models import Time
+        coach_id = request.POST.get("coach_id", None)
+        time = get_object_or_404(Time.objects.all(), id=kwargs.get('id'))
+        if coach_id is None:
+            coaches = Coach.objects.all()
+            messages.error(request, "لطفا یکی از مربیان را انتخاب کنید")
+            return render(request, self.template_name, {"coaches": coaches, "time": time})
+        coach_id = int(coach_id)
+        time.coach = get_object_or_404(Coach.objects.all(), id=coach_id)
+        time.save()
+        messages.success(request, "مربی با موفقیت تغییر کرد")
+        return redirect("Accounts:coach-profile-times")
+
+
+class CoachProfileTimesChangePlaceCountView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get_queryset(self):
+        from Classes.models import Time
+        return Time.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {"times": self.get_queryset()})
+
+    def post(self, request, *args, **kwargs):
+        time_id = request.POST.get("time_id", None)
+        new_place = request.POST.get("new_place", None)
+        if time_id is None or new_place is None:
+            messages.error(request, "لطفا اطلاعات را به درستی وارد کنید")
+            return render(request, self.template_name, {"times": self.get_queryset()})
+        time = get_object_or_404(self.get_queryset(), id=int(time_id))
+        new_place = int(new_place)
+        if new_place < time.place_count and time.athlete_count > new_place:
+            messages.error(request, "تعداد ورزشکاران در این سانس بیشتر از تعداد ظرفیت انتخابی شماست!")
+            return render(request, self.template_name, {"times": self.get_queryset()})
+        time.place_count = new_place
+        time.save()
+        messages.success(request, "تغییر ظرفیت انجام شد")
+        return redirect("Accounts:coach-profile")
 
 
 @method_decorator(csrf_exempt, name="dispatch")

@@ -1,0 +1,18 @@
+<div class="container my-4">
+    <div class="row justify-content-between">
+        <div class="col-3 btn btn-danger">نام کلاس:</div>
+        <div class="col-3 btn btn-danger">ظرفیت:</div>
+        <div class="col-3 btn btn-danger">تغییر:</div>
+    </div>
+    {% for time in times %}
+        <form action="{% url 'Accounts:coach-profile-times-change-place-count' %}" method="post"
+              class="row align-items-center justify-content-between my-2">
+            {% csrf_token %}
+            <div class="col-3">{{ time.title }}</div>
+            <input type="number" min="1" max="99" name="new_place" value="{{ time.place_count }}"
+                   class="w-25 form-control"/>
+            <input type="hidden" name="time_id" value="{{ time.id }}">
+            <button type="submit" class="col-3 btn btn-success">تغییر</button>
+        </form>
+    {% endfor %}
+</div>

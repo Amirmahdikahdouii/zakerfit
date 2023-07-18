@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}
+    بخش مربیان
+{% endblock %}
+{% block css %}
+    <style>
+        .main-container {
+            padding-top: 140px !important;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% url 'Accounts:coach-profile-times' as PresentTimes %}
+    {% url 'Accounts:coach-profile-times-change-coach' time.id as ChangeTimeCoach %}
+    {% url 'Accounts:coach-profile-times-change-place-count' as ChangeTimePlaceCount %}
+    <div class="container bg-dark text-light main-container">
+        <div class="row p-3 rounded">
+            {% include 'Accounts/components/coach-profile-sidebar.html' %}
+            <div class="col-12 col-md-12">
+                {% if request.path == PresentTimes %}
+                    {% include 'Accounts/components/coach-times.html' %}
+                {% endif %}
+                {% if request.path == ChangeTimeCoach %}
+                    {% include "Accounts/components/select_coach.html" %}
+                {% endif %}
+            {% if request.path == ChangeTimePlaceCount %}
+                {% include 'Accounts/components/select_place_count.html' %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

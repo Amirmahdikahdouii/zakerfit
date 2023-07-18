@@ -1,0 +1,59 @@
+{% load static %}
+<section class="main-schedule">
+    <div class="container">
+        <div class="col-lg-12">
+            <div class="main-schedule-box wow fadeInUp" data-wow-delay=".5s">
+                <div class="schedule-box">
+                    <div class="schedule-time-box">
+                        <ul>
+                            <li><img src="{% static 'images/clock-1.png' %}" alt="Clock"></li>
+                            {% for time in times %}
+                                <li class="d-flex flex-column {% if time.has_place_remain %} bg-success{% else %} bg-danger{% endif %}">
+                                    <h3 class="h3-title fs-6">{{ time.title }}</h3>
+                                    <span class="fs-6">طرفیت باقی مانده: {{ time.place_remain }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% for option in options %}
+                        <div class="schedule-class-box">
+                            <ul>
+                                <li>
+                                    <h3 class="h3-title fs-6">{{ option }}</h3>
+                                </li>
+                                {% if forloop.counter == 1 %}
+                                    {% for time in times %}
+                                        <li class="bg-light text-dark">
+                                                <span class="schedule-class-text d-flex flex-column">
+                                                    {% if time.coach == None %}
+                                                        <span class="text-danger">انتخاب نشده</span>
+                                                        <a href="{% url 'Accounts:coach-profile-times-change-coach' time.id %}"
+                                                           class="text-dark text-decoration-underline">انتخاب</a>
+                                                    {% else %}
+                                                        {{ time.coach.name }}
+                                                        <a href="{% url 'Accounts:coach-profile-times-change-coach' time.id %}"
+                                                           class="text-primary text-decoration-underline">تغییر</a>
+                                                    {% endif %}
+                                                </span>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if forloop.counter == 2 %}
+                                    {% for time in times %}
+                                        <li class="bg-light text-dark">
+                                                <span class="schedule-class-text d-flex flex-column">
+                                                    <span class="my-1">کل: {{ time.place_count }}</span>
+                                                    <span class="my-1">تعداد هنرجو: {{ time.athlete_count }}</span>
+                                                    <a href="{% url 'Accounts:coach-profile-times-change-place-count' %}" class="text-decoration-underline text-primary">تغییر ظرفیت</a>
+                                                </span>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

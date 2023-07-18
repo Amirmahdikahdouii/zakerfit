@@ -1,0 +1,11 @@
+{% url 'Accounts:coach-profile-times' as PresentTimes %}
+<div class="col-12">
+    <div class="d-flex flex-row flex-wrap justify-content-center">
+        <a href="{{ PresentTimes }}"
+           class="btn btn{% if request.path != PresentTimes %}-outline{% endif %}-danger m-2">تایم های
+            حضوری</a>
+        <a href="" class="btn btn-outline-danger m-2">لیست کلاس ها</a>
+        <a href="" class="btn btn-outline-danger m-2">شاگردان حضوری</a>
+        <a href="" class="btn btn-outline-danger m-2">حضور و غیاب</a>
+    </div>
+</div>
