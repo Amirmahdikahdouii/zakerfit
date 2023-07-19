@@ -1,0 +1,58 @@
+{% load static %}
+<div class="container profile-box-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        {% if athlete.has_profile_image %}
+                            <img src="{{ athlete.profile_image.url }}"
+                                 class="img-fluid rounded-circle profile-picture"
+                                 alt="{{ athlete.get_full_name }}">
+                        {% else %}
+                            <img src="{% static 'images/myostatin-logo1.png' %}"
+                                 class="img-fluid rounded-circle profile-picture"
+                                 alt="{{ athlete.get_full_name }}">
+                        {% endif %}
+                    </div>
+                    <h3 class="card-title text-center mt-3 text-light">{{ athlete.get_full_name }}</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6">
+                            <p><span class="info-title">نام: </span> {{ athlete.first_name }}</p>
+                            <p><span class="info-title">نام خانوادگی: </span> {{ athlete.last_name }}</p>
+                            <p><span class="info-title">تاریخ تولد: </span>
+                                <input data-jdp type="button" class="btn btn-danger"
+                                       value="{{ athlete.birthday }}" id="change-birthday-button">
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p><span class="info-title">تلفن همراه: </span> {{ athlete.phone_number }}</p>
+                            {% if athlete.email %}
+                                <p><span class="info-title">ایمیل: </span> {{ athlete.email }}</p>
+                            {% else %}
+                                <p><span class="info-title text-danger">ایمیل: </span>وارد نشده</p>
+                            {% endif %}
+                            <p>
+                                <span class="info-title">جنسیت: </span>
+                                <span id="user-gender-type">{{ athlete.get_user_gender }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row my-2 border-top border-danger pt-3 align-items-center">
+                        <div class="col-md-4">
+                            تایم کلاس حضوری:
+                        </div>
+                        <div class="col-md-4">
+                            {% if athlete.class_time is None %}
+                                <span class="text-danger">هنوز انتخاب نشده</span>
+                            {% else %}
+                                {{ athlete.class_time }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

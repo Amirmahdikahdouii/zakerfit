@@ -210,6 +210,17 @@ class CoachProfileTimesAthletesPresentationView(LoginRequiredMixin, IsAdminRequi
         return redirect("Accounts:coach-profile")
 
 
+class CoachProfileTimeAthleteProfileView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get_queryset(self):
+        return User.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        athlete = get_object_or_404(self.get_queryset(), id=kwargs.get("id"))
+        return render(request, self.template_name, {"athlete": athlete})
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class ChangeUserBirthdayView(LoginRequiredMixin, View):
     login_url = "/Accounts/login"

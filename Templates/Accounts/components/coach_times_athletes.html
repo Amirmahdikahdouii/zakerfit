@@ -8,8 +8,9 @@
     <div class="container my-3 bg-dark text-light rounded p-2">
         <div class="row bg-danger p-2 rounded my-1">
             <div class="col-2 col-md-1">شماره</div>
-            <div class="col-4">نام ورزشکار</div>
-            <div class="col-4">تاریخ عضویت</div>
+            <div class="col-3">نام ورزشکار</div>
+            <div class="col-3">تاریخ عضویت</div>
+            <div class="col-3">پروفایل</div>
         </div>
         {% if time.athletes.count == 0 %}
             <div class="row bg-light text-dark rounded my-2 py-2">
@@ -19,10 +20,12 @@
             </div>
         {% endif %}
         {% for athlete in time.athletes.all %}
-            <div class="row bg-light text-dark p-2 rounded my-2">
+            <div class="row bg-light text-dark p-2 rounded my-2 align-items-center">
                 <div class="col-2 col-md-1">{{ forloop.counter }}</div>
-                <div class="col-4">{{ athlete.get_full_name }}</div>
-                <div class="col-4">{{ athlete.get_join_date }}</div>
+                <div class="col-3">{{ athlete.get_full_name }}</div>
+                <div class="col-4 col-md-3">{{ athlete.get_join_date }}</div>
+                <a href="{% url 'Accounts:coach-athlete-profile' athlete.id %}"
+                   class="col-3 col-md-2 btn btn-primary">پروفایل</a>
             </div>
         {% endfor %}
     </div>
