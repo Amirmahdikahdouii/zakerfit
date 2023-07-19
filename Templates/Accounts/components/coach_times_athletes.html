@@ -1,0 +1,39 @@
+<div class="container mt-3">
+    <div class="row">
+        <a href="{% url 'Accounts:coach-profile-times' %}"
+           class="btn btn-primary text-decoration-underline my-3 col-3 col-md-1">بازگشت</a>
+        <h1 class="text-light">اعضای سانس {{ time.title }}</h1>
+    </div>
+    <div class="row rounded bg-light text-dark my-2 p-2">
+        <div class="col-12">
+            <h4 class="text-success">اطلاعات سانس</h4>
+        </div>
+        <div class="col-6 col-md-3">تعداد ظرفیت کل:</div>
+        <div class="col-6 col-md-3">{{ time.place_count }}</div>
+        <div class="col-6 col-md-3">تعداد ورزشکاران:</div>
+        <div class="col-6 col-md-3">{{ time.athlete_count }}</div>
+        <div class="col-6 col-md-3">نام مربی:</div>
+        <div class="col-6 col-md-3">{{ time.coach.name }}</div>
+    </div>
+    <div class="container my-3 bg-dark text-light rounded p-2">
+        <div class="row bg-danger p-2 rounded my-1">
+            <div class="col-2 col-md-1">شماره</div>
+            <div class="col-4">نام ورزشکار</div>
+            <div class="col-4">تاریخ عضویت</div>
+        </div>
+        {% if time.athletes.count == 0 %}
+            <div class="row bg-light text-dark rounded my-2 py-2">
+                <h4 class="text-danger text-center">هیچ بازیکنی در این تایم حضور ندارد!</h4>
+                <a href="{% url 'Accounts:coach-profile-times' %}"
+                   class="text-center text-decoration-underline text-primary">بازگشت</a>
+            </div>
+        {% endif %}
+        {% for athlete in time.athletes.all %}
+            <div class="row bg-light text-dark p-2 rounded my-2">
+                <div class="col-2 col-md-1">{{ forloop.counter }}</div>
+                <div class="col-4">{{ athlete.get_full_name }}</div>
+                <div class="col-4">{{ athlete.get_join_date }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

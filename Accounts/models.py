@@ -35,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     join_date = models.DateTimeField(auto_now_add=True)
     profile_image = models.ImageField(upload_to=change_profile_name, null=True, blank=True)
-    class_time = models.OneToOneField(Time, on_delete=models.SET_NULL, null=True, blank=True)
+    class_time = models.ForeignKey(Time, on_delete=models.SET_NULL, null=True, blank=True, related_name="athletes")
 
     objects = UserManager()
     USERNAME_FIELD = 'phone_number'
@@ -56,6 +56,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_user_gender(self):
         return "آقا" if self.gender == 1 else "خانم"
+
+    def get_join_date(self):
+        import jdatetime
+        date = jdatetime.date.fromgregorian(year=self.join_date.year, month=self.join_date.month,
+                                            day=self.join_date.day)
+        return str(date).replace("-", "/")
 
 
 class UserPhoneNumberValidation(models.Model):

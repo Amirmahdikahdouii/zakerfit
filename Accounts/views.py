@@ -172,7 +172,19 @@ class CoachProfileTimesChangePlaceCountView(LoginRequiredMixin, IsAdminRequiredM
         time.place_count = new_place
         time.save()
         messages.success(request, "تغییر ظرفیت انجام شد")
-        return redirect("Accounts:coach-profile")
+        return redirect("Accounts:coach-profile-times")
+
+
+class CoachProfileTimesAthletesView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get_queryset(self):
+        from Classes.models import Time
+        return Time.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        time = get_object_or_404(self.get_queryset(), id=kwargs.get('time_id'))
+        return render(request, self.template_name, {"time": time})
 
 
 @method_decorator(csrf_exempt, name="dispatch")

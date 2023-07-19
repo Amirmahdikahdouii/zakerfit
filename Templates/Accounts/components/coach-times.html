@@ -44,7 +44,18 @@
                                                 <span class="schedule-class-text d-flex flex-column">
                                                     <span class="my-1">کل: {{ time.place_count }}</span>
                                                     <span class="my-1">تعداد هنرجو: {{ time.athlete_count }}</span>
-                                                    <a href="{% url 'Accounts:coach-profile-times-change-place-count' %}" class="text-decoration-underline text-primary">تغییر ظرفیت</a>
+                                                    <a href="{% url 'Accounts:coach-profile-times-change-place-count' %}"
+                                                       class="text-decoration-underline text-primary">تغییر ظرفیت</a>
+                                                </span>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                                {% if forloop.counter == 3 %}
+                                    {% for time in times %}
+                                        <li class="bg-light text-dark">
+                                                <span class="schedule-class-text d-flex flex-column">
+                                                    <a href="{% url 'Accounts:coach-profile-times-athletes' time.id %}"
+                                                       class="text-decoration-underline text-primary">مشاهده</a>
                                                 </span>
                                         </li>
                                     {% endfor %}

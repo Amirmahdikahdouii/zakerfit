@@ -13,6 +13,8 @@ urlpatterns = [
          name="coach-profile-times-change-coach"),
     path("coach-profile/times/change-place-count/", views.CoachProfileTimesChangePlaceCountView.as_view(),
          name="coach-profile-times-change-place-count"),
+    path("coach-profile/times/<int:time_id>/athelets/", views.CoachProfileTimesAthletesView.as_view(),
+         name="coach-profile-times-athletes"),
     path("change-user-profile/", views.ChangeUserProfileView.as_view(), name="change_user_profile"),
     path("change-user-birthday/", views.ChangeUserBirthdayView.as_view(), name="change_user_birthday"),
     path("change-user-gender/", views.ChangeUserGenderView.as_view(), name="change_user_gender"),

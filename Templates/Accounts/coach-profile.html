@@ -13,6 +13,7 @@
     {% url 'Accounts:coach-profile-times' as PresentTimes %}
     {% url 'Accounts:coach-profile-times-change-coach' time.id as ChangeTimeCoach %}
     {% url 'Accounts:coach-profile-times-change-place-count' as ChangeTimePlaceCount %}
+    {% url 'Accounts:coach-profile-times-athletes' time.id as TimeAthlets %}
     <div class="container bg-dark text-light main-container">
         <div class="row p-3 rounded">
             {% include 'Accounts/components/coach-profile-sidebar.html' %}
@@ -23,9 +24,12 @@
                 {% if request.path == ChangeTimeCoach %}
                     {% include "Accounts/components/select_coach.html" %}
                 {% endif %}
-            {% if request.path == ChangeTimePlaceCount %}
-                {% include 'Accounts/components/select_place_count.html' %}
-            {% endif %}
+                {% if request.path == ChangeTimePlaceCount %}
+                    {% include 'Accounts/components/select_place_count.html' %}
+                {% endif %}
+                {% if request.path == TimeAthlets %}
+                    {% include 'Accounts/components/coach_times_athletes.html' %}
+                {% endif %}
             </div>
         </div>
     </div>
