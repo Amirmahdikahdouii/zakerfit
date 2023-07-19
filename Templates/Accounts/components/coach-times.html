@@ -10,7 +10,7 @@
                             {% for time in times %}
                                 <li class="d-flex flex-column {% if time.has_place_remain %} bg-success{% else %} bg-danger{% endif %}">
                                     <h3 class="h3-title fs-6">{{ time.title }}</h3>
-                                    <span class="fs-6">طرفیت باقی مانده: {{ time.place_remain }}</span>
+                                    <span class="fs-6 d-none d-md-block">طرفیت باقی مانده: {{ time.place_remain }}</span>
                                 </li>
                             {% endfor %}
                         </ul>

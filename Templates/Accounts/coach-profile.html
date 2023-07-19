@@ -1,15 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
     بخش مربیان
 {% endblock %}
 {% block css %}
+    <link href="{% static 'css/Accounts/profile.css' %}" rel="stylesheet"/>
     <style>
         .main-container {
             padding-top: 140px !important;
         }
+
+        .profile-box-container {
+            background-color: #fff;
+            border-radius: 20px;
+        }
     </style>
 {% endblock %}
 {% block content %}
+    {% url 'Accounts:coach-profile' as CoachProfileIndex %}
     {% url 'Accounts:coach-profile-times' as PresentTimes %}
     {% url 'Accounts:coach-profile-times-change-coach' time.id as ChangeTimeCoach %}
     {% url 'Accounts:coach-profile-times-change-place-count' as ChangeTimePlaceCount %}
@@ -19,6 +27,9 @@
         <div class="row p-3 rounded">
             {% include 'Accounts/components/coach-profile-sidebar.html' %}
             <div class="col-12 col-md-12">
+                {% if request.path == CoachProfileIndex %}
+                    {% include 'Accounts/components/profile_box_component.html' %}
+                {% endif %}
                 {% if request.path == PresentTimes %}
                     {% include 'Accounts/components/coach-times.html' %}
                 {% endif %}
