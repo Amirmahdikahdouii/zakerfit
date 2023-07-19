@@ -60,6 +60,16 @@
                                         </li>
                                     {% endfor %}
                                 {% endif %}
+                                {% if forloop.counter == 4 %}
+                                    {% for time in times %}
+                                        <li class="bg-light text-dark">
+                                                <span class="schedule-class-text d-flex flex-column">
+                                                    <a href="{% url 'Accounts:coach-profile-times-athletes-presentation' time.id %}"
+                                                       class="text-decoration-underline text-primary">انجام</a>
+                                                </span>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
                     {% endfor %}

@@ -187,6 +187,29 @@ class CoachProfileTimesAthletesView(LoginRequiredMixin, IsAdminRequiredMixin, Vi
         return render(request, self.template_name, {"time": time})
 
 
+class CoachProfileTimesAthletesPresentationView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get_queryset(self):
+        from Classes.models import Time
+        return Time.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        time = get_object_or_404(self.get_queryset(), id=kwargs.get("time_id"))
+        return render(request, self.template_name, {"time": time})
+
+    def post(self, request, *args, **kwargs):
+        from .models import PresentClass
+        time = get_object_or_404(self.get_queryset(), id=kwargs.get("time_id"))
+        for key in request.POST.keys():
+            if key.startswith("id-"):
+                key = int(key.split("id-")[-1])
+                user = get_object_or_404(User.objects.all(), id=key)
+                PresentClass.objects.create(user_id=user.id, time_id=time.id, is_present=True)
+        messages.success(request, "تغییرات با موفقیت ثبت شد")
+        return redirect("Accounts:coach-profile")
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class ChangeUserBirthdayView(LoginRequiredMixin, View):
     login_url = "/Accounts/login"

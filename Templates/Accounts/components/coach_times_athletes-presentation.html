@@ -1,0 +1,69 @@
+<div class="container mt-3">
+    <div class="row">
+        <a href="{% url 'Accounts:coach-profile-times' %}"
+           class="btn btn-primary text-decoration-underline my-3 col-3 col-md-1">بازگشت</a>
+        <h1 class="text-light">حضور و غیاب اعضای سانس {{ time.title }}</h1>
+    </div>
+    {% include "Accounts/components/time_information_box.html" %}
+    <div class="container my-3 bg-dark text-light rounded p-2">
+        <div class="row bg-danger p-2 rounded my-1">
+            <div class="col-2 col-md-1">شماره</div>
+            <div class="col-4">نام ورزشکار</div>
+            <div class="col-4 d-none d-md-flex">تاریخ عضویت</div>
+            <div class="col-2 col-md-1">حضور</div>
+        </div>
+        {% if time.athletes.count == 0 %}
+            <div class="row bg-light text-dark rounded my-2 py-2">
+                <h4 class="text-danger text-center">هیچ بازیکنی در این تایم حضور ندارد!</h4>
+                <a href="{% url 'Accounts:coach-profile-times' %}"
+                   class="text-center text-decoration-underline text-primary">بازگشت</a>
+            </div>
+        {% else %}
+            <form action="{% url 'Accounts:coach-profile-times-athletes-presentation' time.id %}" method="post">
+                {% csrf_token %}
+                <div class="row bg-light text-dark py-2 rounded my-2 justify-content-end">
+                    <div class="col-6 col-md-3">
+                        <button type="button" class="btn btn-outline-success" id="check-all-button">حضور همه</button>
+                    </div>
+                </div>
+                {% for athlete in time.athletes.all %}
+                    <div class="row bg-light text-dark p-2 rounded my-2">
+                        <div class="col-2 col-md-1">{{ forloop.counter }}</div>
+                        <div class="col-4">{{ athlete.get_full_name }}</div>
+                        <div class="col-4 d-none d-md-flex">{{ athlete.get_join_date }}</div>
+                        <div class="col-6 col-md-3">
+                            <input class="form-check-input athlete-checkbox" type="checkbox"
+                                   name="id-{{ athlete.id }}"/>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row bg-light my-1 rounded py-2 text-center">
+                    <div class="col-12 justify-content-center">
+                        <button type="submit" class="btn btn-success">ثبت تغییرات</button>
+                    </div>
+                </div>
+            </form>
+            <script>
+                let checkAllButton = document.getElementById("check-all-button");
+                let checkAllInputs = [...document.getElementsByClassName("athlete-checkbox")];
+                checkAllButton.addEventListener("click", () => {
+                    checkAllInputs.forEach(input => {
+                        input.checked = true;
+                    })
+                    checkAllButton.classList.add("btn-success");
+                    checkAllButton.classList.remove("btn-outline-success");
+                })
+                checkAllInputs.forEach(input => {
+                    input.addEventListener("change", () => {
+                        if (!input.checked) {
+                            if (checkAllButton.classList.contains("btn-success")) {
+                                checkAllButton.classList.remove("btn-success");
+                                checkAllButton.classList.add("btn-outline-success");
+                            }
+                        }
+                    })
+                })
+            </script>
+        {% endif %}
+    </div>
+</div>

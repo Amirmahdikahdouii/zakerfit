@@ -4,17 +4,7 @@
            class="btn btn-primary text-decoration-underline my-3 col-3 col-md-1">بازگشت</a>
         <h1 class="text-light">اعضای سانس {{ time.title }}</h1>
     </div>
-    <div class="row rounded bg-light text-dark my-2 p-2">
-        <div class="col-12">
-            <h4 class="text-success">اطلاعات سانس</h4>
-        </div>
-        <div class="col-6 col-md-3">تعداد ظرفیت کل:</div>
-        <div class="col-6 col-md-3">{{ time.place_count }}</div>
-        <div class="col-6 col-md-3">تعداد ورزشکاران:</div>
-        <div class="col-6 col-md-3">{{ time.athlete_count }}</div>
-        <div class="col-6 col-md-3">نام مربی:</div>
-        <div class="col-6 col-md-3">{{ time.coach.name }}</div>
-    </div>
+    {% include "Accounts/components/time_information_box.html" %}
     <div class="container my-3 bg-dark text-light rounded p-2">
         <div class="row bg-danger p-2 rounded my-1">
             <div class="col-2 col-md-1">شماره</div>

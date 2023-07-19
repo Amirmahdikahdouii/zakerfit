@@ -78,6 +78,7 @@ class PresentClass(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="class_present")
     time = models.ForeignKey("Classes.Time", on_delete=models.CASCADE, related_name="class_present")
     date = models.DateField(auto_now=True)
+    is_present = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.get_full_name()
