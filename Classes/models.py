@@ -19,9 +19,9 @@ class ClassCategory(models.Model):
 
 
 class ClassTypesChoices(models.IntegerChoices):
-    PRESET_CLASS = 1, "PRESET_CLASS"
-    GROUP_ONLINE_CLASS = 2, "GROUP_ONLINE_CLASS"
-    PRIVATE_ONLINE_CLASS = 3, "PRIVATE_ONLINE_CLASS"
+    PRESET_CLASS = 1, "کلاس حضوری"
+    GROUP_ONLINE_CLASS = 2, "کلاس آنلاین گروهی"
+    PRIVATE_ONLINE_CLASS = 3, "کلاس آنلاین خصوصی"
 
 
 class ClassType(models.Model):
@@ -31,8 +31,8 @@ class ClassType(models.Model):
     class_type = models.PositiveSmallIntegerField(choices=ClassTypesChoices.choices, default=2)
 
     def __str__(self):
-        return "Present Class" if self.class_type == 1 else "Group Online Class" if self.class_type == 2 else \
-            "Private Online Class"
+        return "کلاس حضوری" if self.class_type == 1 else "کلاس آنلاین گروهی" if self.class_type == 2 else \
+            "کلاس آنلاین خصوصی"
 
 
 class Time(models.Model):

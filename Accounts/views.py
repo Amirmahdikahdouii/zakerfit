@@ -241,6 +241,68 @@ class CoachProfileTimeAthleteProfileView(LoginRequiredMixin, IsAdminRequiredMixi
         return render(request, self.template_name, {"athlete": athlete})
 
 
+class CoachProfileAddTimeView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    @staticmethod
+    def get_coaches():
+        from Coach.models import Coach
+        return Coach.objects.all()
+
+    @staticmethod
+    def get_class_categories():
+        from Classes.models import ClassCategory
+        return ClassCategory.objects.all()
+
+    @staticmethod
+    def get_class_types():
+        from Classes.models import ClassType
+        return ClassType.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name,
+                      {"coaches": self.get_coaches(), "class_categories": self.get_class_categories()})
+
+    def post(self, request, *args, **kwargs):
+        from Classes.models import Time, ClassCategory
+        from Coach.models import Coach
+        title = request.POST.get('title')
+        place_count = request.POST.get("place_count")
+        category = request.POST.get("category")
+        coach_id = request.POST.get("coach")
+        try:
+            place_count = int(place_count)
+            if place_count < 0 or place_count > 99:
+                raise ValueError
+        except ValueError:
+            messages.error(request, "لطفا برای ظرفیت یک عدد بین 0 تا 99 انتخاب کنید.")
+            return redirect("Accounts:coach-add-time")
+        try:
+            category_id = int(category)
+            category = ClassCategory.objects.get(id=category_id)
+        except ValueError:
+            messages.error(request, "لطفا دسته بندی مناسب را انتخاب کنید.")
+            return redirect("Accounts:coach-add-time")
+        except ClassCategory.DoesNotExist:
+            messages.error(request, "دسته بندی مورد نظر یافت نشد.")
+            return redirect("Accounts:coach-add-time")
+        try:
+            coach_id = int(coach_id)
+            coach = Coach.objects.get(id=coach_id)
+        except ValueError:
+            messages.error(request, "مربی را به  درستی انتخاب کنید")
+            return redirect("Accounts:coach-add-time")
+        except Coach.DoesNotExist:
+            messages.error(request, "مربی را به  درستی انتخاب کنید")
+            return redirect("Accounts:coach-add-time")
+        if title is None:
+            messages.error(request, "لطفا عنوان کلاس را وارد کنید")
+            return redirect("Accounts:coach-add-time")
+        Time.objects.create(title=title, place_count=place_count, category=category, coach=coach, class_type_id=1)
+        messages.success(request, "افزودن کلاس با موفقیت انجام شد")
+        return redirect("Accounts:coach-profile-times")
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class ChangeUserBirthdayView(LoginRequiredMixin, View):
     login_url = "/Accounts/login"

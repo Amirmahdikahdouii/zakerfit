@@ -20,6 +20,8 @@ urlpatterns = [
          name="coach-profile-times-athletes-presentation"),
     path("coach-profile/times/athletes/<int:id>", views.CoachProfileTimeAthleteProfileView.as_view(),
          name="coach-athlete-profile"),
+    path("coach-profile/times/add/", views.CoachProfileAddTimeView.as_view(),
+         name="coach-add-time"),
     path("change-user-profile/", views.ChangeUserProfileView.as_view(), name="change_user_profile"),
     path("change-user-birthday/", views.ChangeUserBirthdayView.as_view(), name="change_user_birthday"),
     path("change-user-gender/", views.ChangeUserGenderView.as_view(), name="change_user_gender"),

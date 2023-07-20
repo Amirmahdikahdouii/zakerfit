@@ -1,0 +1,55 @@
+<div class="container bg-light rounded p-2 text-dark my-3">
+    <div class="row my-4 mt-2">
+        <h1 class="text-success">افزودن تایم:</h1>
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="title">نام کلاس:</label>
+                <br>
+            </div>
+            <div class="col-8 col-md-6">
+                <input class="form-control" id="title" name="title">
+            </div>
+            <span class="text-danger">ترجیحا تایم را وارد کنید مثل: 14:30 - 15:30</span>
+        </div>
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="place_count">تعداد ظرفیت:</label>
+            </div>
+            <div class="col-8 col-md-6">
+                <input type="number" min="1" max="99" class="form-control" id="place_count" name="place_count">
+            </div>
+        </div>
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="class_categories">دسته بندی:</label>
+            </div>
+            <div class="col-8 col-md-6">
+                <select class="form-select" id="class_categories" name="category">
+                    {% for category in class_categories %}
+                        <option value="{{ category.id }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="class_categories">مربی:</label>
+            </div>
+            <div class="col-8 col-md-6">
+                <select class="form-select" id="class_categories" name="coach">
+                    {% for coach in coaches %}
+                        <option value="{{ coach.id }}">{{ coach.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row mt-3 align-items-center justify-content-center">
+            <button type="submit" class="btn btn-outline-success col-5 col-md-3">
+                افزودن
+            </button>
+        </div>
+    </form>
+</div>
