@@ -195,19 +195,39 @@ class CoachProfileTimesAthletesPresentationView(LoginRequiredMixin, IsAdminRequi
         return Time.objects.all()
 
     def get(self, request, *args, **kwargs):
+        import jdatetime
         time = get_object_or_404(self.get_queryset(), id=kwargs.get("time_id"))
-        return render(request, self.template_name, {"time": time})
+        presentation = []
+        for athlete in time.athletes.all():
+            athlete_times = athlete.class_present.filter(date=jdatetime.date.today().togregorian(), user_id=athlete.id,
+                                                         is_present=True)
+            if athlete_times.exists():
+                presentation.append(athlete_times.first().user.id)
+        return render(request, self.template_name, {"time": time, "presentation": presentation})
 
     def post(self, request, *args, **kwargs):
         from .models import PresentClass
+        import jdatetime
         time = get_object_or_404(self.get_queryset(), id=kwargs.get("time_id"))
-        for key in request.POST.keys():
-            if key.startswith("id-"):
-                key = int(key.split("id-")[-1])
-                user = get_object_or_404(User.objects.all(), id=key)
-                PresentClass.objects.create(user_id=user.id, time_id=time.id, is_present=True)
+        user_ids = [int(key.split("id-")[-1]) for key in request.POST.keys() if key.startswith("id-")]
+        # We Present Every day and this system is designed for everyday presentation so be careful!
+        today_presentations = PresentClass.objects.filter(date=jdatetime.date.today().togregorian(), time_id=time.id)
+        if today_presentations.exists():
+            for presentation in today_presentations:
+                if presentation.user.id in user_ids:
+                    presentation.is_present = True
+                    presentation.save()
+                else:
+                    presentation.is_present = False
+                    presentation.save()
+        else:
+            for athlete in time.athletes.all():
+                if athlete.id in user_ids:
+                    time.class_present.create(user_id=athlete.id, is_present=True)
+                else:
+                    time.class_present.create(user_id=athlete.id)
         messages.success(request, "تغییرات با موفقیت ثبت شد")
-        return redirect("Accounts:coach-profile")
+        return redirect("Accounts:coach-profile-times")
 
 
 class CoachProfileTimeAthleteProfileView(LoginRequiredMixin, IsAdminRequiredMixin, View):
