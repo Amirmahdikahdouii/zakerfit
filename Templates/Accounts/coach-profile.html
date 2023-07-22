@@ -25,6 +25,12 @@
     {% url 'Accounts:coach-profile-times-athletes-presentation' time.id as TimeAthletsPresentation %}
     {% url 'Accounts:coach-athlete-profile' athlete.id as TimeAthletProfile %}
     {% url 'Accounts:coach-add-time' as CoachAddTime %}
+    {% url 'Accounts:coach-class-list' as CoachClassList %}
+    {% url 'Accounts:coach-class-list-filter' slug as CoachClassListFilter %}
+    {% url 'Accounts:coach-class-add-category' as CoachClassAddCategory %}
+    {% url 'Accounts:coach-class-select-category' as CoachClassSelectCategory %}
+    {% url 'Accounts:coach-class-edit-category' category.slug as CoachClassEditCategory %}
+
     <div class="container bg-dark text-light main-container">
         <div class="row p-3 rounded">
             {% include 'Accounts/components/coach-profile-sidebar.html' %}
@@ -52,6 +58,18 @@
                 {% endif %}
                 {% if request.path == CoachAddTime %}
                     {% include 'Accounts/components/coach_add_time.html' %}
+                {% endif %}
+                {% if request.path == CoachClassList or request.path == CoachClassListFilter %}
+                    {% include 'Accounts/components/coach_class_list.html' %}
+                {% endif %}
+                {% if request.path == CoachClassAddCategory %}
+                    {% include 'Accounts/components/coach_class_add_category.html' %}
+                {% endif %}
+                {% if request.path == CoachClassSelectCategory %}
+                    {% include 'Accounts/components/coach_class_select_category.html' %}
+                {% endif %}
+                {% if request.path == CoachClassEditCategory %}
+                    {% include 'Accounts/components/coach_class_edit_category.html' %}
                 {% endif %}
             </div>
         </div>

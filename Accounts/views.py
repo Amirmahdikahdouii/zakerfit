@@ -303,6 +303,90 @@ class CoachProfileAddTimeView(LoginRequiredMixin, IsAdminRequiredMixin, View):
         return redirect("Accounts:coach-profile-times")
 
 
+class CoachProfileClassListView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    @staticmethod
+    def get_queryset(slug=None):
+        from Classes.models import OnlineClass
+        if slug is not None:
+            return OnlineClass.objects.filter(category__slug=slug)
+        return OnlineClass.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        slug = kwargs.get("slug", None)
+        class_categories = CoachProfileAddTimeView.get_class_categories()
+        if slug is not None:
+            return render(request, self.template_name,
+                          {"classes": self.get_queryset(slug=slug), "class_categories": class_categories, "slug": slug})
+        return render(request, self.template_name,
+                      {"classes": self.get_queryset(), "class_categories": class_categories})
+
+
+class CoachProfileClassAddCategoryView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        from django.utils.text import slugify
+        from Classes.models import ClassCategory
+        image = request.FILES.get("image")
+        name = request.POST.get("name")
+        slug = slugify(request.POST.get("slug"))
+        if ClassCategory.objects.filter(slug=slug).exists():
+            slug = f"{slug}-{ClassCategory.objects.count() + 1}"
+        ClassCategory.objects.create(name=name, slug=slug, image=image)
+        messages.success(request, "دسته بندی افزوده شد")
+        return redirect("Accounts:coach-class-list")
+
+
+class CoachProfileClassSelectCategoryView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    def get(self, request):
+        return render(request, self.template_name,
+                      {"class_categories": CoachProfileClassEditCategoryView.get_queryset()})
+
+
+class CoachProfileClassEditCategoryView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/coach-profile.html"
+
+    @staticmethod
+    def get_queryset():
+        from Classes.models import ClassCategory
+        return ClassCategory.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        slug = kwargs.get('slug')
+        category = get_object_or_404(self.get_queryset(), slug=slug)
+        return render(request, self.template_name, {"category": category})
+
+    def post(self, request, *args, **kwargs):
+        from django.utils.text import slugify
+        from Classes.models import ClassCategory
+        category = get_object_or_404(self.get_queryset(), slug=kwargs.get('slug'))
+        delete = request.POST.get("delete")
+        if delete:
+            category.delete()
+            messages.info(request, "دسته بندی حذف شد")
+            return redirect("Accounts:coach-class-list")
+        image = request.FILES.get("image")
+        name = request.POST.get("name")
+        slug = slugify(request.POST.get("slug"))
+        if ClassCategory.objects.filter(slug=slug).exists():
+            slug = f"{slug}-{ClassCategory.objects.count() + 1}"
+        category.slug = slug
+        category.slug = slug
+        category.name = name
+        if image:
+            category.image = image
+        category.save()
+        messages.success(request, "دسته بندی آپدیت شد")
+        return redirect("Accounts:coach-class-list")
+
+
 @method_decorator(csrf_exempt, name="dispatch")
 class ChangeUserBirthdayView(LoginRequiredMixin, View):
     login_url = "/Accounts/login"

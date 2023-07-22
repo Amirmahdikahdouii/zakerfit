@@ -1,0 +1,58 @@
+{% load static %}
+{% url 'Accounts:coach-class-list' as CoachClassList %}
+{% url 'Accounts:coach-class-add-category' as CoachClassAddCategory %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <a href="{{ CoachClassList }}"
+               class="btn btn{% if request.path != CoachClassList %}-outline{% endif %}-info mx-1">همه</a>
+            {% for category in class_categories %}
+                <a href="{% url 'Accounts:coach-class-list-filter' category.slug %}"
+                   class="btn btn{% if category.slug != slug %}-outline{% endif %}-info mx-1">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+        <div class="col-12 my-2">
+            <a href="{{ CoachClassAddCategory }}" class="btn btn-danger">+ اضافه کردن دسته بندی</a>
+            <a href="{% url 'Accounts:coach-class-select-category' %}" class="btn btn-danger mx-2">
+                 - ویرایش دسته بندی ها
+            </a>
+        </div>
+    </div>
+</div>
+<!--Classes Start-->
+<section class="main-classes-in">
+    <div class="container">
+        <div class="row" id="counter">
+            {% if classes %}
+                {% for class in classes %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="class-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="class-img" style="min-height: 220px; max-height: 220px">
+                                <img src="{{ class.image.url }}" alt="Class">
+                            </div>
+                            <div class="class-box-contant" style="min-height: 250px; max-height: 250px">
+                                <div class="class-box-title">
+                                    <div class="class-box-icon">
+                                        <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
+                                    </div>
+                                    <a href="{{ class.get_class_url }}">
+                                        <h3 class="h3-title">
+                                            {{ class.get_class_type_name }}
+                                            <br>
+                                            {{ class.title }}
+                                        </h3>
+                                    </a>
+                                </div>
+                                <p class="text-justify">{{ class.description|truncatewords:20 }}</p>
+                                <a href="" class="btn btn-dark end-100">مشاهده و ویرایش</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1 class="text-danger text-center">موردی جهت نمایش وجود ندارد!</h1>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!--Classes End-->

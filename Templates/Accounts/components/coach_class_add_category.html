@@ -1,0 +1,42 @@
+<div class="container bg-light rounded p-2 text-dark my-3">
+    <div class="row my-4 mt-2">
+        <h1 class="text-success">افزودن دسته بندی کلاس ها:</h1>
+    </div>
+    <form action="{% url 'Accounts:coach-class-add-category' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="name">نام دسته بندی:</label>
+                <br>
+            </div>
+            <div class="col-8 col-md-6">
+                <input class="form-control" id="name" name="name">
+            </div>
+            <span class="text-danger">دقت کنید که دسته بندی ها تکراری نباشند!</span>
+        </div>
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="slug">نام دسته بندی به انگلیسی:</label>
+                <br>
+            </div>
+            <div class="col-8 col-md-6">
+                <input class="form-control" id="slug" name="slug">
+            </div>
+            <span class="text-danger">در وارد کردن نام به انگلیسی از اعداد و فاصله استفاده نکنید</span>
+        </div>
+        <div class="row my-1 align-items-center">
+            <div class="col-4 col-md-2">
+                <label for="image">تصویر:</label>
+                <br>
+            </div>
+            <div class="col-8 col-md-6">
+                <input class="form-control" id="image" name="image" type="file">
+            </div>
+        </div>
+        <div class="row mt-3 align-items-center justify-content-center">
+            <button type="submit" class="btn btn-outline-success col-5 col-md-3">
+                افزودن
+            </button>
+        </div>
+    </form>
+</div>

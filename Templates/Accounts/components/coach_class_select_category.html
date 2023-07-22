@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-3">
+            <h1 class="text-light">لطفا دسته بندی مورد نظر را انتخاب کنید:</h1>
+        </div>
+        {% for category in class_categories %}
+            <div class="col-4 col-md-2">
+                <a href="{% url 'Accounts:coach-class-edit-category' category.slug %}"
+                   class="btn btn-outline-primary">{{ category.name }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

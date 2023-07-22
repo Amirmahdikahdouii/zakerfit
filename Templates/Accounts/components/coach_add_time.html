@@ -2,7 +2,7 @@
     <div class="row my-4 mt-2">
         <h1 class="text-success">افزودن تایم:</h1>
     </div>
-    <form action="" method="post">
+    <form action="{% url 'Accounts:coach-add-time' %}" method="post">
         {% csrf_token %}
         <div class="row my-1 align-items-center">
             <div class="col-4 col-md-2">
