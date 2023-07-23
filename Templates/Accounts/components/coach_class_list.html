@@ -17,11 +17,20 @@
         <div class="col-12 my-2">
             <a href="{{ CoachClassAddCategory }}" class="btn btn-danger">+ اضافه کردن دسته بندی</a>
             <a href="{% url 'Accounts:coach-class-select-category' %}" class="btn btn-danger mx-2">
-                 - ویرایش دسته بندی ها
+                - ویرایش دسته بندی ها
             </a>
         </div>
     </div>
 </div>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <a href="{% url 'Accounts:coach-class-add' %}" class="btn btn-success fs-4">+ اضافه کردن کلاس</a>
+        </div>
+    </div>
+</div>
+
 <!--Classes Start-->
 <section class="main-classes-in">
     <div class="container">
