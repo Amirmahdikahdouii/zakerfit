@@ -8,10 +8,15 @@
             <div class="col-md-12 my-2">
                 <h2 class="text-dark text-center">تغییر زمان بندی</h2>
             </div>
-            <div class="col-md-12">
-                <button class="btn btn-danger">
+            <div class="col-6 col-md-12">
+                <button class="btn btn-success">
                     تایم فعلی شما: {{ request.user.class_time }}
                 </button>
+            </div>
+            <div class="col-6 col-md-12 my-md-3">
+                <a href="{% url 'Accounts:delete_present_class' %}" class="btn btn-danger">
+                    حذف کلاس
+                </a>
             </div>
             <div class="col-md-12 my-3">
                 {% for time in class_times %}

@@ -506,3 +506,15 @@ class VerifyPhoneNumberView(LoginRequiredMixin, View):
             request.user.phone_validation.save()
             return HttpResponse(status=200)
         return HttpResponse(status=403)
+
+
+class DeletePresentClassView(LoginRequiredMixin, View):
+    def get(self, request):
+        request.user.class_time.athlete_count -= 1
+        if request.user.class_time.has_place_remain is False:
+            request.user.class_time.has_place_remain = True
+        request.user.class_time.save()
+        request.user.class_time = None
+        request.user.save()
+        messages.success(request, "کلاس شما با موفقیت حذف شد")
+        return redirect("Accounts:profile")
