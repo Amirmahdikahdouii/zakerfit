@@ -24,6 +24,8 @@ urlpatterns = [
          name="coach-add-time"),
     path("coach-profile/classes/", views.CoachProfileClassListView.as_view(),
          name="coach-class-list"),
+    path("coach-profile/classes/add-class/", views.CoachProfileClassAddView.as_view(),
+         name="coach-class-add"),
     path("coach-profile/classes/add-category/", views.CoachProfileClassAddCategoryView.as_view(),
          name="coach-class-add-category"),
     path("coach-profile/classes/select-category/", views.CoachProfileClassSelectCategoryView.as_view(),
