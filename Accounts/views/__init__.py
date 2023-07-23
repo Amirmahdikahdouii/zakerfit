@@ -12,4 +12,4 @@ from .coaches import (CoachProfileView, CoachProfileTimesView, CoachProfileTimes
                       CoachProfileTimesAthletesView, CoachProfileTimesAthletesPresentationView,
                       CoachProfileTimeAthleteProfileView, CoachProfileAddTimeView, CoachProfileClassListView,
                       CoachProfileClassAddCategoryView, CoachProfileClassSelectCategoryView,
-                      CoachProfileClassEditCategoryView, CoachProfileClassAddView)
+                      CoachProfileClassEditCategoryView, CoachProfileClassAddView, CoachProfileClassEditView)

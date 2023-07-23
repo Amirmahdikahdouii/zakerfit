@@ -296,7 +296,6 @@ class CoachProfileClassAddView(LoginRequiredMixin, IsAdminRequiredMixin, View):
     @staticmethod
     def get_start_time(date: str):
         import jdatetime
-        print(date)
         date = list(map(int, date.split("/")))
         return jdatetime.date(year=date[0], month=date[1], day=date[2]).togregorian()
 
@@ -327,19 +326,12 @@ class CoachProfileClassAddView(LoginRequiredMixin, IsAdminRequiredMixin, View):
             coach_id = int(data.get("class_coach"))
             date = self.get_start_time(data.get("start_date"))
             place_count = int(data.get("place_count"))
-            print(place_count)
             sessions_count = int(data.get("sessions_count"))
-            print(sessions_count)
             sessions_count_in_week = int(data.get("sessions_count_in_week"))
-            print(sessions_count_in_week)
             sessions_duration = int(data.get("sessions_duration"))
-            print(sessions_duration)
             price = int(data.get("price"))
-            print(price)
             category_id = int(data.get("class_category"))
-            print(category_id)
             type_id = int(data.get("class_types"))
-            print(type_id)
         except:
             messages.error(request, "لطفا بار دیگر تلاش کنید")
             return redirect("Accounts:coach-class-add")
@@ -349,4 +341,50 @@ class CoachProfileClassAddView(LoginRequiredMixin, IsAdminRequiredMixin, View):
                                    sessions_count_in_week=sessions_count_in_week, price=price, category_id=category_id,
                                    class_type_id=type_id)
         messages.success(request, "کلاس با موفقیت ساخته شد")
+        return redirect("Accounts:coach-class-list")
+
+
+class CoachProfileClassEditView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/components/coach_edit_class.html"
+
+    @staticmethod
+    def get_queryset():
+        from Classes.models import OnlineClass
+        return OnlineClass.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        _class = get_object_or_404(self.get_queryset(), slug=kwargs.get("slug"))
+        class_coaches = CoachProfileAddTimeView.get_coaches()
+        class_categories = CoachProfileAddTimeView.get_class_categories()
+        class_types = CoachProfileAddTimeView.get_class_types()
+        return render(request, self.template_name, {
+            "class": _class,
+            "class_coaches": class_coaches,
+            'class_categories': class_categories,
+            'class_types': class_types
+        })
+
+    def post(self, request, *args, **kwargs):
+        image = request.FILES.get("image")
+        _class = get_object_or_404(self.get_queryset(), slug=kwargs.get("slug"))
+        try:
+            if image is not None:
+                _class.image = image
+            _class.title = request.POST.get("title")
+            _class.slug = slugify(request.POST.get("slug"))
+            _class.description = request.POST.get("description")
+            _class.coach_id = int(request.POST.get("class_coach"))
+            _class.category_id = int(request.POST.get("class_category"))
+            _class.class_type_id = int(request.POST.get("class_types"))
+            _class.start_time = CoachProfileClassAddView.get_start_time(request.POST.get("start_date"))
+            _class.place_count = int(request.POST.get("place_count"))
+            _class.sessions_count = int(request.POST.get("sessions_count"))
+            _class.sessions_count_in_week = int(request.POST.get("sessions_count_in_week"))
+            _class.sessions_duration = int(request.POST.get("sessions_duration"))
+            _class.price = int(request.POST.get("price"))
+            _class.save()
+        except:
+            messages.error(request, "خطایی روی داد، لطفا دوباره تلاش کنید.")
+            return redirect("Accounts:coach-class-edit", {"slug": _class.slug})
+        messages.success(request, "تغییرات با موفقیت اعمال شد")
         return redirect("Accounts:coach-class-list")

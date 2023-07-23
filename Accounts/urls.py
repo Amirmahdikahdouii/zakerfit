@@ -26,6 +26,8 @@ urlpatterns = [
          name="coach-class-list"),
     path("coach-profile/classes/add-class/", views.CoachProfileClassAddView.as_view(),
          name="coach-class-add"),
+    path("coach-profile/classes/edit-class/<slug:slug>/", views.CoachProfileClassEditView.as_view(),
+         name="coach-class-edit"),
     path("coach-profile/classes/add-category/", views.CoachProfileClassAddCategoryView.as_view(),
          name="coach-class-add-category"),
     path("coach-profile/classes/select-category/", views.CoachProfileClassSelectCategoryView.as_view(),

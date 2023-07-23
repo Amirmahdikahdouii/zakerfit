@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}افزودن کلاس{% endblock %}
+{% block css %}
+    <link href="{% static 'css/jalalidatepicker.min.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+    <div style="padding-top: 120px !important;" class="bg-dark w-100"></div>
+    <div class="container bg-light rounded p-2 text-dark my-3">
+        <div class="row my-4 mt-2">
+            <h1 class="text-success">افزودن کلاس:</h1>
+        </div>
+        <form action="{% url 'Accounts:coach-class-edit' class.slug %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="title">نام کلاس:</label>
+                    <br>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input class="form-control" id="title" name="title" required value="{{ class.title }}">
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="slug">نام کلاس به انگلیسی:</label>
+                    <br>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input class="form-control" id="slug" name="slug" required value="{{ class.slug }}">
+                </div>
+                <span class="text-danger">در وارد کردن نام به انگلیسی از اعداد و فاصله استفاده نکنید</span>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="description">توضیحات کلاس:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <textarea name="description" id="description" cols="30" rows="10" class="form-control"
+                              required>{{ class.description }}</textarea>
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="image">تغییر تصویر:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="file" name="image" id="image" class="form-control">
+                </div>
+                <span class="text-danger">اگر نمیخواهید تصویر را تغییر دهید این فیلد را خالی بگذارید</span>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="class_coach">مربی:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <select class="form-select" id="class_coach" name="class_coach">
+                        {% for coach in class_coaches %}
+                            <option {% if class.coach.id == coach.id %}selected{% endif %}
+                                    value="{{ coach.id }}">{{ coach.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="start-time">زمان شروع:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input data-jdp type="button" class="btn btn-danger" value="{{ class.get_start_time }}"
+                           id="start-time">
+                    <input type="hidden" id="start_date_input" name="start_date" value="{{ class.get_start_time }}">
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="place_count">ظرفیت:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="number" class="form-control" min="0" max="99" name="place_count" id="place_count"
+                           required value="{{ class.place_count }}">
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="sessions_count">تعداد کل جلسات:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="number" class="form-control" min="0" max="120" name="sessions_count"
+                           id="sessions_count" required value="{{ class.sessions_count }}">
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="sessions_count_in_week">تعداد جلسات در هفته:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="number" class="form-control" min="0" max="99" name="sessions_count_in_week"
+                           id="sessions_count_in_week" required value="{{ class.sessions_count_in_week }}">
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="sessions_duration">مدت زمان هر جلسه:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="number" class="form-control" min="0" max="400" name="sessions_duration"
+                           id="sessions_duration" required value="{{ class.sessions_duration }}">
+                </div>
+                <span class="text-danger">مقدار را به دقیقه وارد کنید</span>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="price">قیمت دوره:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <input type="number" class="form-control" min="0" name="price"
+                           id="price" required value="{{ class.price }}">
+                </div>
+                <span class="text-danger">قیمت را به تومان وارد کنید مثل: 1000000</span>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="class_categories">دسته بندی:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <select class="form-select" id="class_categories" name="class_category">
+                        {% for category in class_categories %}
+                            <option {% if class.category.id == category.id %}selected{% endif %}
+                                    value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="class_categories">نوع کلاس:</label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <select class="form-select" id="class_categories" name="class_types">
+                        {% for type in class_types %}
+                            <option {% if class.class_type.id == type.id %}selected{% endif %}
+                                    value="{{ type.id }}">{{ type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3 align-items-center justify-content-center">
+                <button type="submit" class="btn btn-outline-success col-5 col-md-3">
+                    اعمال تغییرات
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/jalalidatepicker.min.js' %}"></script>
+    <script>
+        jalaliDatepicker.startWatch();
+        let datePicker = document.getElementById("start-time");
+        let dateHiddenInput = document.getElementById("start_date_input");
+        datePicker.addEventListener("change", () => {
+            dateHiddenInput.value = datePicker.value;
+        })
+    </script>
+{% endblock %}
