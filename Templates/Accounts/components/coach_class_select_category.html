@@ -1,6 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 my-3">
+            <a href="{% url 'Accounts:coach-class-list' %}" class="btn btn-primary text-decoration-underline">بازگشت</a>
             <h1 class="text-light">لطفا دسته بندی مورد نظر را انتخاب کنید:</h1>
         </div>
         {% for category in class_categories %}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}افزودن کلاس{% endblock %}
+{% block title %}ویرایش کلاس{% endblock %}
 {% block css %}
     <link href="{% static 'css/jalalidatepicker.min.css' %}" rel="stylesheet"/>
 {% endblock %}
@@ -8,7 +8,8 @@
     <div style="padding-top: 120px !important;" class="bg-dark w-100"></div>
     <div class="container bg-light rounded p-2 text-dark my-3">
         <div class="row my-4 mt-2">
-            <h1 class="text-success">افزودن کلاس:</h1>
+            <a href="{% url 'Accounts:coach-class-list' %}" class="btn btn-primary text-decoration-underline">بازگشت</a>
+            <h1 class="text-success">ویرایش کلاس:</h1>
         </div>
         <form action="{% url 'Accounts:coach-class-edit' class.slug %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}

@@ -56,8 +56,13 @@
                                     </a>
                                 </div>
                                 <p class="text-justify">{{ class.description|truncatewords:20 }}</p>
-                                <a href="{% url 'Accounts:coach-class-edit' class.slug %}" class="btn btn-dark end-100">مشاهده
-                                    و ویرایش</a>
+                                <a href="{% url 'Accounts:coach-class-edit' class.slug %}" class="btn btn-dark">
+                                    مشاهده و ویرایش
+                                </a>
+                                <a href="{% url 'Accounts:coach-class-edit-times' class.slug %}"
+                                   class="btn btn-dark my-3">
+                                    تغییر زمان بندی
+                                </a>
                             </div>
                         </div>
                     </div>

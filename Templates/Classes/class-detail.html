@@ -237,7 +237,7 @@
                                         {% for time in class.times.all %}
                                             <div class="col-lg-4 col-md-4 col-sm-6">
                                                 <div class="class-detail-time-box">
-                                                    <span>{{ time.day }}</span>
+                                                    <span>{{ time.get_day }}</span>
                                                     <span dir="ltr">{{ time.time }}</span>
                                                     <span>{{ class.coach.name }}</span>
                                                 </div>

@@ -151,13 +151,40 @@ class OnlineClassBenefit(models.Model):
         return self.title
 
 
+class OnlineClassTimeDayChoices(models.IntegerChoices):
+    SATURDAY = 1, "شنبه"
+    SUNDAY = 2, "یکشنبه"
+    MONDAY = 3, "دوشنبه"
+    TUESDAY = 4, "سه شنبه"
+    WEDNESDAY = 5, "چهارشنبه"
+    THURSDAY = 6, "پنجشنبه"
+    FRIDAY = 7, "جمعه"
+
+    @staticmethod
+    def get_dict_days():
+        return [
+            {'day': 'شنبه', 'id': 1},
+            {'day': 'یکشنبه', 'id': 2},
+            {'day': 'دوشنبه', 'id': 3},
+            {'day': 'سه شنبه', 'id': 4},
+            {'day': 'چهارشنبه', 'id': 5},
+            {'day': 'پنجشنبه', 'id': 6},
+            {'day': 'جمعه', 'id': 7}
+        ]
+
+
 class OnlineClassTime(models.Model):
     _class = models.ForeignKey(OnlineClass, on_delete=models.CASCADE, related_name="times")
-    day = models.CharField(max_length=40)
+    day = models.PositiveSmallIntegerField(choices=OnlineClassTimeDayChoices.choices)
     time = models.CharField(max_length=200)
 
     def __str__(self):
         return f"{self._class.title}-{self.day}-{self.time}"
+
+    def get_day(self):
+        for day in OnlineClassTimeDayChoices.get_dict_days():
+            if day['id'] == self.day:
+                return day['day']
 
 
 class TimePrice(models.Model):

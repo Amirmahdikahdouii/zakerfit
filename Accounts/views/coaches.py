@@ -383,8 +383,42 @@ class CoachProfileClassEditView(LoginRequiredMixin, IsAdminRequiredMixin, View):
             _class.sessions_duration = int(request.POST.get("sessions_duration"))
             _class.price = int(request.POST.get("price"))
             _class.save()
-        except:
+        except ValueError:
             messages.error(request, "خطایی روی داد، لطفا دوباره تلاش کنید.")
             return redirect("Accounts:coach-class-edit", {"slug": _class.slug})
         messages.success(request, "تغییرات با موفقیت اعمال شد")
+        return redirect("Accounts:coach-class-list")
+
+
+class CoachProfileClassEditTimesView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/components/coach_edit_class_time.html"
+
+    @staticmethod
+    def get_queryset(slug):
+        from Classes.models import OnlineClass
+        return get_object_or_404(OnlineClass.objects.all(), slug=slug)
+
+    def get(self, request, *args, **kwargs):
+        from Classes.models import OnlineClassTimeDayChoices
+        _class = self.get_queryset(kwargs.get("slug"))
+        week_days = [{"day": day[1], "id": day[0]} for day in OnlineClassTimeDayChoices.choices]
+        return render(request, self.template_name, {
+            "class": _class,
+            "week_days": week_days,
+        })
+
+    def post(self, request, *args, **kwargs):
+        from Classes.models import OnlineClassTime
+        _class = self.get_queryset(kwargs.get("slug"))
+        time = request.POST.get("time")
+        if time is None:
+            messages.warning(request, "زمان کلاس نمیتواند خالی باشد")
+            return redirect("Accounts:coach-class-edit-times")
+        try:
+            week_day = int(request.POST.get("week_day"))
+        except ValueError:
+            messages.error(request, "لطفا زمانبندی درست را وارد کنید")
+            return redirect("Accounts:coach-class-edit-times")
+        OnlineClassTime.objects.create(_class=_class, time=time, day=week_day)
+        messages.success(request, "زمان بندی با موفقیت افزوده شد")
         return redirect("Accounts:coach-class-list")

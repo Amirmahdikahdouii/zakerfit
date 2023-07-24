@@ -28,6 +28,8 @@ urlpatterns = [
          name="coach-class-add"),
     path("coach-profile/classes/edit-class/<slug:slug>/", views.CoachProfileClassEditView.as_view(),
          name="coach-class-edit"),
+    path("coach-profile/classes/edit-class/<slug:slug>/time/", views.CoachProfileClassEditTimesView.as_view(),
+         name="coach-class-edit-times"),
     path("coach-profile/classes/add-category/", views.CoachProfileClassAddCategoryView.as_view(),
          name="coach-class-add-category"),
     path("coach-profile/classes/select-category/", views.CoachProfileClassSelectCategoryView.as_view(),
