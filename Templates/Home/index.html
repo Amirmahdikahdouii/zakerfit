@@ -219,7 +219,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="counter-box">
                         <div class="counter-content">
-                            <h2 class="h2-title counting-data" data-count="65">0</h2>
+                            <h2 class="h2-title counting-data" data-count="{{ users_count }}">0</h2>
                             <div class="counter-text">
                                 <img src="{% static 'images/happy-client.png' %}" alt="Happy Client">
                                 <span>عضو فعال</span>
@@ -230,7 +230,7 @@
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="counter-box">
                         <div class="counter-content">
-                            <h2 class="h2-title counting-data" data-count="60">0</h2>
+                            <h2 class="h2-title counting-data" data-count="{{ athletes_count }}">0</h2>
                             <div class="counter-text">
                                 <img src="{% static 'images/total-clients.png' %}" alt="Total Clients">
                                 <span>ورزشکاران مجموعه</span>
@@ -319,124 +319,45 @@
                 </div>
             </div>
             <div class="row pricing-slider">
-                <div class="col-lg-4">
-                    <div class="pricing-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="pricing-title-box pricing-one">
-                            <h3 class="h3-title">12 جلسه ماهانه</h3>
-                            <h2 class="h2-title">
-                                800 هزار تومان
-                                <span>/ماه</span>
-                            </h2>
-                        </div>
-                        <div class="pricing-content-box">
-                            <div class="pricing-content">
-                                <div class="pricing-point">
-                                    <ul>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>دسترسی نامحدود به باشگاه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>حضور گروهی</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>بازدید از ورزشگاه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>بازدید از مجموعه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p> باشگاه بدنسازی، باشگاه مبارزه</p>
-                                        </li>
-                                    </ul>
-                                </div>
+                {% for price in time_prices %}
+                    <div class="col-lg-4">
+                        <div class="pricing-box wow fadeInUp" data-wow-delay=".5s">
+                            <div class="pricing-title-box pricing-{% if forloop.counter == 1 %}one
+                                {% else %}{% if forloop.counter == 2 %}two{% else %}three{% endif %}{% endif %}">
+                                <h3 class="h3-title">{{ price.sessions_count }} جلسه ماهانه</h3>
+                                <h2 class="h2-title">
+                                    {{ price.get_price }} هزار تومان
+                                    <span>/ماه</span>
+                                </h2>
                             </div>
-                            <a href="contact-us.html" class="sec-btn">اکنون بپیوندید</a>
+                            <div class="pricing-content-box">
+                                <div class="pricing-content">
+                                    <div class="pricing-point">
+                                        <ul>
+                                            <li>
+                                                <img src="{% static 'images/check.png' %}" alt="Check">
+                                                <p>تمرینات گروهی</p>
+                                            </li>
+                                            <li>
+                                                <img src="{% static 'images/check.png' %}" alt="Check">
+                                                <p>آموزش و تمرین</p>
+                                            </li>
+                                            <li>
+                                                <img src="{% static 'images/check.png' %}" alt="Check">
+                                                <p>تمرینات با حضور مربی</p>
+                                            </li>
+                                            <li>
+                                                <img src="{% static 'images/check.png' %}" alt="Check">
+                                                <p>1 ساعت مدت زمان هر جلسه</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <a href="{% url 'Accounts:time_payment_form' %}" class="sec-btn">اکنون بپیوندید</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="pricing-box wow fadeInDown" data-wow-delay=".5s">
-                        <div class="pricing-title-box pricing-two">
-                            <h3 class="h3-title">18 جلسه ماهانه</h3>
-                            <h2 class="h2-title">
-                                950 هزار تومان
-                                <span>/ماه</span></h2>
-                        </div>
-                        <div class="pricing-content-box">
-                            <div class="pricing-content">
-                                <div class="pricing-point">
-                                    <ul>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>دسترسی نامحدود به باشگاه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>حضور گروهی</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>بازدید از ورزشگاه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>بازدید از مجموعه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p> باشگاه بدنسازی، باشگاه مبارزه</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a href="contact-us.html" class="sec-btn">اکنون بپیوندید</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="pricing-box wow fadeInUp" data-wow-delay=".5s">
-                        <div class="pricing-title-box pricing-three">
-                            <h3 class="h3-title">24 جلسه ماهانه</h3>
-                            <h2 class="h2-title">
-                                1,100 هزار تومان
-                                <span>/ماه</span></h2>
-                        </div>
-                        <div class="pricing-content-box">
-                            <div class="pricing-content">
-                                <div class="pricing-point">
-                                    <ul>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>دسترسی نامحدود به باشگاه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>حضور گروهی</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>بازدید از ورزشگاه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p>بازدید از مجموعه</p>
-                                        </li>
-                                        <li>
-                                            <img src="{% static 'images/check.png' %}" alt="Check">
-                                            <p> باشگاه بدنسازی، باشگاه مبارزه</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a href="contact-us.html" class="sec-btn">اکنون بپیوندید</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

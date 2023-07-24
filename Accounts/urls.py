@@ -46,4 +46,6 @@ urlpatterns = [
     path("change-present-class/", views.ChangePresentClassView.as_view(), name="change_present_class"),
     path("change-present-class/<int:id>/", views.ChangePresentClassView.as_view(), name="submit_change_present_class"),
     path('verify-phone-number/', views.VerifyPhoneNumberView.as_view(), name='verify_phone_number_view'),
+    path("time-payment/", views.TimePaymentView.as_view(), name="time_payment_form"),
+    path("time-payment/confirm/", views.TimePaymentConfirmView.as_view(), name="time_payment_confirm"),
 ]

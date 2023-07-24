@@ -158,3 +158,18 @@ class OnlineClassTime(models.Model):
 
     def __str__(self):
         return f"{self._class.title}-{self.day}-{self.time}"
+
+
+class TimePrice(models.Model):
+    price = models.PositiveIntegerField()
+    sessions_count = models.PositiveSmallIntegerField(default=12)
+
+    def __str__(self):
+        return f" جلسات ماهانه: {self.sessions_count}"
+
+    def get_price(self):
+        price = self.price // 1000
+        return "{:,}".format(price)
+
+    def get_full_price(self):
+        return "{:,}".format(self.price)

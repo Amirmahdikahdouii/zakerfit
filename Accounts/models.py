@@ -4,6 +4,7 @@ from .managers import UserManager
 from Classes.models import Time
 from .utils import ShamsiDateField, IranPhoneNumberValidator
 from django.contrib.auth import get_user_model
+import jdatetime
 
 
 class UserGenderChoices(models.IntegerChoices):
@@ -82,3 +83,14 @@ class PresentClass(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+
+class UserTimePayment(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="time_payment")
+    time = models.ForeignKey("Classes.Time", on_delete=models.SET_NULL, null=True, blank=True, related_name="payment")
+    time_pricing = models.ForeignKey("Classes.TimePrice", on_delete=models.CASCADE, related_name="users_payment")
+    date = ShamsiDateField(auto_now_add=True)
+    sessions_remain = models.PositiveSmallIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.user.get_full_name()}: {self.date.month}/{self.date.day}"

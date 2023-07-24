@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}انتخاب پلن تمرین{% endblock %}
+{% block content %}
+    <div style="padding-top: 120px !important;" class="bg-dark w-100"></div>
+    <div class="container bg-light rounded p-2 text-dark my-3">
+        <div class="row my-4 mt-2">
+            <h1 class="text-success">انتخاب پلن قیمت:</h1>
+        </div>
+        <form action="{% url 'Accounts:time_payment_form' %}" method="post">
+            {% csrf_token %}
+            <div class="row my-1 align-items-center bg-dark rounded p-2 my-3">
+            <span class="text-danger fs-5 my-2">
+                قبل از پرداخت به نکات زیر دقت کنید:
+            </span>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        مدت زمان اسفاده از تعداد جلسات 35 روز می باشد و بعد از این مدت، دوباره نیاز به پرداخت دارید.
+                    </li>
+                    <li class="list-group-item">با تمام شدن تعداد جلسات قبل از 30 روز، برای شرکت در کلاس ها ملزم به
+                        پرداخت مجدد می باشید.
+                    </li>
+                    <li class="list-group-item">
+                        محدودیتی در استفاده شما وجود ندارد، شما میتوانید با هماهنگی مربی جلسات خودتون رو فیکس کنید.
+                    </li>
+                    <li class="list-group-item">
+                        بعد از پرداخت، امکان انتخاب کلاس حضوری برای شما فعال میشود و میتوانید تایم مورد نظرتون رو انتخاب
+                        کنید.
+                    </li>
+                </ul>
+            </div>
+            <div class="row my-1 align-items-center">
+                <div class="col-4 col-md-2">
+                    <label for="time_plan">پلن انتخابی: </label>
+                </div>
+                <div class="col-8 col-md-6">
+                    <select class="form-select" id="time_plan" name="time_plan">
+                        {% for price in time_prices %}
+                            <option value="{{ price.id }}">
+                                ماهانه: {{ price.get_full_price }} تومان
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3 align-items-center justify-content-center">
+                <button type="submit" class="btn btn-outline-success col-5 col-md-3">
+                    پرداخت
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

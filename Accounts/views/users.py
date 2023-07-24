@@ -142,9 +142,19 @@ class RegisterPresentClassView(LoginRequiredMixin, View):
     template_name = "Accounts/register_present_class.html"
 
     def dispatch(self, request, *args, **kwargs):
+        from Accounts.models import UserTimePayment
+        import jdatetime
         if request.user.is_authenticated and request.user.class_time is not None:
             messages.warning(request, "شما از قبل در کلاسی حضور دارید، برای تغییر زمان بندی از پروفایل خود اقدام کنید.")
             return redirect("Accounts:profile")
+        user_payment = UserTimePayment.objects.filter(user_id=request.user.id).order_by("-date").first()
+        if user_payment.sessions_remain == 0:
+            messages.error(request, "تعداد جلسات شما به پایان رسیده است، لطفا پلن خود را انتخاب کنید.")
+            return redirect("Accounts:time_payment_form")
+        date_difference = jdatetime.date.today() - user_payment.date
+        if date_difference.days > 35:
+            messages.error(request, "مدت زمان پلن انتخابی شما به پایان رسیده است، لطفا پلن خود را شارژ کنید")
+            return redirect("Accounts:time_payment_form")
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -235,3 +245,42 @@ class DeletePresentClassView(LoginRequiredMixin, View):
         request.user.save()
         messages.success(request, "کلاس شما با موفقیت حذف شد")
         return redirect("Accounts:profile")
+
+
+class TimePaymentView(LoginRequiredMixin, View):
+    template_name = "Accounts/time_payment_form.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.info(request, " لطفا ابتدا وارد شوید!")
+        return super().dispatch(request, *args, **kwargs)
+
+    @staticmethod
+    def get_time_plans():
+        from Classes.models import TimePrice
+        return TimePrice.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {
+            "time_prices": self.get_time_plans(),
+        })
+
+    def post(self, request, *args, **kwargs):
+        # TODO: Fix Payment section and make real connection to payment server
+        from Accounts.models import UserTimePayment
+        try:
+            time_price_id = int(request.POST.get("time_plan"))
+            time_price = get_object_or_404(self.get_time_plans(), id=time_price_id)
+        except ValueError:
+            messages.error(request, "لطفا اطلاعات را به درستی وارد کنید")
+            return redirect("Accounts:time_payment_form")
+        UserTimePayment.objects.create(user_id=request.user.id, time_pricing=time_price,
+                                       sessions_remain=time_price.sessions_count)
+        return redirect("Accounts:time_payment_confirm")
+
+
+class TimePaymentConfirmView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        # TODO: Confirm Payment Status, by default now is True
+        messages.success(request, "پرداخت با موفقیت انجام شد، خوشحالیم که کنارمون هستین!")
+        return redirect("Accounts:register_present_class")

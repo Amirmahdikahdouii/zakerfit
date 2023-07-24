@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Time, ClassType, ClassCategory, OnlineClass, OnlineClassTime, OnlineClassBenefit
+from .models import Time, ClassType, ClassCategory, OnlineClass, OnlineClassTime, OnlineClassBenefit, TimePrice
 
 
 class TimeAdmin(admin.ModelAdmin):
@@ -25,3 +25,4 @@ admin.site.register(ClassCategory)
 admin.site.register(OnlineClass, OnlineClassAdmin)
 admin.site.register(OnlineClassTime)
 admin.site.register(OnlineClassBenefit)
+admin.site.register(TimePrice)

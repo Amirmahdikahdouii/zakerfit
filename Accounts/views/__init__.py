@@ -6,7 +6,7 @@ in coaches.py we have all views for coaches.
 
 from .users import (SignUpView, LoginView, LogOutView, ProfileView, ChangeUserBirthdayView, ChangeUserGenderView,
                     ChangeUserProfileView, RegisterPresentClassView, ChangePresentClassView, VerifyPhoneNumberView,
-                    DeletePresentClassView)
+                    DeletePresentClassView, TimePaymentView, TimePaymentConfirmView)
 from .coaches import (CoachProfileView, CoachProfileTimesView, CoachProfileTimesChangeCoachView,
                       CoachProfileTimesChangePlaceCountView,
                       CoachProfileTimesAthletesView, CoachProfileTimesAthletesPresentationView,
