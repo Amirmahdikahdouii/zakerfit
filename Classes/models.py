@@ -15,7 +15,12 @@ class ClassCategory(models.Model):
         return self.name
 
     def has_image(self):
-        return True if self.image is not None else False
+        return True if self.image.name else False
+
+    @property
+    def category_classes_url(self):
+        from django.shortcuts import reverse
+        return reverse("Classes:classes_category_filter", kwargs={"slug": self.slug})
 
 
 class ClassTypesChoices(models.IntegerChoices):
@@ -133,6 +138,9 @@ class OnlineClass(models.Model):
 
     def class_has_time(self):
         return True if self.times.count() > 0 else False
+
+    def has_image(self):
+        return True if self.image.name else False
 
 
 class OnlineClassBenefit(models.Model):

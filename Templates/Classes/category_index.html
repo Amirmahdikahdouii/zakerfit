@@ -6,7 +6,6 @@
     {% url 'Classes:group_classes' as GroupClassesURL %}
     {% url 'Classes:private_classes' as PrivateClassesURL %}
     {% url 'Classes:private_classes' as PrivateClassesURL %}
-    {% url 'Classes:classes_category_view' as Categories %}
     <!--Banner Start-->
     <section class="main-inner-banner jarallax" data-jarallax data-speed="0.2" data-imgPosition="50% 0%"
              style="background-image: url('{% static 'images/classes-in-banner.jpg' %}');">
@@ -45,7 +44,7 @@
                        class="btn {% if request.path == PrivateClassesURL %} btn-warning{% else %} btn-outline-warning{% endif %} text-light">کلاس
                         های خصوصی</a>
                     <h5 class="text-light mt-3">فیلتر بر اساس دسته بندی: </h5>
-                    <a href="{{ Categories }}"
+                    <a href="{{ ClassesURL }}"
                        class="btn btn-info text-light">همه</a>
                     {% for category in class_categories %}
                         <a href="{% url 'Classes:classes_category_filter' category.slug %}"
@@ -61,13 +60,13 @@
     <section class="main-classes-in">
         <div class="container">
             <div class="row" id="counter">
-                {% if classes.count %}
-                    {% for class in classes %}
+                {% if class_categories.count %}
+                    {% for category in class_categories %}
                         <div class="col-lg-4 col-md-6">
                             <div class="class-box wow fadeInUp" data-wow-delay=".5s">
                                 <div class="class-img" style="min-height: 220px; max-height: 220px">
-                                    {% if class.has_image %}
-                                        <img src="{{ class.image.url }}" alt="Class">
+                                    {% if category.has_image %}
+                                        <img src="{{ category.image.url }}" alt="Class">
                                     {% else %}
                                         <img src="{% static 'images/myostatin-logo.png' %}" alt="Class">
                                     {% endif %}
@@ -77,43 +76,22 @@
                                         <div class="class-box-icon">
                                             <img src="{% static 'images/class-icon1.png' %}" alt="Icon">
                                         </div>
-                                        <a href="{{ class.get_class_url }}">
+                                        <a href="{{ category.category_classes_url }}">
                                             <h3 class="h3-title">
-                                                {{ class.get_class_type_name }}
-                                                <br>
-                                                {{ class.title }}
+                                                {{ category.name }}
                                             </h3>
                                         </a>
                                     </div>
-                                    <p class="text-justify">{{ class.description|truncatewords:20 }}</p>
-                                    {% if class.has_place %}
-                                        <div class="class-full" id="progress_bar">
-                                            <div class="class-full-bar-box">
-                                                <h3 class="h3-title">تکمیل</h3>
-                                                <div class="class-full-bar-percent">
-                                                    <h3 class="h3-title counting-data"
-                                                        data-count="{{ class.get_place_remain_percentage }}">0</h3>
-                                                    <span>%</span>
-                                                </div>
-                                                <div class="skill-bar class-bar"
-                                                     data-width="{{ class.get_place_remain_percentage }}%">
-                                                    <div class="skill-bar-inner class-bar-in"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <span>ظرفیت باقی مانده: {{ class.place_remain }}/{{ class.place_count }}</span>
 
-                                    {% else %}
-                                        <a href="{{ class.get_class_url }}" class="btn btn-outline-danger">اطلاعات بیشتر
-                                            و
-                                            ثبت نام</a>
-                                    {% endif %}
+                                    <a href="{{ category.category_classes_url }}" class="w-100 btn btn-outline-dark">
+                                        مشاهده کلاس ها
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 {% else %}
-                    <h1 class="text-danger">کلاسی جهت نمایش یافت نشد!</h1>
+                    <h1 class="text-danger">دسته بندی جهت نمایش یافت نشد!</h1>
                     <a href="{{ ClassesURL }}" class="btn btn-danger my-2">بازگشت</a>
                 {% endif %}
             </div>
