@@ -261,26 +261,63 @@ class TimePaymentView(LoginRequiredMixin, View):
         return TimePrice.objects.all()
 
     def get(self, request, *args, **kwargs):
+        from Accounts.models import UserTimePayment
+        import jdatetime
+        try:
+            user_payment = UserTimePayment.objects.get(user_id=request.user.id)
+            user_has_plan = True
+            last_plan = user_payment.plan_sessions.last()
+            days_remain = last_plan.expire_date - jdatetime.date.today()
+            days_remain = days_remain.days
+            if last_plan.remain > 4 and days_remain > 5:
+                messages.warning(request, f"شما {last_plan.remain} جلسه باقی مانده دارید!")
+                return redirect("Accounts:profile")
+            return render(request, self.template_name, {
+                "user_has_plan": user_has_plan,
+                "last_plan": last_plan,
+                "time_prices": self.get_time_plans(),
+            })
+        except UserTimePayment.DoesNotExist:
+            user_has_plan = False
         return render(request, self.template_name, {
+            "user_has_plan": user_has_plan,
             "time_prices": self.get_time_plans(),
         })
 
     def post(self, request, *args, **kwargs):
         # TODO: Fix Payment section and make real connection to payment server
-        from Accounts.models import UserTimePayment
+        from Accounts.models import UserTimePayment, UserTimePaymentFactors
         try:
             time_price_id = int(request.POST.get("time_plan"))
             time_price = get_object_or_404(self.get_time_plans(), id=time_price_id)
         except ValueError:
             messages.error(request, "لطفا اطلاعات را به درستی وارد کنید")
             return redirect("Accounts:time_payment_form")
-        UserTimePayment.objects.create(user_id=request.user.id, time_pricing=time_price,
-                                       sessions_remain=time_price.sessions_count)
+        try:
+            user_payment = UserTimePayment.objects.get(user_id=request.user.id)
+            user_payment.time_pricing = time_price
+            user_payment.save()
+        except UserTimePayment.DoesNotExist:
+            UserTimePayment.objects.create(user_id=request.user.id, time_pricing=time_price)
+        UserTimePaymentFactors.objects.create(user=request.user, price=time_price.price, )
         return redirect("Accounts:time_payment_confirm")
 
 
 class TimePaymentConfirmView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
+        import jdatetime
+        from Accounts.models import UserTimePayment, UserTimePaymentFactors, UserTimeSessionsExpire
         # TODO: Confirm Payment Status, by default now is True
+        date = jdatetime.date.today().togregorian()
+        user_factor = UserTimePaymentFactors.objects.filter(user_id=request.user.id).last()
+        user_factor.payment_status = 3
+        user_factor.payment_date = date
+        user_factor.save()
+        user_payment = UserTimePayment.objects.get(user_id=request.user.id)
+        expire_date = date + jdatetime.timedelta(days=35)
+        user_payment.expire_date = expire_date
+        user_payment.save()
+        UserTimeSessionsExpire.objects.create(time_payment=user_payment,
+                                              remain=user_payment.time_pricing.sessions_count, expire_date=expire_date)
         messages.success(request, "پرداخت با موفقیت انجام شد، خوشحالیم که کنارمون هستین!")
-        return redirect("Accounts:register_present_class")
+        return redirect("Accounts:profile")

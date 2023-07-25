@@ -7,28 +7,38 @@
         <div class="row my-4 mt-2">
             <h1 class="text-success">انتخاب پلن قیمت:</h1>
         </div>
-        <form action="{% url 'Accounts:time_payment_form' %}" method="post">
-            {% csrf_token %}
-            <div class="row my-1 align-items-center bg-dark rounded p-2 my-3">
+        <div class="row my-1 align-items-center bg-dark rounded p-2 my-3">
             <span class="text-danger fs-5 my-2">
                 قبل از پرداخت به نکات زیر دقت کنید:
             </span>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        مدت زمان اسفاده از تعداد جلسات 35 روز می باشد و بعد از این مدت، دوباره نیاز به پرداخت دارید.
-                    </li>
-                    <li class="list-group-item">با تمام شدن تعداد جلسات قبل از 30 روز، برای شرکت در کلاس ها ملزم به
-                        پرداخت مجدد می باشید.
-                    </li>
-                    <li class="list-group-item">
-                        محدودیتی در استفاده شما وجود ندارد، شما میتوانید با هماهنگی مربی جلسات خودتون رو فیکس کنید.
-                    </li>
-                    <li class="list-group-item">
-                        بعد از پرداخت، امکان انتخاب کلاس حضوری برای شما فعال میشود و میتوانید تایم مورد نظرتون رو انتخاب
-                        کنید.
-                    </li>
-                </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    مدت زمان اسفاده از تعداد جلسات 35 روز می باشد و بعد از این مدت، دوباره نیاز به پرداخت دارید.
+                </li>
+                <li class="list-group-item">با تمام شدن تعداد جلسات قبل از 30 روز، برای شرکت در کلاس ها ملزم به
+                    پرداخت مجدد می باشید.
+                </li>
+                <li class="list-group-item">
+                    محدودیتی در استفاده شما وجود ندارد، شما میتوانید با هماهنگی مربی جلسات خودتون رو فیکس کنید.
+                </li>
+                <li class="list-group-item">
+                    بعد از پرداخت، امکان انتخاب کلاس حضوری برای شما فعال میشود و میتوانید تایم مورد نظرتون رو انتخاب
+                    کنید.
+                </li>
+            </ul>
+        </div>
+        {% if user_has_plan %}
+            <div class="row my-1 align-items-center bg-dark rounded p-2 my-3">
+                <h4 class="text-warning">توجه: </h4>
+                <span class="text-warning my-2 fs-5">
+                    شما تا تاریخ {{ last_plan.get_expire_date }}
+                    دارای اشتراک هستید و {{ last_plan.remain }} جلسه از
+                    طرح شما باقی مانده است.
+                </span>
             </div>
+        {% endif %}
+        <form action="{% url 'Accounts:time_payment_form' %}" method="post">
+            {% csrf_token %}
             <div class="row my-1 align-items-center">
                 <div class="col-4 col-md-2">
                     <label for="time_plan">پلن انتخابی: </label>

@@ -87,10 +87,45 @@ class PresentClass(models.Model):
 
 class UserTimePayment(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="time_payment")
-    time = models.ForeignKey("Classes.Time", on_delete=models.SET_NULL, null=True, blank=True, related_name="payment")
     time_pricing = models.ForeignKey("Classes.TimePrice", on_delete=models.CASCADE, related_name="users_payment")
-    date = ShamsiDateField(auto_now_add=True)
-    sessions_remain = models.PositiveSmallIntegerField(default=0)
+    expire_date = ShamsiDateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.get_full_name()}: {self.date.month}/{self.date.day}"
+        return f"{self.user.get_full_name()}: {self.expire_date.month}/{self.expire_date.day}"
+
+    @property
+    def get_expire_date(self):
+        return str(self.expire_date).replace("-", "/")
+
+    def get_user_full_name(self):
+        return self.user.get_full_name()
+
+
+class UserTimeSessionsExpire(models.Model):
+    time_payment = models.ForeignKey(UserTimePayment, on_delete=models.CASCADE, related_name="plan_sessions")
+    remain = models.PositiveSmallIntegerField(default=12)
+    expire_date = ShamsiDateField()
+
+    def __str__(self):
+        return f"{self.time_payment.get_user_full_name()} - {self.expire_date.month}/{self.expire_date.day}"
+
+    @property
+    def get_expire_date(self):
+        return str(self.expire_date).replace("-", "/")
+
+
+class UserTimePaymentFactorsPaymentChoices(models.IntegerChoices):
+    NOT_PAYED = 0, "پرداخت نشده"
+    IN_PAYMENT = 1, "در انتظار پرداخت"
+    PAYED = 2, "پرداخت شده"
+
+
+class UserTimePaymentFactors(models.Model):
+    payment_status = models.PositiveSmallIntegerField(choices=UserTimePaymentFactorsPaymentChoices.choices, default=0)
+    date = ShamsiDateField(auto_now_add=True)
+    payment_date = ShamsiDateField(null=True, blank=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="time_factors")
+    price = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.user.get_full_name()
