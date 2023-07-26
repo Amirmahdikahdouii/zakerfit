@@ -6,6 +6,7 @@
 {% url 'Accounts:profile' as ProfileURL %}
 {% url 'Accounts:logout' as LogoutURL %}
 {% url "Accounts:coach-profile" as CoachProfileURL %}
+{% url 'Coaches:coach_index' as CoachIndex %}
 
 <header class="site-header">
     <!--Navbar Start  -->
@@ -59,6 +60,11 @@
                                     <li class="{% if request.path == ClassIndex %}active{% endif %}">
                                         <a href="{{ ClassIndex }}" title="Classes">
                                             کلاس ها
+                                        </a>
+                                    </li>
+                                    <li class="{% if request.path == CoachIndex %}active{% endif %}">
+                                        <a href="{{ CoachIndex }}" title="Classes">
+                                            تیم مایوستاتین
                                         </a>
                                     </li>
                                     <li class="sub-items">

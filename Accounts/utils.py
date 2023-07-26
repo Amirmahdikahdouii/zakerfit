@@ -5,10 +5,10 @@ from django.shortcuts import redirect
 
 
 class IranPhoneNumberValidator(RegexValidator):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         regex = r'^(\+98|0)?9\d{9}$'
         message = 'Enter a Valid Iran Phone Number'
-        super().__init__(regex=regex, message=message)
+        super().__init__(**{'regex': regex, 'message': message})
 
 
 class ShamsiDateField(models.DateField):
@@ -37,7 +37,7 @@ class ShamsiDateField(models.DateField):
         return jdatetime.date(value.year, value.month, value.day)
 
 
-class IsAdminRequiredMixin():
+class IsAdminRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_admin:
             messages.error(request, "فقط مربیان اجازه دسترسی به این صفحه را دارند!")

@@ -462,38 +462,50 @@
                 <div class="col-lg-6">
                     <div class="appointment-bg wow fadeInLeft" data-wow-delay=".5s">
                         <div class="appointment-title">
-                            <h2 class="h2-title">دریافت قرار ملاقات</h2>
+                            <h2 class="h2-title">سوالی دارید؟</h2>
                             <div class="line"></div>
+                            <span class="text-danger">فرم زیر را پرکنید تا مربیان ما با شما تماس بگیرند</span>
                         </div>
-                        <form>
+                        <form action="{% url 'Tickets:anonymous_user_question' %}" method="post">
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-box">
-                                        <input type="text" name="Full Name" class="form-input"
-                                               placeholder="نام و نام خانوادگی" required="">
+                                        {{ anonymous_ticket_form.name }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <span class="text-warning">{{ anonymous_ticket_form.email.help_text }}</span>
+                                    <div class="form-box">
+                                        {{ anonymous_ticket_form.email }}
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-box">
-                                        <input type="email" name="EmailAddress" class="form-input"
-                                               placeholder="آدرس ایمیل"
-                                               required="">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-box">
-                                        <input type="text" name="Phone No" class="form-input" placeholder="شماره موبایل"
-                                               required="">
+                                        {{ anonymous_ticket_form.phone_number }}
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-box">
-                                        <textarea class="form-input" placeholder="متن پیام ..."></textarea>
+                                        {{ anonymous_ticket_form.message }}
                                     </div>
+                                </div>
+                                <div class="col-12">
+                                    {% if anonymous_ticket_form.errors %}
+                                        {% for field in anonymous_ticket_form %}
+                                            {% for error in field.errors %}
+                                                <ul>
+                                                    <li>
+                                                        <span class="text-danger">{{ error }}</span>
+                                                    </li>
+                                                </ul>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% endif %}
                                 </div>
                                 <div class="col-12">
                                     <div class="form-box mb-0">
-                                        <button type="submit" class="sec-btn"><span>اکنون ارسال کنید</span></button>
+                                        <button type="submit" class="sec-btn">اکنون ارسال کنید</button>
                                     </div>
                                 </div>
                             </div>
