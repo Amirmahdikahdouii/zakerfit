@@ -3,7 +3,7 @@ from .models import AnonymousUsersQuestion
 
 
 class AnonymousUsersQuestionAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "is_checked", "is_answered", "date")
+    list_display = ("__str__", "is_checked", "is_answered", "date", "last_checked_date")
     list_filter = ("is_checked", "is_answered")
     ordering = ("-date",)
 

@@ -1,5 +1,6 @@
 {% url 'Accounts:coach-profile-times' as PresentTimes %}
 {% url 'Accounts:coach-class-list' as CoachClassList %}
+{% url 'Accounts:coach-tickets' as CoachTickets %}
 <div class="col-12">
     <div class="d-flex flex-row flex-wrap justify-content-center">
         <a href="{{ PresentTimes }}"
@@ -7,5 +8,7 @@
             حضوری</a>
         <a href="{{ CoachClassList }}"
            class="btn btn{% if request.path != CoachClassList %}-outline{% endif %}-danger m-2">لیست کلاس ها</a>
+        <a href="{{ CoachTickets }}"
+           class="btn btn{% if request.path != CoachTickets %}-outline{% endif %}-danger m-2">سوالات کاربران</a>
     </div>
 </div>

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}تیکت شماره: {{ ticket.id }}{% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container my-3">
+        <div class="row">
+            <a href="{% url 'Accounts:coach-tickets-anonymous' %}"
+               class="btn btn-primary text-decoration-underline">
+                بازگشت
+            </a>
+        </div>
+        <form action="{% url 'Accounts:coach-tickets-anonymous-detail-update' ticket.id %}" method="post"
+              class="row my-2 justify-content-center bg-dark text-light rounded rounded-2 p-3">
+            {% csrf_token %}
+            <div class="col-12 col-md-6">
+                <label for="{{ form.is_checked.id_for_label }}">تغییر وضعیت بررسی:</label>
+                {{ form.is_checked }}
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="{{ form.is_answered.id_for_label }}">تغییر وضعیت پاسخ دهی:</label>
+                {{ form.is_answered }}
+            </div>
+            <div class="col-6 col-md-3 my-3">
+                <button class="btn btn-success">ثبت تغییرات</button>
+            </div>
+        </form>
+        <div class="row my-3">
+            <div class="col-12">
+                <ul class="list-group">
+                    <li class="list-group-item fs-5">وضعیت:</li>
+                    <li class="list-group-item">
+                        دیده شده
+                        {% if ticket.is_checked %}
+                            <i class="bi bi-check-square-fill text-success"></i>
+                        {% else %}
+                            <i class="bi bi-x-square-fill text-danger"></i>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        پاسخ داده شده
+                        {% if ticket.is_answered %}
+                            <i class="bi bi-check-square-fill text-success"></i>
+                        {% else %}
+                            <i class="bi bi-x-square-fill text-danger"></i>
+                        {% endif %}
+                    </li>
+                    {% if ticket.answered_by %}
+                        <li class="list-group-item">
+                            مربی پاسخ دهنده:
+                                {{ ticket.answered_by.get_full_name }}
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h1>نام کاربر: {{ ticket.name }}</h1>
+                <h5 class="align-items-center">
+                    شماره تماس:
+                    <a href="tel:{{ ticket.phone_number }}" class="text-danger">{{ ticket.phone_number }}</a>
+                </h5>
+                {% if ticket.email %}
+                    <h6>
+                        ایمیل:
+                        <a href="mailto:{{ ticket.email }}" class="text-danger">{{ ticket.email }}</a>
+                    </h6>
+                {% endif %}
+                <hr>
+                <h5 class="text-success">متن پیام: </h5>
+                <span class="text-break">
+                    {{ ticket.message }}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

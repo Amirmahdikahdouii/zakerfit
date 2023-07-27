@@ -1,7 +1,6 @@
 from django import forms
 from .models import AnonymousUsersQuestion
 from Accounts.utils import IranPhoneNumberValidator
-from django.core.validators import RegexValidator
 
 
 class AnonymousUsersQuestionForm(forms.ModelForm):
@@ -39,3 +38,9 @@ class AnonymousUsersQuestionForm(forms.ModelForm):
         help_texts = {
             "email": "وارد کردن ایمیل ضروری نیست"
         }
+
+
+class UpdateAnonymousTicketStatusForm(forms.ModelForm):
+    class Meta:
+        model = AnonymousUsersQuestion
+        fields = ("is_checked", "is_answered")

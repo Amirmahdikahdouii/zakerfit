@@ -4,5 +4,6 @@ django-environ==0.10.0
 gunicorn==20.1.0
 jdatetime==4.1.1
 Pillow==10.0.0
+pytz==2023.3
 sqlparse==0.4.4
 typing_extensions==4.7.0

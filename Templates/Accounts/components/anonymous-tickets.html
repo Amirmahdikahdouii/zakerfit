@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}تیکت ها {% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container rounded-2 my-3">
+        <form action="{% url 'Accounts:coach-tickets-anonymous' %}" method="post"
+              class="row justify-content-center align-items-center py-2 bg-dark border-bottom border-danger">
+            {% csrf_token %}
+            <div class="col-8 col-md-6 text-warning">
+                <label for="check-all">تغییر وضعیت همه به خوانده شده:</label>
+                <input type="checkbox" name="check-all" id="check-all">
+            </div>
+            <div class="col-4 col-md-2">
+                <button class="btn btn-danger">ثبت</button>
+            </div>
+        </form>
+        {% for ticket in tickets %}
+            <div class="row justify-content-around bg-dark text-light rounded rounded-2 py-3 mb-1
+             border-bottom border-danger">
+                <div class="col-12 col-md-8 my-2">
+                <span>
+                        وضعیت بررسی:
+                    {% if ticket.is_checked %}
+                        <i class="bi bi-check-square-fill text-success"></i>
+                    {% else %}
+                        <i class="bi bi-x-square-fill text-danger"></i>
+                    {% endif %}
+                    </span>
+                    <span>
+                        وضعیت پاسخ دهی:
+                        {% if ticket.is_answered %}
+                            <i class="bi bi-check-square-fill text-success"></i>
+                        {% else %}
+                            <i class="bi bi-x-square-fill text-danger"></i>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="col-12 col-md-8">
+                    <h4>نام کاربر: <span>{{ ticket.name }}</span></h4>
+                    <h6>شماره تماس: <a href="tel:{{ ticket.phone_number }}">{{ ticket.phone_number }}</a></h6>
+                    {% if ticket.email %}
+
+                        <h6>ایمیل: <a href="mailto:{{ ticket.email }}">{{ ticket.email }}</a></h6>
+                    {% endif %}
+                    <h6 class="text-success">متن پیام:</h6>
+                    <p class="text-break text-light">
+                        {{ ticket.message|truncatechars:40 }}
+                    </p>
+                    <a href="{% url 'Accounts:coach-tickets-anonymous-detail' ticket.id %}"
+                       class="btn btn-outline-light">مشاهده
+                        پیام</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -48,6 +48,10 @@ class ShamsiDateTimeField(models.DateTimeField):
         """
         if value is None:
             return value
+        elif value.year < 1500:
+            value = value.astimezone(pytz.timezone("Asia/Tehran"))
+            return jdatetime.datetime(year=value.year, month=value.month, day=value.day, hour=value.hour,
+                                      minute=value.minute, second=value.second)
         elif hasattr(value, "astimezone"):
             value = value.astimezone(pytz.timezone("Asia/Tehran"))
             return jdatetime.datetime.fromgregorian(year=value.year, month=value.month, day=value.day, hour=value.hour,
@@ -62,6 +66,7 @@ class ShamsiDateTimeField(models.DateTimeField):
         return value
 
     def get_prep_value(self, value):
+        print(value)
         if value is None:
             return None
         elif hasattr(value, "astimezone"):

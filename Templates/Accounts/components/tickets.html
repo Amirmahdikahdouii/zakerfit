@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}تیکت ها {% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container bg-dark rounded-2">
+        <div class="row justify-content-around px-2 py-3 my-2">
+            <div class="col-12 col-md-5 rounded bg-light text-dark rounded rounded-2 py-3">
+                <h1 class="text-primary">سوالات کاربران</h1>
+                <p>
+                    در این بخش، تمامی سوالاتی که توسط افراد مطرح شده اند قابل برسی هستند.
+                    دقت کنید که این افراد در سایت ثبت نام کرده یا نکرده اند و برای ارتباط با آنها از طریق شماره تلفن یا
+                    ایمیل آنها به سوالشان پاسخ دهید.
+                </p>
+                <a href="{% url 'Accounts:coach-tickets-anonymous' %}" class="btn btn-outline-dark">مشاهده سوالات</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

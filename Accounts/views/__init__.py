@@ -13,4 +13,5 @@ from .coaches import (CoachProfileView, CoachProfileTimesView, CoachProfileTimes
                       CoachProfileTimeAthleteProfileView, CoachProfileAddTimeView, CoachProfileClassListView,
                       CoachProfileClassAddCategoryView, CoachProfileClassSelectCategoryView,
                       CoachProfileClassEditCategoryView, CoachProfileClassAddView, CoachProfileClassEditView,
-                      CoachProfileClassEditTimesView)
+                      CoachProfileClassEditTimesView, CoachProfileTicketsView, CoachProfileAnonymousTicketsView,
+                      CoachProfileAnonymousSingleTicketView, CoachProfileAnonymousSingleTicketUpdateView)

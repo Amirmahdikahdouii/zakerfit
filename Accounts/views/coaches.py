@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
 from Accounts.models import User
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from Accounts.utils import IsAdminRequiredMixin
 from django.utils.text import slugify
+from Tickets.models import AnonymousUsersQuestion
+from Tickets.forms import UpdateAnonymousTicketStatusForm
+from django.urls import reverse_lazy
 
 
 class CoachProfileView(LoginRequiredMixin, IsAdminRequiredMixin, View):
@@ -422,3 +428,53 @@ class CoachProfileClassEditTimesView(LoginRequiredMixin, IsAdminRequiredMixin, V
         OnlineClassTime.objects.create(_class=_class, time=time, day=week_day)
         messages.success(request, "زمان بندی با موفقیت افزوده شد")
         return redirect("Accounts:coach-class-list")
+
+
+class CoachProfileTicketsView(LoginRequiredMixin, IsAdminRequiredMixin, TemplateView):
+    template_name = "Accounts/components/tickets.html"
+
+
+class CoachProfileAnonymousTicketsView(LoginRequiredMixin, IsAdminRequiredMixin, View):
+    template_name = "Accounts/components/anonymous-tickets.html"
+
+    def get_queryset(self):
+        return AnonymousUsersQuestion.objects.all().order_by("-date")
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {"tickets": self.get_queryset()})
+
+    def post(self, request, *args, **kwargs):
+        check_all = request.POST.get("check-all")
+        if check_all is not None:
+            for query in self.get_queryset().filter(is_answered=False):
+                query.is_checked = True
+                query.save()
+            messages.success(request, "تغییرات با موفقیت انجام شد")
+        return redirect("Accounts:coach-tickets-anonymous")
+
+
+class CoachProfileAnonymousSingleTicketView(LoginRequiredMixin, IsAdminRequiredMixin, DetailView):
+    template_name = "Accounts/components/anonymous-tickets-detail.html"
+    context_object_name = "ticket"
+    model = AnonymousUsersQuestion
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = UpdateAnonymousTicketStatusForm()
+        return context
+
+
+class CoachProfileAnonymousSingleTicketUpdateView(LoginRequiredMixin, IsAdminRequiredMixin, UpdateView):
+    form_class = UpdateAnonymousTicketStatusForm
+    model = AnonymousUsersQuestion
+    template_name = "Accounts/components/anonymous-tickets-detail.html"
+    success_url = reverse_lazy("Accounts:coach-tickets-anonymous")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if form.cleaned_data.get("is_answered"):
+            query = AnonymousUsersQuestion.objects.get(id=self.kwargs.get("pk"))
+            query.answered_by = self.request.user
+            query.save()
+        messages.success(self.request, "تغییرات با موفقیت ثبت شد.")
+        return response
