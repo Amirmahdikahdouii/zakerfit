@@ -40,10 +40,15 @@
                 <div class="col-lg-4">
                     <div class="class-detail-category wow fadeInRight" data-wow-delay=".5s">
                         <ul>
-                            <li><a href="privateclass-detail.html" class="active"><span>کلاس های وزنه برداری</span><i
-                                    class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="privateclass-detail.html"><span>کلاس های کاردیو و قدرتی</span><i
-                                    class="fa fa-chevron-left"></i></a></li>
+                            {% for category in class_categories %}
+                                <li>
+                                    <a href="{% url 'Classes:classes_category_filter' category.slug %}"
+                                       {% if category.id == class.category.id %}class="active"{% endif %}>
+                                        <span>{{ category.name }}</span>
+                                        <i class="fa fa-chevron-left"></i>
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="join-class wow fadeInRight" data-wow-delay=".7s" id="counter">
@@ -132,7 +137,7 @@
                         {% endif %}
                         {% if class.price %}
                             <div class="join-class-price row">
-                            <h6 class="col-md-4">هزینه دوره: </h6>
+                                <h6 class="col-md-4">هزینه دوره: </h6>
                                 <h5 class="col-md-8">{{ class.get_price }} تومان</h5>
                             </div>
                         {% endif %}
@@ -160,19 +165,6 @@
                                     <a href="{{ class.coach.coach_detail_view_path }}">{{ class.coach.name }}</a>
                                     <span>مربی</span>
                                 </div>
-                            </div>
-                            <div class="class-review">
-                                <div class="review-star">
-                                    <ul>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    </ul>
-                                </div>
-                                <span>5.00 (2k)</span>
-                                <span>امتیاز</span>
                             </div>
                         </div>
                         <div class="class-detail-img wow fadeInUp" data-wow-delay=".5s">

@@ -11,4 +11,3 @@ urlpatterns = [
     path("group-classes/<slug:slug>/", views.GroupClassView.as_view(), name="group_class_view"),
     path("private-classes/<slug:slug>/", views.PrivateClassView.as_view(), name="private_class_view"),
 ]
-

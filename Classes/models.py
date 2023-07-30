@@ -131,7 +131,12 @@ class OnlineClass(models.Model):
             return reverse("Classes:private_classes")
 
     def get_start_time(self):
-        return str(self.start_time).replace("-", "/")
+        import jdatetime
+        if self.start_time is None:
+            return None
+        return str(
+            jdatetime.date.fromgregorian(year=self.start_time.year, month=self.start_time.month,
+                                         day=self.start_time.day)).replace("-", "/")
 
     def get_price(self):
         return "{:,}".format(self.price)
@@ -144,6 +149,9 @@ class OnlineClass(models.Model):
 
 
 class OnlineClassBenefit(models.Model):
+    """
+    This Model, Make a benefits table for classes and save the features that users will have if they join the class.
+    """
     _class = models.ForeignKey(OnlineClass, on_delete=models.CASCADE, related_name="benefits")
     title = models.CharField(max_length=250)
 
@@ -174,6 +182,9 @@ class OnlineClassTimeDayChoices(models.IntegerChoices):
 
 
 class OnlineClassTime(models.Model):
+    """
+    This Model is for online class times table and save each time of table in a seperated row.
+    """
     _class = models.ForeignKey(OnlineClass, on_delete=models.CASCADE, related_name="times")
     day = models.PositiveSmallIntegerField(choices=OnlineClassTimeDayChoices.choices)
     time = models.CharField(max_length=200)
@@ -188,6 +199,9 @@ class OnlineClassTime(models.Model):
 
 
 class TimePrice(models.Model):
+    """
+    This Model is For Present Classes in gym and their sessions count and prices.
+    """
     price = models.PositiveIntegerField()
     sessions_count = models.PositiveSmallIntegerField(default=12)
 

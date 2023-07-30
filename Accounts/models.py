@@ -64,6 +64,10 @@ class User(AbstractBaseUser, PermissionsMixin):
                                             day=self.join_date.day)
         return str(date).replace("-", "/")
 
+    def get_birthday(self):
+        import jdatetime
+        return jdatetime.date.fromgregorian(year=self.birthday.year, month=self.birthday.month, day=self.birthday.day)
+
 
 class UserPhoneNumberValidation(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, related_name="phone_validation")

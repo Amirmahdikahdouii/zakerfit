@@ -36,22 +36,28 @@
                             <p><span class="info-title">تاریخ تولد: </span>
                                 {% if request.user.birthday %}
                                     <input data-jdp type="button" class="btn btn-danger"
-                                           value="{{ request.user.birthday }}" id="change-birthday-button">
+                                           value="{{ request.user.get_birthday }}" id="change-birthday-button">
                                 {% else %}
                                     <input data-jdp type="button" class="btn btn-danger" value="ویرایش"
                                            id="change-birthday-button">
                                 {% endif %}
                             </p>
+                            <p><span class="info-title">تاریخ عضویت: </span>
+                                <span>
+                                    {{ request.user.get_join_date }}
+                                </span>
+                            </p>
                         </div>
                         <div class="col-6">
                             <p><span class="info-title">تلفن همراه: </span> {{ request.user.phone_number }}</p>
-                            {% if request.user.email %}
-                                <p><span class="info-title">ایمیل: </span> {{ request.user.email }}</p>
-                            {% else %}
-                                <p><span class="info-title">ایمیل: </span>
-                                    <button class="btn btn-danger">ویرایش ایمیل</button>
-                                </p>
-                            {% endif %}
+                            <!-- TODO: Update Email and Email Validation -->
+                            {#                            {% if request.user.email %}#}
+                            {#                                <p><span class="info-title">ایمیل: </span> {{ request.user.email }}</p>#}
+                            {#                            {% else %}#}
+                            {#                                <p><span class="info-title">ایمیل: </span>#}
+                            {#                                    <button class="btn btn-danger">ویرایش ایمیل</button>#}
+                            {#                                </p>#}
+                            {#                            {% endif %}#}
                             <p>
                                 <span class="info-title">جنسیت: </span>
                                 <span id="user-gender-type">{{ request.user.get_user_gender }}</span>
