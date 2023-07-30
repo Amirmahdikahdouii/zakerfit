@@ -9,5 +9,6 @@ urlpatterns = [
                   path("Classes/", include("Classes.urls", namespace="Classes")),
                   path("Coaches/", include("Coach.urls", namespace="Coaches")),
                   path("Tickets/", include("Tickets.urls", namespace="Tickets")),
+                  path("Workouts/", include("WorkOuts.urls", namespace="Workouts")),
                   path("", include("Home.urls", namespace="Home")),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

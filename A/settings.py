@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "Classes.apps.ClassesConfig",
     "Coach.apps.CoachConfig",
     "Tickets.apps.TicketsConfig",
+    "WorkOuts.apps.WorkoutsConfig",
 ]
 
 MIDDLEWARE = [
