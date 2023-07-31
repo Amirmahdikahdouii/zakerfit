@@ -1,0 +1,11 @@
+<ul class="list-group">
+    <li class="list-group-item">
+        نوع برنامه: {{ plan.get_plan_type }}
+    </li>
+    <li class="list-group-item">
+        تاریخ: {{ plan.get_date }}
+    </li>
+    <li class="list-group-item">
+        TC: {{ plan.time_cap|default_if_none:"تعیین نشده" }}
+    </li>
+</ul>

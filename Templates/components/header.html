@@ -68,20 +68,29 @@
                                         </a>
                                     </li>
                                     <li class="sub-items">
-                                        <a href="javascript:void(0);" title="Pages">صفحات</a>
+                                        <a href="javascript:void(0);" title="features">امکانات</a>
                                         <ul class="sub-menu">
-                                            <li><a href="portfolio.html" title="Portfolio">نمونه کار</a></li>
-                                            <li><a href="portfolio-detail.html" title="Portfolio Detail">جزئیات نمونه
-                                                کار</a>
+                                            <li>
+                                                <a href="{% url 'Workouts:daily_workouts_list' %}"
+                                                   title="daily-workouts">برنامه های تمرینی</a>
                                             </li>
-                                            <li><a href="team.html" title="Team">تیم</a></li>
-                                            <li><a href="team-detail.html" title="Team Detail">جزئیات تیم</a></li>
-                                            <li><a href="faq.html" title="FAQ">سوالات متداول</a></li>
-                                            <li><a href="schedule.html" title="Schedule">برنامه زمان بندی</a></li>
-                                            <li><a href="pricing.html" title="Pricing Table">جدول قیمت گذاری</a></li>
-                                            <li><a href="error-404.html" title="404 Error">خطای 404</a></li>
                                         </ul>
                                     </li>
+                                    {#                                    <li class="sub-items">#}
+                                    {#                                        <a href="javascript:void(0);" title="Pages">صفحات</a>#}
+                                    {#                                        <ul class="sub-menu">#}
+                                    {#                                            <li><a href="portfolio.html" title="Portfolio">نمونه کار</a></li>#}
+                                    {#                                            <li><a href="portfolio-detail.html" title="Portfolio Detail">جزئیات نمونه#}
+                                    {#                                                کار</a>#}
+                                    {#                                            </li>#}
+                                    {#                                            <li><a href="team.html" title="Team">تیم</a></li>#}
+                                    {#                                            <li><a href="team-detail.html" title="Team Detail">جزئیات تیم</a></li>#}
+                                    {#                                            <li><a href="faq.html" title="FAQ">سوالات متداول</a></li>#}
+                                    {#                                            <li><a href="schedule.html" title="Schedule">برنامه زمان بندی</a></li>#}
+                                    {#                                            <li><a href="pricing.html" title="Pricing Table">جدول قیمت گذاری</a></li>#}
+                                    {#                                            <li><a href="error-404.html" title="404 Error">خطای 404</a></li>#}
+                                    {#                                        </ul>#}
+                                    {#                                    </li>#}
                                     {% if request.user.is_authenticated %}
                                         <li><a href="{{ LogoutURL }}" class="active">خروج</a></li>
                                     {% endif %}

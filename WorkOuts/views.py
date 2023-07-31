@@ -1,12 +1,13 @@
-import datetime
-
 from django.shortcuts import render
 from .models import DailyPlan, DailyPlanWorkout, UserPlanRecord
 from django.views import View
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect
 from django.contrib import messages
+import datetime
 
 
 @method_decorator(login_required, 'post')
@@ -43,3 +44,16 @@ class DailyWorkoutView(View):
                     messages.error(request, "خطا: مشکلی در اجرای برنامه وجود آمد.")
                     return redirect("Workouts:daily_plan")
         return redirect("Workouts:daily_plan")
+
+
+class DailyWorkoutListView(ListView):
+    template_name = "Workouts/workout-plans-list.html"
+    model = DailyPlan
+    context_object_name = "plans"
+    paginate_by = 12
+
+
+class DailyWorkoutDetailView(DetailView):
+    model = DailyPlan
+    template_name = "Workouts/workout-plan-detail.html"
+    context_object_name = "plan"

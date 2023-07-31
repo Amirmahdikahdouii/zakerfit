@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load filter_records %}
+{% block title %}
+    {{ plan.name }}
+{% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container my-3 rounded">
+        <div class="row bg-primary text-light my-2 rounded rounded-2 p-2">
+            <h1>{{ plan.name }}</h1>
+            {% if plan.description %}
+                <h6>توضیحات برنامه: </h6>
+                <p class="text-light">
+                    {{ plan.description }}
+                </p>
+            {% endif %}
+            {% include 'Workouts/components/plan-info-list.html' %}
+        </div>
+        <div class="row my-2 rounded rounded-2 p-2 bg-dark text-light">
+            <div class="col-4 col-md-3">نام حرکت</div>
+            <div class="col-2 col-md-3">تعداد</div>
+            {% if plan.has_record %}
+                <div class="col-2 col-md-3">رکورد</div>
+            {% endif %}
+            <div class="col-4 col-md-3">توضیحات</div>
+        </div>
+        {% for workout in plan.workouts.all %}
+            <div class="row my-2">
+                <div class="col-4 col-md-3">{{ workout.workout.en_name }}</div>
+                <div class="col-2 col-md-3">{{ workout.count }}</div>
+                {% if plan.has_record %}
+                    {% if request.user.is_authenticated %}
+                        <div class="col-2 col-md-3">
+                            <span class="p-1 bg-danger rounded text-light">
+                                {{ workout|get_user_record:request.user.id }}kg
+                            </span>
+                        </div>
+                    {% else %}
+                        <div class="col-2 col-md-3">
+                            <a href="{% url 'Accounts:login' %}" class="btn btn-danger">ورود</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <div class="col-4 col-md-3">{{ workout.description|default_if_none:"-" }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

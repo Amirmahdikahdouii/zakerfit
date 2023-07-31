@@ -1,0 +1,44 @@
+{% extends  'base.html' %}
+{% block title %}
+    برنامه های تمرینی
+{% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container">
+        <div class="row my-2">
+            <h1 class="text-dark text-center my-2 col-12">
+                برنامه ها:
+            </h1>
+            <div class="col-6">
+                <span class="text-dark">
+                    شماره صفحه: {{ page_obj.paginator.num_pages }} / {{ page_obj.number }}
+                </span>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            {% for plan in plans %}
+                <a href="{% url 'Workouts:plan_detail' plan.pk %}" class="col-5 col-md-5 my-2 btn btn-primary mx-1">
+                    {{ plan }}
+                </a>
+            {% endfor %}
+        </div>
+        <div class="row bg-dark text-light my-4 justify-content-around mx-auto rounded p-2" dir="ltr">
+            <a class="col-2 btn btn-outline-light" href="?page=1">
+                اول
+            </a>
+            {% if page_obj.has_previous %}
+                <a class="col-2 btn btn-outline-light" href="?page={{ page_obj.previous_page_number }}">
+                    قبلی
+                </a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a class="col-2 btn btn-outline-light" href="?page={{ page_obj.next_page_number }}">
+                    بعدی
+                </a>
+            {% endif %}
+            <a class="col-2 btn btn-outline-light" href="?page={{ page_obj.paginator.num_pages }}">
+                آخر
+            </a>
+        </div>
+    </div>
+{% endblock %}

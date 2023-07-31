@@ -28,6 +28,9 @@ class DailyPlan(models.Model):
     description = models.CharField(max_length=400, null=True, blank=True)
     has_record = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ("-date",)
+
     def get_date(self):
         import jdatetime
         return str(jdatetime.date.fromgregorian(
@@ -38,6 +41,9 @@ class DailyPlan(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.get_date()}"
+
+    def get_plan_type(self):
+        return self.get_plan_type_display()
 
 
 class DailyPlanWorkout(models.Model):
