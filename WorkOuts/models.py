@@ -1,14 +1,14 @@
 from django.db import models
 from Accounts.utils import ShamsiDateField
 from django.utils.timezone import now
+from django.contrib.auth import get_user_model
 
 
 class Workout(models.Model):
-    name = models.CharField(max_length=400)
     en_name = models.CharField(max_length=400)
 
     def __str__(self):
-        return self.name
+        return self.en_name
 
 
 class DailyPlanTypes(models.IntegerChoices):
@@ -26,6 +26,7 @@ class DailyPlan(models.Model):
     plan_type = models.PositiveSmallIntegerField(choices=DailyPlanTypes.choices)
     time_cap = models.PositiveSmallIntegerField(null=True, blank=True)
     description = models.CharField(max_length=400, null=True, blank=True)
+    has_record = models.BooleanField(default=True)
 
     def get_date(self):
         import jdatetime
@@ -46,4 +47,14 @@ class DailyPlanWorkout(models.Model):
     description = models.CharField(max_length=400, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.workout.name}, {self.plan}"
+        return f"{self.workout}, {self.plan}"
+
+
+class UserPlanRecord(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="workout_records")
+    workout = models.ForeignKey(DailyPlanWorkout, on_delete=models.CASCADE, related_name="user_records")
+    record = models.PositiveSmallIntegerField()
+    date = ShamsiDateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.get_full_name()
