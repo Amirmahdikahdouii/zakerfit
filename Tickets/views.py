@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 from .models import AnonymousUsersQuestion, UserQuestion, UserQuestionReply
 from .forms import AnonymousUsersQuestionForm, UserQuestionForm
 from django.urls import reverse_lazy
@@ -29,7 +30,7 @@ class CreateUserQuestionView(LoginRequiredMixin, CreateView):
     form_class = UserQuestionForm
     template_name = "Tickets/add_user_question.html"
     model = UserQuestion
-    success_url = reverse_lazy("Accounts:profile")
+    success_url = reverse_lazy("Tickets:user_tickets")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -41,3 +42,13 @@ class CreateUserQuestionView(LoginRequiredMixin, CreateView):
         messages.success(self.request, "سوال شما با موفقیت ثبت شد، به زودی توسط مربیان بررسی و پاسخ داده میشود")
         response = super().form_valid(form)
         return response
+
+
+class UserTicketsView(LoginRequiredMixin, ListView):
+    model = UserQuestion
+    template_name = "Tickets/user_tickets.html"
+    context_object_name = "questions"
+    paginate_by = 12
+
+    def get_queryset(self):
+        return self.model.objects.filter(user_id=self.request.user.id).order_by("-created_at")

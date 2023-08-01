@@ -35,8 +35,8 @@ class UserQuestion(models.Model):
 
     def get_date(self):
         import jdatetime
-        return jdatetime.date(year=self.created_at.year, month=self.created_at.month, day=self.created_at.day).strftime(
-            "%Y/%mm/%d")
+        return jdatetime.date.fromgregorian(year=self.created_at.year, month=self.created_at.month, day=self.created_at.day).strftime(
+            "%Y/%m/%d")
 
 
 class UserQuestionReply(models.Model):
@@ -52,5 +52,5 @@ class UserQuestionReply(models.Model):
 
     def get_date(self):
         import jdatetime
-        return jdatetime.date(year=self.created_at.year, month=self.created_at.month, day=self.created_at.day).strftime(
-            "%Y/%mm/%d")
+        return jdatetime.date.fromgregorian(year=self.created_at.year, month=self.created_at.month, day=self.created_at.day).strftime(
+            "%Y/%m/%d")
