@@ -1,5 +1,5 @@
 from django import forms
-from .models import AnonymousUsersQuestion
+from .models import AnonymousUsersQuestion, UserQuestion, UserQuestionReply
 from Accounts.utils import IranPhoneNumberValidator
 
 
@@ -44,3 +44,14 @@ class UpdateAnonymousTicketStatusForm(forms.ModelForm):
     class Meta:
         model = AnonymousUsersQuestion
         fields = ("is_checked", "is_answered")
+
+
+class UserQuestionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control"
+
+    class Meta:
+        model = UserQuestion
+        fields = ("title", "message")

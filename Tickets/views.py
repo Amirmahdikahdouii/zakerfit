@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
-from .models import AnonymousUsersQuestion
-from .forms import AnonymousUsersQuestionForm
+from .models import AnonymousUsersQuestion, UserQuestion, UserQuestionReply
+from .forms import AnonymousUsersQuestionForm, UserQuestionForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 
@@ -21,4 +21,23 @@ class AnonymousUsersQuestionCreateView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         messages.success(self.request, "سوال شما ثبت شد، به زودی با شما تماس می گیریم.")
+        return response
+
+
+class CreateUserQuestionView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy("Accounts:login")
+    form_class = UserQuestionForm
+    template_name = "Tickets/add_user_question.html"
+    model = UserQuestion
+    success_url = reverse_lazy("Accounts:profile")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = context['form']
+        return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        messages.success(self.request, "سوال شما با موفقیت ثبت شد، به زودی توسط مربیان بررسی و پاسخ داده میشود")
+        response = super().form_valid(form)
         return response

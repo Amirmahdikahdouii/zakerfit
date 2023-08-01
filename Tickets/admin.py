@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AnonymousUsersQuestion
+from .models import AnonymousUsersQuestion, UserQuestion, UserQuestionReply
 
 
 class AnonymousUsersQuestionAdmin(admin.ModelAdmin):
@@ -8,4 +8,11 @@ class AnonymousUsersQuestionAdmin(admin.ModelAdmin):
     ordering = ("-date",)
 
 
+class UsersQuestionAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "is_checked", "created_at")
+    list_filter = ("is_checked",)
+    ordering = ("-created_at",)
+
+
 admin.site.register(AnonymousUsersQuestion, AnonymousUsersQuestionAdmin)
+admin.site.register(UserQuestion, UsersQuestionAdmin)

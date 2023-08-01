@@ -38,7 +38,7 @@
                         <div class="col-2 col-md-3">{{ workout.count }}</div>
                         {% if plan.has_record %}
                             {% if request.user.is_authenticated %}
-                                <div class="col-2 col-md-3">
+                                <div class="col-3 col-md-3">
                                     <input type="number" class="form-control" name="workout-{{ workout.id }}"
                                            min="0" value="{{ workout|get_user_record:request.user.id }}">
                                 </div>

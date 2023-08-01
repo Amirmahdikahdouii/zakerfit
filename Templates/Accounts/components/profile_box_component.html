@@ -1,10 +1,13 @@
 {% load static %}
 <div class="bg-dark" style="padding-top: 140px !important;"></div>
 <div class="container profile-box-container">
-    <div class="row mt-4 justify-content-center">
-        <div class="col-4 col-md-2">
-            <a href="{% url 'Workouts:daily_plan' %}" class="btn btn-outline-dark">برنامه تمرینی امروز</a>
-        </div>
+    <div class="row mt-4 justify-content-around">
+        <a href="{% url 'Workouts:daily_plan' %}" class="col-4 col-md-2 btn btn-outline-dark">
+            برنامه تمرینی امروز
+        </a>
+        <a href="{% url 'Tickets:create_user_question' %}" class="col-5 col-md-3 btn btn-outline-dark">
+            پرسیدن سوال از مربیان
+        </a>
     </div>
     <div class="row justify-content-center mb-3">
         <div class="col-md-6 mt-5">

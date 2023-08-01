@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}
+    افزودن سوال
+{% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container">
+        <div class="row my-3">
+            <h1 class="text-danger text-center">
+                افزودن سوال
+            </h1>
+            <p class="text-dark text-center">
+                در این بخش شما میتوانید سوالات خودتون رو از مربی های مجموعه بپرسید و راهنمایی بگیرید
+            </p>
+        </div>
+        {% if form.errors %}
+            <div class="row my-2 bg-danger rounded p-2">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="text-light my-2">{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form action="{% url 'Tickets:create_user_question' %}" method="post">
+            {% csrf_token %}
+            <div class="row my-2">
+                <div class="col-3 col-md-2">
+                    <label for="{{ form.title.id_for_label }}">
+                        عنوان:
+                    </label>
+                </div>
+                <div class="col-12 col-md-7">
+                    {{ form.title }}
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-3 col-md-2">
+                    <label for="{{ form.message.id_for_label }}">
+                        متن سوال:
+                    </label>
+                </div>
+                <div class="col-12 col-md-7">
+                    {{ form.message }}
+                </div>
+            </div>
+            <div class="row my-2 justify-content-center">
+                <button class="btn btn-success col-5 col-md-4">
+                    ارسال
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
