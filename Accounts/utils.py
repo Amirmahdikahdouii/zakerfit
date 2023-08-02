@@ -66,7 +66,6 @@ class ShamsiDateTimeField(models.DateTimeField):
         return value
 
     def get_prep_value(self, value):
-        print(value)
         if value is None:
             return None
         elif hasattr(value, "astimezone"):

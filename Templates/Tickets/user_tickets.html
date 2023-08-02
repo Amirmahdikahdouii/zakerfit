@@ -8,7 +8,7 @@
         <div class="row justify-content-center my-3">
             <a class="col-5 col-md-3 btn btn-success" href="{% url 'Tickets:create_user_question' %}">افزودن سوال</a>
         </div>
-        <div class="row justify-content-around">
+        <div class="row justify-content-between">
             {% for question in questions %}
                 <div class="col-12 col-md-5 my-2 rounded bg-dark text-light p-2">
                     <p class="d-flex justify-content-around align-items-center text-light">

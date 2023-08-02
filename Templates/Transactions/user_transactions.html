@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load jalalidate %}
+{% load format_strings %}
+{% block title %}
+    تراکنش ها
+{% endblock %}
+
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container my-1">
+        <div class="row my-2">
+            <h1 class="text-dark">
+                تراکنش ها:
+            </h1>
+            <p class="text-dark">
+                در این قسمت همه ی تراکنش های شما قابل مشاهده هستند
+            </p>
+        </div>
+        <div class="row my-2 justify-content-center">
+            {% for transaction in user_transactions %}
+                <div class="col-12 col-md-9 my-2 rounded bg-dark text-light p-2">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            تاریخ ایجاد:
+                            {{ transaction.create_date|jalali_date }}
+                        </li>
+                        <li class="list-group-item">
+                            پرداخت برای:
+                            {{ transaction.get_payment_for_display }}
+                        </li>
+                        <li class="list-group-item">
+                            مبلغ:
+                            {{ transaction.price|price_comma_separate }}
+                        </li>
+                        <li class="list-group-item">
+                            وضعیت:
+                            {% if transaction.payment_status == 1 %}
+                                <span class="text-warning">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                            {% endif %}
+                            {% if transaction.payment_status == 2 %}
+                                <span class="text-success">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                            {% endif %}
+                            {% if transaction.payment_status == 3 %}
+                                <span class="text-danger">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                            {% endif %}
+                            {% if transaction.payment_status == 4 %}
+                                <span class="text-primary">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                            {% endif %}
+                        </li>
+                        {% if transaction.payment_status == 2 %}
+                            <li class="list-group-item">
+                                تاریخ پرداخت:
+                                {{ transaction.payment_date|jalali_date }}
+                            </li>
+                            <li class="list-group-item">
+                                روش پرداخت:
+                                {{ transaction.get_payment_way_display }}
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
