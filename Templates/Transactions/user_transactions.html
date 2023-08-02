@@ -16,58 +16,116 @@
                 در این قسمت همه ی تراکنش های شما قابل مشاهده هستند
             </p>
         </div>
+        <div class="row my-2 rounded p-2 bg-primary text-light justify-content-center">
+            <h1 class="text-light">فیلتر نتایج:</h1>
+            <div class="col-8">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h4 class="text-dark">بر اساس وضعیت پرداخت:</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}">همه</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}?filter_status=1&{{ request.GET.urlencode }}">
+                            در انتظار پرداخت
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}?filter_status=2&{{ request.GET.urlencode }}">
+                            پرداخت شده
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}?filter_status=3&{{ request.GET.urlencode }}">
+                            پرداخت ناموفق
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}?filter_status=4&{{ request.GET.urlencode }}">
+                            در انتظار تایید
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <h4 class="text-dark">بر اساس نوع پرداخت:</h4>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}">همه</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}?filter_payment=1&{{ request.GET.urlencode }}">
+                            درگاه پرداخت
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{% url 'Transactions:user-transactions' %}?filter_payment=2&{{ request.GET.urlencode }}">
+                            رسید واریز
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="row my-2 justify-content-center">
-            {% for transaction in user_transactions %}
-                <div class="col-12 col-md-9 my-2 rounded bg-dark text-light p-2">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            تاریخ ایجاد:
-                            {{ transaction.create_date|jalali_date }}
-                        </li>
-                        <li class="list-group-item">
-                            پرداخت برای:
-                            {{ transaction.get_payment_for_display }}
-                        </li>
-                        <li class="list-group-item">
-                            مبلغ:
-                            {{ transaction.price|price_comma_separate }}
-                        </li>
-                        <li class="list-group-item">
-                            وضعیت:
-                            {% if transaction.payment_status == 1 %}
-                                <span class="text-warning">
+            {% if user_transactions.count > 0 %}
+                {% for transaction in user_transactions %}
+                    <div class="col-12 col-md-9 my-2 rounded bg-dark text-light p-2">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                تاریخ ایجاد:
+                                {{ transaction.create_date|jalali_date }}
+                            </li>
+                            <li class="list-group-item">
+                                پرداخت برای:
+                                {{ transaction.get_payment_for_display }}
+                            </li>
+                            <li class="list-group-item">
+                                مبلغ:
+                                {{ transaction.price|price_comma_separate }}
+                            </li>
+                            <li class="list-group-item">
+                                وضعیت:
+                                {% if transaction.payment_status == 1 %}
+                                    <span class="text-warning">
                                     {{ transaction.get_payment_status_display }}
                                 </span>
-                            {% endif %}
+                                    {% if transaction.payment_way == 2 %}
+                                        <a class="btn btn-success" href="">پرداخت</a>
+                                    {% endif %}
+                                {% endif %}
+                                {% if transaction.payment_status == 2 %}
+                                    <span class="text-success">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                                {% endif %}
+                                {% if transaction.payment_status == 3 %}
+                                    <span class="text-danger">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                                {% endif %}
+                                {% if transaction.payment_status == 4 %}
+                                    <span class="text-primary">
+                                    {{ transaction.get_payment_status_display }}
+                                </span>
+                                {% endif %}
+                            </li>
                             {% if transaction.payment_status == 2 %}
-                                <span class="text-success">
-                                    {{ transaction.get_payment_status_display }}
-                                </span>
+                                <li class="list-group-item">
+                                    تاریخ پرداخت:
+                                    {{ transaction.payment_date|jalali_date }}
+                                </li>
+                                <li class="list-group-item">
+                                    روش پرداخت:
+                                    {{ transaction.get_payment_way_display }}
+                                </li>
                             {% endif %}
-                            {% if transaction.payment_status == 3 %}
-                                <span class="text-danger">
-                                    {{ transaction.get_payment_status_display }}
-                                </span>
-                            {% endif %}
-                            {% if transaction.payment_status == 4 %}
-                                <span class="text-primary">
-                                    {{ transaction.get_payment_status_display }}
-                                </span>
-                            {% endif %}
-                        </li>
-                        {% if transaction.payment_status == 2 %}
-                            <li class="list-group-item">
-                                تاریخ پرداخت:
-                                {{ transaction.payment_date|jalali_date }}
-                            </li>
-                            <li class="list-group-item">
-                                روش پرداخت:
-                                {{ transaction.get_payment_way_display }}
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1 class="text-danger text-center bg-dark rounded p-3">
+                    رکوردی یافت نشد
+                </h1>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
