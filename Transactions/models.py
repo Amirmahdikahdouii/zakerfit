@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from Accounts.utils import ShamsiDateTimeField
+from Accounts.utils import ShamsiDateTimeField, ShamsiDateField
 from .utils import user_transaction_image_path
 
 
@@ -42,9 +42,11 @@ class UserOfflinePayment(models.Model):
     transaction = models.ForeignKey(UserTransaction, on_delete=models.CASCADE, related_name="offline_payments")
     picture = models.ImageField(upload_to=user_transaction_image_path, )
     date = ShamsiDateTimeField(auto_now_add=True)
+    payment_date = ShamsiDateField(null=True, blank=True)
     confirmed_by_admin = models.BooleanField(default=False)
     admin = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         import jdatetime
-        return jdatetime.date.fromgregorian(year=self.date.year, month=self.date.month, day=self.date.day)
+        return jdatetime.date.fromgregorian(year=self.date.year, month=self.date.month, day=self.date.day).strftime(
+            "%Y/%m/%d")

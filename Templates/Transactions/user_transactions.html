@@ -18,7 +18,7 @@
         </div>
         <div class="row my-2 rounded p-2 bg-primary text-light justify-content-center">
             <h1 class="text-light">فیلتر نتایج:</h1>
-            <div class="col-8">
+            <div class="col-12 col-md-8">
                 <ul class="list-group">
                     <li class="list-group-item">
                         <h4 class="text-dark">بر اساس وضعیت پرداخت:</h4>
@@ -88,9 +88,8 @@
                                     <span class="text-warning">
                                     {{ transaction.get_payment_status_display }}
                                 </span>
-                                    {% if transaction.payment_way == 2 %}
-                                        <a class="btn btn-success" href="">پرداخت</a>
-                                    {% endif %}
+                                    <a class="btn btn-success"
+                                       href="{% url 'Transactions:choose_payment' transaction.pk %}">پرداخت</a>
                                 {% endif %}
                                 {% if transaction.payment_status == 2 %}
                                     <span class="text-success">

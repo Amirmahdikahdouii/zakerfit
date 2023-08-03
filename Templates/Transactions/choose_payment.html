@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load format_strings %}
+{% block title %}
+    انتخاب روش پرداخت
+{% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container">
+        <div class="row my-2 bg-primary text-light p-2 rounded justify-content-center">
+            <h2 class="text-center">
+                انتخاب روش پرداخت:
+            </h2>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <h5>قبل از پرداخت به نکات زیر توجه کنید:</h5>
+                </li>
+                <li class="list-group-item">
+                    با انتخاب روش ارسال فیش واریز، شما باید عکس فیش واریزی خودتون رو برای ما ارسال کنید.
+                </li>
+                <li class="list-group-item">
+                    توجه کنید که بعد از ارسال فیش، با تایید ادمین، پرداخت تایید خواهد شد و شما اجازه دسترسی خواهید داشت.
+                </li>
+            </ul>
+            <div class="col-12 my-2">
+                مبلغ قابل پرداخت:
+                {{ usertransaction.price|price_comma_separate }}
+            </div>
+            <div class="col-12 my-3">
+                <a href="" class="btn btn-light">درگاه پرداخت</a>
+                <a href="{% url 'Transactions:offline_payment' usertransaction.id %}" class="btn btn-light">ارسال فیش واریز</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
