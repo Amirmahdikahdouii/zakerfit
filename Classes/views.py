@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from django.contrib import messages
+from django.shortcuts import redirect
 
 
 class Utilities:
@@ -110,3 +111,15 @@ class JoinClassView(LoginRequiredMixin, DetailView):
         if not self.request.user.is_authenticated:
             messages.error(request, "برای ثبت نام ابتدا وارد شوید")
         return super().dispatch(request, *args, **kwargs)
+
+
+class JoinPrivateClassView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        from .models import PrivateClassesPreSubmit
+        private_class = get_object_or_404(OnlineClass, slug=kwargs.get("slug"))
+        if PrivateClassesPreSubmit.objects.filter(private_class=private_class, user=request.user).exists():
+            messages.warning(request, "شما از قبل پیش ثبت نام کرده اید")
+        else:
+            PrivateClassesPreSubmit.objects.create(private_class=private_class, user=request.user)
+            messages.success(request, "پیش ثبت نام کامل شد، به محض شروع ثبت نام شما را مطلع میکنیم")
+        return redirect("Classes:private_class_view", slug=private_class.slug)

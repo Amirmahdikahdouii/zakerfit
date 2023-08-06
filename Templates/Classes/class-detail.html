@@ -141,9 +141,18 @@
                                 <h5 class="col-md-8">{{ class.get_price }} تومان</h5>
                             </div>
                         {% endif %}
-                        <a href="{% url 'Classes:join_class_view' class.slug %}" class="my-3 sec-btn">
-                            ثبت نام
-                        </a>
+                        {% if class.class_type.class_type == 3 %}
+                            <form action="{% url 'Classes:join_private_class_view' class.slug %}" method="post">
+                                {% csrf_token %}
+                                <button class="my-3 sec-btn">
+                                    پیش ثبت نام
+                                </button>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'Classes:join_class_view' class.slug %}" class="my-3 sec-btn">
+                                ثبت نام
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <!--Sidebar End-->

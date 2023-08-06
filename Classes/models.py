@@ -217,3 +217,13 @@ class TimePrice(models.Model):
 
     def get_full_price(self):
         return "{:,}".format(self.price)
+
+
+class PrivateClassesPreSubmit(models.Model):
+    user = models.ForeignKey("Accounts.User", on_delete=models.CASCADE,
+                             related_name="private_classes_pre_submits")
+    private_class = models.ForeignKey(OnlineClass, on_delete=models.CASCADE,
+                                      related_name="private_classes_pre_submit_users")
+
+    def __str__(self):
+        return f"{self.private_class.title}-{self.user.get_full_name()}"
