@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from Accounts.utils import ShamsiDateTimeField, ShamsiDateField
 from .utils import user_transaction_image_path
+from Classes.models import OnlineClass
 
 
 class UserTransactionStatusChoices(models.IntegerChoices):
@@ -22,6 +23,7 @@ class UserPaymentForChoices(models.IntegerChoices):
     TIME = 3, "تایم های حضوری کراسفیت"
     CROSSFIT_PROGRAMS = 4, "برنامه های کراسفیت"
     FOOD_PROGRAMS = 5, "برنامه تغذیه"
+    PRESENT_CLASS = 6, "کلاس حضوری"
 
 
 class UserTransaction(models.Model):
@@ -50,3 +52,12 @@ class UserOfflinePayment(models.Model):
         import jdatetime
         return jdatetime.date.fromgregorian(year=self.date.year, month=self.date.month, day=self.date.day).strftime(
             "%Y/%m/%d")
+
+
+class OnlineClassTransaction(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="online_class_transactions")
+    transaction = models.ForeignKey(UserTransaction, on_delete=models.CASCADE, related_name="online_class_transactions")
+    online_class = models.ForeignKey(OnlineClass, on_delete=models.CASCADE, related_name="online_class_transactions")
+
+    def __str__(self):
+        return self.user.get_full_name()

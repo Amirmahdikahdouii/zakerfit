@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
@@ -8,7 +9,7 @@ from django.shortcuts import redirect
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import UserTransaction, UserOfflinePayment
+from .models import UserTransaction, UserOfflinePayment, OnlineClassTransaction
 from .forms import UserOfflinePaymentForm
 
 
@@ -78,3 +79,31 @@ class UserOfflinePaymentCreateView(LoginRequiredMixin, SuccessMessageMixin, Crea
         form.instance.payment_date = jdatetime.date(year=payment_date[0], month=payment_date[1],
                                                     day=payment_date[2]).togregorian()
         return super().form_valid(form)
+
+
+class CreateOnlineClassTransactionView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        from Classes.models import OnlineClass
+        try:
+            online_class_id = int(request.POST.get("class_id"))
+            if request.user.online_class_transactions.filter(online_class_id=online_class_id).exists():
+                messages.warning(request, "لطفا تراکنش خود را پرداخت کنید")
+                return redirect("Transactions:choose_payment", pk=request.user.online_class_transactions.filter(
+                    online_class_id=online_class_id).last().transaction.id)
+            online_class = OnlineClass.objects.get(id=online_class_id)
+            online_class_type = online_class.class_type.class_type
+            if online_class_type == 1:
+                transaction_type = 6
+            elif online_class_type == 3:
+                transaction_type = 1
+            else:
+                transaction_type = online_class_type
+        except (ValueError, OnlineClass.DoesNotExist):
+            messages.error(request, "لطفا اطلاعات کلاس را با دقت وارد کنید.")
+            return redirect("Home:home_view")
+        transaction = UserTransaction.objects.create(
+            user=request.user, price=online_class.price, payment_for=transaction_type
+        )
+        OnlineClassTransaction.objects.create(online_class=online_class, user=request.user, transaction=transaction)
+        messages.success(request, "لطفا شیوه پرداخت را انتخاب کنید.")
+        return redirect("Transactions:choose_payment", pk=transaction.id)

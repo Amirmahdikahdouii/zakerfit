@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views import View
 from .models import OnlineClass, ClassCategory
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.detail import DetailView
+from django.contrib import messages
 
 
 class Utilities:
@@ -94,3 +97,16 @@ class ClassCategoryFilterView(View):
             "classes": classes,
             'class_categories': Utilities.get_class_categories(),
         })
+
+
+class JoinClassView(LoginRequiredMixin, DetailView):
+    template_name = "Classes/join_class.html"
+    model = OnlineClass
+    slug_url_kwarg = "slug"
+    slug_field = "slug"
+    context_object_name = "class"
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            messages.error(request, "برای ثبت نام ابتدا وارد شوید")
+        return super().dispatch(request, *args, **kwargs)

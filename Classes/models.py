@@ -59,7 +59,9 @@ class Time(models.Model):
 
     @property
     def place_remain(self):
-        return self.place_count - self.athlete_count
+        if isinstance(self.athlete_count, int):
+            return self.place_count - self.athlete_count
+        return "نامشخص"
 
     def get_place_remain_percentage(self):
         return self.athlete_count * 100 // self.place_count
@@ -101,7 +103,8 @@ class OnlineClass(models.Model):
 
     @property
     def place_remain(self):
-        return self.place_count - self.athlete_count
+        if isinstance(self.athlete_count, int) and isinstance(self.place_count, int):
+            return self.place_count - self.athlete_count
 
     def has_place(self):
         return True if self.place_count is not None else False

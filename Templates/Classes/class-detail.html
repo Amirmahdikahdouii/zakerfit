@@ -141,7 +141,9 @@
                                 <h5 class="col-md-8">{{ class.get_price }} تومان</h5>
                             </div>
                         {% endif %}
-                        <a href="javascript:void(0);" class="my-3 sec-btn">اکنون به کلاس بپیوندید</a>
+                        <a href="{% url 'Classes:join_class_view' class.slug %}" class="my-3 sec-btn">
+                            ثبت نام
+                        </a>
                     </div>
                 </div>
                 <!--Sidebar End-->

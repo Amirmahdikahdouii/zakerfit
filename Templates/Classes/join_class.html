@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load format_strings %}
+{% block title %}
+    ثبت نام در کلاس {{ class.title }}
+{% endblock %}
+{% block content %}
+    <div class="bg-dark" style="padding-top: 140px !important;"></div>
+    <div class="container my-2">
+        <div class="row my-2">
+            <h1 class="text-center my-2">
+                ثبت نام برای کلاس {{ class.title }}
+            </h1>
+            <h5 class="text-danger my-2">
+                قبل از ثبت نام به نکات زیر دقت کنید:
+            </h5>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    ظرفیت ثبت نام کلاس {{ class.place_count }} نفر می باشد
+                </li>
+                <li class="list-group-item">
+                    در صورت تایید واریز، ثبت نام شما کامل میشود و میتوانید از کلاس استفاده کنید.
+                </li>
+                <li class="list-group-item">
+                    در صورت واریز حداکثر تا 24 ساعت، ثبت نام تکمیل میشود در غیر این صورت ثبت نام لغو خواهد شد.
+                </li>
+            </ul>
+        </div>
+        <div class="row my-2 rounded bg-primary text-light p-2">
+            <div class="col-12 my-1">
+                <span class="text-light">
+                    هزینه شرکت در کلاس:
+                    {{ class.price|price_comma_separate }}
+                </span>
+            </div>
+            <div class="col-12 my-1">
+                <span class="text-light">
+                    ظرفیت باقی مانده:
+                    {{ class.place_remain }}
+                </span>
+            </div>
+            <div class="col-12 my-1">
+                <span class="text-light">
+                    نوع کلاس:
+                    {{ class.get_class_type_name }}
+                </span>
+            </div>
+            <div class="col-12 my-1">
+                <span class="text-light">
+                    تاریخ شروع:
+                    {{ class.get_start_time }}
+                </span>
+            </div>
+        </div>
+        <form action="{% url 'Transactions:create_online_class_payment' %}" method="post" class="row my-1">
+            {% csrf_token %}
+            <input type="hidden" name="class_id" value="{{ class.id }}">
+            <button class="btn btn-success">
+                تایید و پرداخت
+            </button>
+        </form>
+    </div>
+{% endblock %}
